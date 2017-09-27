@@ -11,12 +11,12 @@
       become: True
       become_user: patrick
 
+    - apt_key:
+        url: https://linux-packages.resilio.com/resilio-sync/key.asc
+
     - apt_repository:
         repo: deb http://linux-packages.resilio.com/resilio-sync/deb resilio-sync non-free
         state: present
-
-    - apt_key:
-        url: https://linux-packages.resilio.com/resilio-sync/key.asc
 
     - apt_repository:
         repo: ppa:ubuntu-mozilla-daily/ppa
