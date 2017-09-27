@@ -1,0 +1,135 @@
+# 1) sudo apt-get update && sudo apt-get -y upgrade
+# 2) sudo apt-get -y install ansible
+# 3) sudo visudo
+# + patrick ALL=(ALL) NOPASSWD:ALL
+
+---
+- hosts: localhost
+  tasks:
+    - name: Creating Home Directory Structure
+      command: xdg-user-dirs-update 
+      become: True
+      become_user: patrick
+
+    - apt_repository:
+        repo: deb http://linux-packages.resilio.com/resilio-sync/deb resilio-sync non-free
+        state: present
+
+    - apt_key:
+        url: https://linux-packages.resilio.com/resilio-sync/key.asc
+
+    - apt_repository:
+        repo: ppa:ubuntu-mozilla-daily/ppa
+        state: present
+
+    - apt:
+        name: "{{ item }}"
+        state: latest
+        autoclean: True
+        autoremove: True
+        update_cache: True
+        install_recommends: True
+      become: True
+      with_items:
+#       DESKTOP ENVIRONMENT
+        - i3
+#	- i3-wm
+#	- i3lock
+#	- i3status
+#       AUDIO
+        - pavucontrol
+#       BASE
+        - vim
+        - htop
+        - chromium-browser
+        - firefox-trunk
+        - git
+#	MULTIMEDIA
+        - gimp
+        - inkscape
+#       DATABASE
+        - mysql-workbench
+        - sqlitebrowser
+#       WEB DEVELOPMENT
+        - npm
+        - sass
+#       PYTHON
+        - python3
+        - python3-pip
+#       LATEX
+        - texlive
+        - texlive-latex-extra
+        - gummi
+# Resilio Sync - Personal Cloud
+        - resilio-sync
+
+    - name: Configure .bashrc
+      template:
+        src: bashrc.j2
+        dest: ~/.bashrc
+
+    - name: Configure .vimrc
+      template:
+        src: vimrc.j2
+        dest: ~/.vimrc
+
+    - name: Check Status Of SSH Private Key
+      stat:
+        path: ~/.ssh/id_rsa
+      register: ssh_private_key
+
+    - name: Check Status Of SSH Public Key
+      stat:
+        path: ~/.ssh/id_rsa.pub
+      register: ssh_public_key
+
+    - name: Delete Incomplete SSH Private Key
+      file:
+        path: ~/.ssh/id_rsa
+        state: absent
+      when: ssh_public_key.stat.exists == False
+
+    - name: Delete Incomplete SSH Public Key
+      file:
+        path: ~/.ssh/id_rsa.pub
+        state: absent
+      when: ssh_private_key.stat.exists == False
+
+    - name: Generate SSH Key-Pair
+      command: ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N ""
+      when: (ssh_private_key.stat.exists == False) or (ssh_public_key.stat.exists == False)
+
+
+    - block:
+        - script: /etc/resilio-sync/init_user_config.sh
+          become: True
+          become_user: patrick
+          register: output
+
+        - template:
+            src: systemd/resilio-sync.service
+            dest: /lib/systemd/system/resilio-sync.service
+
+        - systemd:
+            name: resilio-sync
+            daemon_reload: True
+
+        - systemd:
+            name: resilio-sync
+            enabled: True
+            state: started
+
+    - git_config:
+        scope: global
+        name: user.name
+        value: Patrick Murray
+      become: True
+      become_user: patrick
+
+    - git_config:
+        scope: global
+        name: user.email
+        value: patrick@meteoritesoftware.com
+      become: True
+      become_user: patrick
+

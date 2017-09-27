@@ -1,0 +1,22 @@
+# /lib/systemd/system/resilio-sync.service
+[Unit]
+Description=Resilio Sync service
+Documentation=http://help.getsync.com/
+After=network.target network-online.target
+
+[Service]
+Type=forking
+User=patrick
+Group=patrick
+UMask=0002
+Restart=on-failure
+PermissionsStartOnly=true
+PIDFile=/home/patrick/.config/resilio-sync/sync.pid
+#ExecStartPre=/bin/mkdir -p /var/run/resilio-sync
+#ExecStartPre=/bin/chown -R rslsync:rslsync /var/run/resilio-sync
+ExecStart=/usr/bin/rslsync --config /home/patrick/.config/resilio-sync/config.json
+
+[Install]
+WantedBy=multi-user.target
+
+# /etc/systemd/system/resilio-sync.service.d/override.conf
