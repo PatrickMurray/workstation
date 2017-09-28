@@ -61,7 +61,7 @@
         - git
 #       C Language
         - libbsd
-	- gdb
+        - gdb
         - valgrind
 #	MULTIMEDIA
         - gimp
