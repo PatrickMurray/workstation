@@ -47,11 +47,22 @@
 #       AUDIO
         - pavucontrol
 #       BASE
+        - xorg
+        - xorg-server
+        - xorg-xinit
+        - xorg-utils
+        - xorg-server-utils
+        - xorg-xbacklight
+        - xterm
         - vim
         - htop
         - chromium
 #        - firefox
         - git
+#       C Language
+        - libbsd
+	- gdb
+        - valgrind
 #	MULTIMEDIA
         - gimp
         - inkscape
