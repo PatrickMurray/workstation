@@ -49,11 +49,11 @@
 #       BASE
         - xorg
 #        - xorg-server
-        - xorg-xinit
-        - xorg-utils
+        - xinit
+#        - xorg-utils
 #        - xorg-server-utils
         - xorg-xbacklight
-        - xterm
+#        - xterm
         - vim
         - htop
         - chromium
