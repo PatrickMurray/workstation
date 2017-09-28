@@ -11,16 +11,24 @@
       become: True
       become_user: patrick
 
-    - apt_key:
+    - name: Updating APT Sources
+      template:
+        src: apt/sources.list.j2
+        dest: /etc/apt/sources.list
+      become: True
+
+    - name: Adding Resilio APT GPG Key
+      apt_key:
         url: https://linux-packages.resilio.com/resilio-sync/key.asc
 
-    - apt_repository:
+    - name: Adding Resilion APT Respository
+      apt_repository:
         repo: deb http://linux-packages.resilio.com/resilio-sync/deb resilio-sync non-free
         state: present
 
-    - apt_repository:
-        repo: ppa:ubuntu-mozilla-daily/ppa
-        state: present
+#    - apt_repository:
+#        repo: ppa:ubuntu-mozilla-daily/ppa
+#        state: present
 
     - apt:
         name: "{{ item }}"
@@ -42,7 +50,7 @@
         - vim
         - htop
         - chromium-browser
-        - firefox-trunk
+#        - firefox
         - git
 #	MULTIMEDIA
         - gimp
