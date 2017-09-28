@@ -52,8 +52,8 @@
         - xinit
 #        - xorg-utils
 #        - xorg-server-utils
-        - xorg-xbacklight
-#        - xterm
+#        - xorg-xbacklight
+        - xterm
         - vim
         - htop
         - chromium
