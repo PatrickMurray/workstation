@@ -59,8 +59,8 @@
         - mysql-workbench
         - sqlitebrowser
 #       WEB DEVELOPMENT
-        - npm
-        - sass
+#        - npm
+#        - sass
 #       PYTHON
         - python3
         - python3-pip
