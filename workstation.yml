@@ -49,7 +49,7 @@
 #       BASE
         - vim
         - htop
-        - chromium-browser
+        - chromium
 #        - firefox
         - git
 #	MULTIMEDIA
