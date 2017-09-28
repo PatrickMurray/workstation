@@ -48,10 +48,10 @@
         - pavucontrol
 #       BASE
         - xorg
-        - xorg-server
+#        - xorg-server
         - xorg-xinit
         - xorg-utils
-        - xorg-server-utils
+#        - xorg-server-utils
         - xorg-xbacklight
         - xterm
         - vim
