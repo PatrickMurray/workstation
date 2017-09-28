@@ -60,7 +60,7 @@
 #        - firefox
         - git
 #       C Language
-        - libbsd
+#        - libbsd
         - gdb
         - valgrind
 #	MULTIMEDIA
