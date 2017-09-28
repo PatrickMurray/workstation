@@ -36,6 +36,7 @@
         autoclean: True
         autoremove: True
         update_cache: True
+        default_release: experimental
         install_recommends: True
       become: True
       with_items:
@@ -56,8 +57,8 @@
         - xterm
         - vim
         - htop
-        - chromium
-#        - firefox
+#        - chromium
+        - firefox
         - git
 #       C Language
 #        - libbsd
