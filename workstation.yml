@@ -6,38 +6,29 @@
 ---
 - hosts: localhost
   tasks:
-    - name: Creating Home Directory Structure
-      command: xdg-user-dirs-update 
-      become: True
-      become_user: patrick
+#    - name: Updating APT Sources
+#      template:
+#        src: apt/sources.list.j2
+#        dest: /etc/apt/sources.list
+#      become: True
 
-    - name: Updating APT Sources
-      template:
-        src: apt/sources.list.j2
-        dest: /etc/apt/sources.list
-      become: True
+#    - name: Adding Resilio APT GPG Key
+#      apt_key:
+#        url: https://linux-packages.resilio.com/resilio-sync/key.asc
 
-    - name: Adding Resilio APT GPG Key
-      apt_key:
-        url: https://linux-packages.resilio.com/resilio-sync/key.asc
-
-    - name: Adding Resilion APT Respository
-      apt_repository:
-        repo: deb http://linux-packages.resilio.com/resilio-sync/deb resilio-sync non-free
-        state: present
+#    - name: Adding Resilion APT Respository
+#      apt_repository:
+#        repo: deb http://linux-packages.resilio.com/resilio-sync/deb resilio-sync non-free
+#        state: present
 
 #    - apt_repository:
 #        repo: ppa:ubuntu-mozilla-daily/ppa
 #        state: present
 
-    - apt:
+    - yum:
         name: "{{ item }}"
         state: latest
-        autoclean: True
-        autoremove: True
         update_cache: True
-        default_release: experimental
-        install_recommends: True
       become: True
       with_items:
 #       DESKTOP ENVIRONMENT
@@ -55,6 +46,7 @@
 #        - xorg-server-utils
 #        - xorg-xbacklight
         - xterm
+        - xdg-user-dirs
         - vim
         - htop
 #        - chromium
@@ -82,6 +74,11 @@
         - gummi
 # Resilio Sync - Personal Cloud
         - resilio-sync
+
+    - name: Creating Home Directory Structure
+      command: xdg-user-dirs-update 
+      become: True
+      become_user: patrick
 
     - name: Configure .bashrc
       template:
