@@ -72,6 +72,7 @@
         - texlive
         - texlive-latex-extra
         - gummi
+        - biber
 # Resilio Sync - Personal Cloud
         - resilio-sync
 
