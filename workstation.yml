@@ -12,25 +12,22 @@
   tasks:
       # Install Packages
     - pacman:
-        name:  {{ item }}
+        name:  "{{ item }}"
         state: latest
         update_cache: True
         upgrade: True
       with_items:
         # Window Manager
         - i3-wm
+      become: True
 
     - git_config:
         scope: global
         name: user.name
-        value: {{ git_name }}
-      become: True
-      become_user: patrick
+        value: "{{ git_name }}"
 
     - git_config:
         scope: global
         name: user.email
-        value: {{ git_email }}
-      become: True
-      become_user: patrick
+        value: "{{ git_email }}"
 
