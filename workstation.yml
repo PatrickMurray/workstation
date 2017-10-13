@@ -19,6 +19,8 @@
       with_items:
         # Window Manager
         - i3-wm
+        # Version Control System
+        - git
       become: True
 
     - git_config:
