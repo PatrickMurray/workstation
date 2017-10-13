@@ -17,6 +17,9 @@
         update_cache: True
         upgrade: True
       with_items:
+        # Window System
+        - xorg
+        - xorg-xinit
         # Window Manager
         - i3-wm
         # Version Control System
