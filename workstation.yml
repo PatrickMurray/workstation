@@ -58,7 +58,7 @@
 #            - pavucontrol
 #           WEB BROWSER
             - chromium
-            - firefox
+#            - firefox
 #           VERSION CONTROL SYSTEM
             - git
 #           RESILIO SYNC
