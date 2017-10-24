@@ -5,35 +5,152 @@
 
 ---
 - hosts: localhost
-  vars:
-    username: patrick
-    git_name: Patrick Murray
-    git_email: patrick@meteoritesoftware.com
   tasks:
-      # Install Packages
-    - pacman:
-        name:  "{{ item }}"
+#    - name: Updating APT Sources
+#      template:
+#        src: apt/sources.list.j2
+#        dest: /etc/apt/sources.list
+#      become: True
+
+    - name: Adding Resilio APT GPG Key
+      become: True
+      apt_key:
+        url: https://linux-packages.resilio.com/resilio-sync/key.asc
+
+    - name: Adding Resilion APT Respository
+      become: True
+      apt_repository:
+        repo: deb http://linux-packages.resilio.com/resilio-sync/deb resilio-sync non-free
+        state: present
+
+    - name: Installing Packages
+      become: True
+      apt:
+        name: "{{ item }}"
         state: latest
         update_cache: True
-        upgrade: True
       with_items:
-        # Window System
-        - xorg-server
-        - xorg-xinit
-        - xorg-xbacklight
-        # Window Manager
-        - i3-wm
-        # Version Control System
+#       DESKTOP ENVIRONMENT
+#        - i3
+#	- i3-wm
+#	- i3lock
+#	- i3status
+#       AUDIO
+#        - pavucontrol
+#       BASE
+#        - xorg
+#        - xorg-server
+#        - xinit
+#        - xorg-utils
+#        - xorg-server-utils
+#        - xorg-xbacklight
+#        - xterm
+#        - xdg-user-dirs
+        - vim
+        - htop
+#        - chromium
+        - firefox
         - git
-      become: True
+#       C Language
+#        - libbsd
+        - gdb
+        - valgrind
+#	MULTIMEDIA
+        - gimp
+        - inkscape
+#       DATABASE
+        - mysql-workbench
+        - sqlitebrowser
+#       WEB DEVELOPMENT
+#        - npm
+#        - sass
+#       PYTHON
+        - python3
+        - python3-pip
+#       LATEX
+        - texlive
+        - texlive-latex-extra
+        - gummi
+        - biber
+# Resilio Sync - Personal Cloud
+        - resilio-sync
 
-    - git_config:
-        scope: global
-        name: user.name
-        value: "{{ git_name }}"
+    - name: Creating Home Directory Structure
+      command: xdg-user-dirs-update 
 
-    - git_config:
-        scope: global
-        name: user.email
-        value: "{{ git_email }}"
+    - name: Configure .bashrc
+      template:
+        src: bashrc.j2
+        dest: ~/.bashrc
+
+    - name: Configure .vimrc
+      template:
+        src: vimrc.j2
+        dest: ~/.vimrc
+
+    - name: Setup SSH Keypair
+      block:
+        - name: Check Status Of SSH Private Key
+          stat:
+            path: ~/.ssh/id_rsa
+          register: ssh_private_key
+
+        - name: Check Status Of SSH Public Key
+          stat:
+            path: ~/.ssh/id_rsa.pub
+          register: ssh_public_key
+
+        - name: Delete Incomplete SSH Private Key
+          when: ssh_public_key.stat.exists == False
+          file:
+            path: ~/.ssh/id_rsa
+            state: absent
+
+        - name: Delete Incomplete SSH Public Key
+          when: ssh_private_key.stat.exists == False
+          file:
+            path: ~/.ssh/id_rsa.pub
+            state: absent
+
+        - name: Generate SSH Key-Pair
+          when: (ssh_private_key.stat.exists == False) or (ssh_public_key.stat.exists == False)
+          command: ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N ""
+
+    - name: Setup Resilio Sync
+      block:
+        - name: Run Initialization Script
+          script: /etc/resilio-sync/init_user_config.sh
+          register: output
+
+        - name: Configuring Systemd Service
+          become: True
+          template:
+            src: systemd/resilio-sync.service
+            dest: /lib/systemd/system/resilio-sync.service
+
+        - name: Reloading Systemd Service
+          become: True
+          systemd:
+            name: resilio-sync
+            daemon_reload: True
+
+        - name: Starting Systemd Service
+          become: True
+          systemd:
+            name: resilio-sync
+            enabled: True
+            state: started
+
+    - name: Setup Git
+      block:
+        - name:
+          git_config:
+            scope: global
+            name: user.name
+            value: Patrick Murray
+
+        - git_config:
+            scope: global
+            name: user.email
+            value: patrick@meteoritesoftware.com
 
