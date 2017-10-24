@@ -6,74 +6,86 @@
 ---
 - hosts: localhost
   tasks:
-#    - name: Updating APT Sources
-#      template:
-#        src: apt/sources.list.j2
-#        dest: /etc/apt/sources.list
-#      become: True
+    - name: Update APT Sources
+      block:
+        - name: Adding Resilio APT GPG Key
+          apt_key:
+            url: https://linux-packages.resilio.com/resilio-sync/key.asc
+          become: True
 
-    - name: Adding Resilio APT GPG Key
-      become: True
-      apt_key:
-        url: https://linux-packages.resilio.com/resilio-sync/key.asc
+        - name: Adding Resilio APT Respository
+          apt_repository:
+            repo: deb http://linux-packages.resilio.com/resilio-sync/deb resilio-sync non-free
+            state: present
+          become: True
 
-    - name: Adding Resilion APT Respository
-      become: True
-      apt_repository:
-        repo: deb http://linux-packages.resilio.com/resilio-sync/deb resilio-sync non-free
-        state: present
 
-    - name: Installing Packages
-      become: True
-      apt:
-        name: "{{ item }}"
-        state: latest
-        update_cache: True
-      with_items:
-#       DESKTOP ENVIRONMENT
-#        - i3
-#	- i3-wm
-#	- i3lock
-#	- i3status
-#       AUDIO
-#        - pavucontrol
-#       BASE
-#        - xorg
-#        - xorg-server
-#        - xinit
-#        - xorg-utils
-#        - xorg-server-utils
-#        - xorg-xbacklight
-#        - xterm
-#        - xdg-user-dirs
-        - vim
-        - htop
-#        - chromium
-        - firefox
-        - git
-#       C Language
-#        - libbsd
-        - gdb
-        - valgrind
-#	MULTIMEDIA
-        - gimp
-        - inkscape
-#       DATABASE
-        - mysql-workbench
-        - sqlitebrowser
-#       WEB DEVELOPMENT
-#        - npm
-#        - sass
-#       PYTHON
-        - python3
-        - python3-pip
-#       LATEX
-        - texlive
-        - texlive-latex-extra
-        - gummi
-        - biber
-# Resilio Sync - Personal Cloud
-        - resilio-sync
+    - name: Install Packages
+      block:
+        - name: Cleaning Local Repository
+          apt:
+            autoclean: True
+            autoremove: True
+            update_cache: True
+          become: True
+
+        - name: Installing Packages
+          apt:
+            name: "{{ item }}"
+            state: latest
+          with_items:
+#           WINDOW SERVER
+#            - xorg
+#            - xorg-server
+#            - xinit
+#            - xorg-utils
+#            - xorg-server-utils
+#            - xorg-xbacklight
+#           X DEVELOPMENT GROUP BASE DIRECTORY STRUCTURE
+            - xdg-user-dirs
+#           WINDOW MANAGER
+#            - i3
+#            - i3-wm
+#            - i3lock
+#            - i3status
+#           TERMINAL EMULATOR
+            - xterm
+#           SYSTEM UTILITIES
+            - htop
+#           TEXT EDITOR
+            - vim
+#           AUDIO MANAGER
+#            - pavucontrol
+#           WEB BROWSER
+            - chromium-browser
+            - firefox
+#           VERSION CONTROL SYSTEM
+            - git
+#           RESILIO SYNC
+            - resilio-sync
+#           THE C PROGRAMMING LANGUAGE DEVELOPMENT TOOLS
+            - gdb
+            - libbsd-dev
+            - valgrind
+#           RASTER & VECTOR GRAPHIC MANIUPLATION
+            - gimp
+            - inkscape
+#           DATABASE MANAGEMENT
+            - mysql-workbench
+            - sqlitebrowser
+#           WEB DEVELOPMENT
+#            - npm
+#            - sass
+#           PYTHON
+#            - python3
+#            - python3-pip
+#           LATEX TYPESETTING
+            - texlive
+            - texlive-latex-extra
+            - gummi
+            - biber
+          become: True
+
 
     - name: Creating Home Directory Structure
       command: xdg-user-dirs-update 
@@ -101,20 +113,21 @@
           register: ssh_public_key
 
         - name: Delete Incomplete SSH Private Key
-          when: ssh_public_key.stat.exists == False
           file:
             path: ~/.ssh/id_rsa
             state: absent
+          when: ssh_public_key.stat.exists == False
 
         - name: Delete Incomplete SSH Public Key
-          when: ssh_private_key.stat.exists == False
           file:
             path: ~/.ssh/id_rsa.pub
             state: absent
+          when: ssh_private_key.stat.exists == False
 
         - name: Generate SSH Key-Pair
-          when: (ssh_private_key.stat.exists == False) or (ssh_public_key.stat.exists == False)
           command: ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N ""
+          when: (ssh_private_key.stat.exists == False) or (ssh_public_key.stat.exists == False)
+
 
     - name: Setup Resilio Sync
       block:
@@ -123,33 +136,34 @@
           register: output
 
         - name: Configuring Systemd Service
-          become: True
           template:
             src: systemd/resilio-sync.service
             dest: /lib/systemd/system/resilio-sync.service
+          become: True
 
         - name: Reloading Systemd Service
-          become: True
           systemd:
             name: resilio-sync
             daemon_reload: True
+          become: True
 
         - name: Starting Systemd Service
-          become: True
           systemd:
             name: resilio-sync
             enabled: True
             state: started
+          become: True
 
     - name: Setup Git
       block:
-        - name:
+        - name: Changing Profile Name
           git_config:
             scope: global
             name: user.name
             value: Patrick Murray
 
-        - git_config:
+        - name: Changing Profile Email
+          git_config:
             scope: global
             name: user.email
             value: patrick@meteoritesoftware.com
