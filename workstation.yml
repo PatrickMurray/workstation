@@ -57,7 +57,7 @@
 #           AUDIO MANAGER
 #            - pavucontrol
 #           WEB BROWSER
-            - chromium-browser
+            - chromium
             - firefox
 #           VERSION CONTROL SYSTEM
             - git
