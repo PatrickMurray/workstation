@@ -6,6 +6,27 @@
 ---
 - hosts: localhost
   tasks:
+    - name: Migrate To Debian Testing Track
+      block:
+        - name: Updating Source Listing
+          template:
+            src: "{{ item }}"
+            dest: "{{ item }}"
+          with_items:
+            - /etc/apt/sources.list
+          become: True
+
+        - name: Updating Local Repository
+          apt:
+            update_cache: True
+          become: True
+
+        - name: Upgrade Distribution
+          apt:
+            upgrade: dist
+          become: True
+
+
     - name: Update APT Sources
       block:
         - name: Adding Resilio APT GPG Key
@@ -87,18 +108,16 @@
           become: True
 
 
-    - name: Creating Home Directory Structure
+    - name: Creating Base Directory Structure
       command: xdg-user-dirs-update 
 
-    - name: Configure .bashrc
+    - name: Configuring User Dotfiles
       template:
-        src: bashrc.j2
-        dest: ~/.bashrc
-
-    - name: Configure .vimrc
-      template:
-        src: vimrc.j2
-        dest: ~/.vimrc
+        src: "{{ item }}"
+        dest: "{{ item }}"
+      with_items:
+        - /home/patrick/.vimrc
+        - /home/patrick/.bashrc
 
     - name: Setup SSH Keypair
       block:
@@ -137,8 +156,10 @@
 
         - name: Configuring Systemd Service
           template:
-            src: systemd/resilio-sync.service
-            dest: /lib/systemd/system/resilio-sync.service
+            src: "{{ item }}"
+            dest: "{{ item }}"
+          with_items:
+            - /lib/systemd/system/resilio-sync.service
           become: True
 
         - name: Reloading Systemd Service
@@ -154,6 +175,7 @@
             state: started
           become: True
 
+
     - name: Setup Git
       block:
         - name: Changing Profile Name
@@ -167,4 +189,12 @@
             scope: global
             name: user.email
             value: patrick@meteoritesoftware.com
+
+
+     - name: Configure i3 Window Manager
+       template:
+         src: "{{ item }}"
+         dest: "{{ item }}"
+       with_items:
+         - /home/patrick/.config/i3/config
 
