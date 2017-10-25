@@ -61,7 +61,7 @@
             state: latest
           with_items:
 #           WINDOW SERVER
-#            - xorg
+            - xorg
 #            - xorg-server
 #            - xinit
 #            - xorg-utils
