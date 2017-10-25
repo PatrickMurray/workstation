@@ -1,3 +1,3 @@
-exec --no-startup-id feh --bg-scale /home/patrick/Pictures/wallpaper.jpg &
-exec --no-startup-id i3
+exec feh --bg-fill /home/patrick/Pictures/wallpaper.jpg &
+exec i3
 
