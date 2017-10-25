@@ -220,3 +220,10 @@
           with_items:
             - home/patrick/.xinitrc
 
+        - name: Start X On Login
+          template:
+            src: "{{ item }}"
+            dest: "/{{ item }}"
+          with_items:
+            - home/patrick/.bash_profile
+
