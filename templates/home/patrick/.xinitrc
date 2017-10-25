@@ -1,3 +1,3 @@
-feh --bg-scale /home/patrick/Pictures/wallpaper.jpg
+exec feh --bg-scale /home/patrick/Pictures/wallpaper.jpg &
 exec i3
 
