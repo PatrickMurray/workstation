@@ -25,6 +25,11 @@
           apt:
             upgrade: dist
           become: True
+          register: distribution
+
+        - name: Exiting Ansible
+          meta: end_play
+          when: distribution.changed
 
 
     # Update APT Sources
@@ -193,10 +198,17 @@
             value: patrick@meteoritesoftware.com
 
 
-    - name: Configure i3 Window Manager
-      template:
-        src: "{{ item }}"
-        dest: "/{{ item }}"
-      with_items:
-        - home/patrick/.config/i3/config
+    # Setup i3
+    - block:
+        - name: Creating Configuration Directory
+          file:
+            path: /home/patrick/.config/i3
+            state: directory
+
+        - name: Configure i3 Window Manager
+          template:
+            src: "{{ item }}"
+            dest: "/{{ item }}"
+          with_items:
+            - home/patrick/.config/i3/config
 
