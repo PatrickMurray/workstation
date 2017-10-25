@@ -6,8 +6,8 @@
 ---
 - hosts: localhost
   tasks:
-    - name: Migrate To Debian Testing Track
-      block:
+    # Migrate To Debian Testing Track
+    - block:
         - name: Updating Source Listing
           template:
             src: "{{ item }}"
@@ -27,8 +27,8 @@
           become: True
 
 
-    - name: Update APT Sources
-      block:
+    # Update APT Sources
+    - block:
         - name: Adding Resilio APT GPG Key
           apt_key:
             url: https://linux-packages.resilio.com/resilio-sync/key.asc
@@ -41,8 +41,8 @@
           become: True
 
 
-    - name: Install Packages
-      block:
+    # Install Packages
+    - block:
         - name: Cleaning Local Repository
           apt:
             autoclean: True
@@ -121,8 +121,8 @@
         - /home/patrick/.vimrc
         - /home/patrick/.bashrc
 
-    - name: Setup SSH Keypair
-      block:
+    # Setup SSH Keypair
+    - block:
         - name: Check Status Of SSH Private Key
           stat:
             path: ~/.ssh/id_rsa
@@ -150,8 +150,8 @@
           when: (ssh_private_key.stat.exists == False) or (ssh_public_key.stat.exists == False)
 
 
-    - name: Setup Resilio Sync
-      block:
+    # Setup Resilio Sync
+    - block:
         - name: Run Initialization Script
           script: /etc/resilio-sync/init_user_config.sh
           register: output
@@ -178,8 +178,8 @@
           become: True
 
 
-    - name: Setup Git
-      block:
+    # Setup Git
+    - block:
         - name: Changing Profile Name
           git_config:
             scope: global
