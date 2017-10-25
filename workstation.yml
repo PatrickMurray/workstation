@@ -210,14 +210,15 @@
           with_items:
             - home/patrick/.config/i3/config
 
-        - name: Configure Xinitrc
+        - name: Configure X
           template:
             src: "{{ item }}"
             dest: "/{{ item }}"
           with_items:
             - home/patrick/.xinitrc
+	    - home/patrick/.Xresources
 
-        - name: Start X On Login
+        - name: Start i3 On Login
           template:
             src: "{{ item }}"
             dest: "/{{ item }}"
