@@ -225,7 +225,7 @@
         - name: Copy Background Image
           template:
             src: "{{ item }}"
-            dest: "{{ item }}"
+            dest: "/{{ item }}"
           with_items:
             - home/patrick/Pictures/background.jpg
 
