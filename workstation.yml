@@ -227,5 +227,5 @@
             src: "{{ item }}"
             dest: "/{{ item }}"
           with_items:
-            - home/patrick/Pictures/background.jpg
+            - home/patrick/Pictures/wallpaper.jpg
 
