@@ -21,6 +21,10 @@
             update_cache: True
           become: True
 
+        - name: Downloading Distribution Upgrade
+          command: apt-get --download-only dist-upgrade
+          become: True
+
         - name: Upgrade Distribution
           apt:
             upgrade: dist
