@@ -191,10 +191,10 @@
             value: patrick@meteoritesoftware.com
 
 
-     - name: Configure i3 Window Manager
-       template:
-         src: "{{ item }}"
-         dest: "{{ item }}"
-       with_items:
-         - /home/patrick/.config/i3/config
+    - name: Configure i3 Window Manager
+      template:
+        src: "{{ item }}"
+        dest: "{{ item }}"
+      with_items:
+        - /home/patrick/.config/i3/config
 
