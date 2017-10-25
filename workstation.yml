@@ -10,8 +10,8 @@
     - block:
         - name: Updating Source Listing
           template:
-            src: "/{{ item }}"
-            dest: "{{ item }}"
+            src: "{{ item }}"
+            dest: "/{{ item }}"
           with_items:
             - etc/apt/sources.list
           become: True
@@ -116,10 +116,10 @@
     - name: Configuring User Dotfiles
       template:
         src: "{{ item }}"
-        dest: "{{ item }}"
+        dest: "/{{ item }}"
       with_items:
-        - /home/patrick/.vimrc
-        - /home/patrick/.bashrc
+        - home/patrick/.vimrc
+        - home/patrick/.bashrc
 
     # Setup SSH Keypair
     - block:
@@ -159,9 +159,9 @@
         - name: Configuring Systemd Service
           template:
             src: "{{ item }}"
-            dest: "{{ item }}"
+            dest: "/{{ item }}"
           with_items:
-            - /lib/systemd/system/resilio-sync.service
+            - lib/systemd/system/resilio-sync.service
           become: True
 
         - name: Reloading Systemd Service
@@ -196,7 +196,7 @@
     - name: Configure i3 Window Manager
       template:
         src: "{{ item }}"
-        dest: "{{ item }}"
+        dest: "/{{ item }}"
       with_items:
-        - /home/patrick/.config/i3/config
+        - home/patrick/.config/i3/config
 
