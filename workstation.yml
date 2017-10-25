@@ -223,9 +223,7 @@
             - home/patrick/.bash_profile
 
         - name: Copy Background Image
-          template:
-            src: "{{ item }}"
-            dest: "/{{ item }}"
+          command: cp "templates/{{ item }}" "/{{ item }}"
           with_items:
             - home/patrick/Pictures/wallpaper.jpg
 
