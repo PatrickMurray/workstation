@@ -10,19 +10,15 @@
     - block:
         - name: Updating Source Listing
           template:
-            src: "{{ item }}"
+            src: "/{{ item }}"
             dest: "{{ item }}"
           with_items:
-            - /etc/apt/sources.list
+            - etc/apt/sources.list
           become: True
 
         - name: Updating Local Repository
           apt:
             update_cache: True
-          become: True
-
-        - name: Downloading Distribution Upgrade
-          command: apt-get --download-only dist-upgrade
           become: True
 
         - name: Upgrade Distribution
