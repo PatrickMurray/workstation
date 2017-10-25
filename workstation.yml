@@ -200,6 +200,7 @@
 
     # Setup i3
     - block:
+        # TODO - check if still necessary after installing i3 from apt
         - name: Creating Configuration Directory
           file:
             path: /home/patrick/.config/i3
@@ -211,4 +212,11 @@
             dest: "/{{ item }}"
           with_items:
             - home/patrick/.config/i3/config
+
+        - name: Configure Xinitrc
+          template:
+            src: "{{ item }}"
+            dest: "/{{ item }}"
+          with_items:
+            - home/patrick/.xinitrc
 
