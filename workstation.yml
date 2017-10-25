@@ -27,10 +27,6 @@
           become: True
           register: distribution
 
-        - name: Exiting Ansible
-          meta: end_play
-          when: distribution.changed
-
 
     # Update APT Sources
     - block:
@@ -57,61 +53,60 @@
 
         - name: Installing Packages
           apt:
-            name: "{{ item }}"
+            name:
+#             WINDOW SERVER
+              - xorg
+#              - xorg-server
+#              - xinit
+#              - xorg-utils
+#              - xorg-server-utils
+#              - xorg-xbacklight
+#             X DEVELOPMENT GROUP BASE DIRECTORY STRUCTURE
+              - xdg-user-dirs
+#             WINDOW MANAGER
+              - i3
+#              - i3-wm
+#              - i3lock
+#              - i3status
+#             TERMINAL EMULATOR
+              - xterm
+#             SYSTEM UTILITIES
+              - htop
+#             TEXT EDITOR
+              - vim
+#             CONFIGURATION MANAGEMENT
+              - ansible
+#             AUDIO MANAGER
+#              - pavucontrol
+#             WEB BROWSER
+              - chromium
+#              - firefox
+#             VERSION CONTROL SYSTEM
+              - git
+#             RESILIO SYNC
+              - resilio-sync
+#             THE C PROGRAMMING LANGUAGE DEVELOPMENT TOOLS
+              - gdb
+              - libbsd-dev
+              - valgrind
+#             RASTER & VECTOR GRAPHIC MANIUPLATION
+              - gimp
+              - inkscape
+#             DATABASE MANAGEMENT
+              - mysql-workbench
+              - sqlitebrowser
+#             WEB DEVELOPMENT
+#              - npm
+#              - sass
+#             PYTHON
+#              - python3
+#              - python3-pip
+#             LATEX TYPESETTING
+              - texlive
+              - texlive-latex-extra
+              - gummi
+              - biber
             state: latest
-          with_items:
-#           WINDOW SERVER
-            - xorg
-#            - xorg-server
-#            - xinit
-#            - xorg-utils
-#            - xorg-server-utils
-#            - xorg-xbacklight
-#           X DEVELOPMENT GROUP BASE DIRECTORY STRUCTURE
-            - xdg-user-dirs
-#           WINDOW MANAGER
-            - i3
-#            - i3-wm
-#            - i3lock
-#            - i3status
-#           TERMINAL EMULATOR
-            - xterm
-#           SYSTEM UTILITIES
-            - htop
-#           TEXT EDITOR
-            - vim
-#           CONFIGURATION MANAGEMENT
-            - ansible
-#           AUDIO MANAGER
-#            - pavucontrol
-#           WEB BROWSER
-            - chromium
-#            - firefox
-#           VERSION CONTROL SYSTEM
-            - git
-#           RESILIO SYNC
-            - resilio-sync
-#           THE C PROGRAMMING LANGUAGE DEVELOPMENT TOOLS
-            - gdb
-            - libbsd-dev
-            - valgrind
-#           RASTER & VECTOR GRAPHIC MANIUPLATION
-            - gimp
-            - inkscape
-#           DATABASE MANAGEMENT
-            - mysql-workbench
-            - sqlitebrowser
-#           WEB DEVELOPMENT
-#            - npm
-#            - sass
-#           PYTHON
-#            - python3
-#            - python3-pip
-#           LATEX TYPESETTING
-            - texlive
-            - texlive-latex-extra
-            - gummi
-            - biber
           become: True
 
 
