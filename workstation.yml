@@ -222,3 +222,10 @@
           with_items:
             - home/patrick/.bash_profile
 
+        - name: Copy Background Image
+          template:
+            src: "{{ item }}"
+            dest: "{{ item }}"
+          with_items:
+            - home/patrick/Pictures/background.jpg
+
