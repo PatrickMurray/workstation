@@ -70,7 +70,7 @@
 #           X DEVELOPMENT GROUP BASE DIRECTORY STRUCTURE
             - xdg-user-dirs
 #           WINDOW MANAGER
-#            - i3
+            - i3
 #            - i3-wm
 #            - i3lock
 #            - i3status
