@@ -75,6 +75,8 @@
             - htop
 #           TEXT EDITOR
             - vim
+#           CONFIGURATION MANAGEMENT
+             - ansible
 #           AUDIO MANAGER
 #            - pavucontrol
 #           WEB BROWSER
