@@ -216,7 +216,7 @@
             dest: "/{{ item }}"
           with_items:
             - home/patrick/.xinitrc
-	    - home/patrick/.Xresources
+            - home/patrick/.Xresources
 
         - name: Start i3 On Login
           template:
