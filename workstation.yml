@@ -218,9 +218,6 @@
             - home/patrick/.xinitrc
             - home/patrick/.Xresources
 
-        - name: Reloading X Root Database
-          command: xrdb -merge ~/.Xresources
-
         - name: Start i3 On Login
           template:
             src: "{{ item }}"
