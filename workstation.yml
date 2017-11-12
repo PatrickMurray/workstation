@@ -134,7 +134,7 @@
     - name: Configure Wireless Networking
       template:
         src: "{{ item }}"
-	dest: "/{{ item }}"
+        dest: "/{{ item }}"
       with_items:
         - etc/wpa_supplicant.conf
 
