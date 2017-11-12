@@ -119,6 +119,23 @@
           become: True
 
 
+    # Configure Wireless Networking
+    - block:
+        - name: Configure Wireless Networking
+          template:
+            src: "{{ item }}"
+            dest: "/{{ item }}"
+          with_items:
+            - etc/wpa_supplicant.conf
+          become: True
+
+        - name: Enable Interfaces
+          net_interface:
+            name: enp0s25
+            state: up
+          become: True
+
+
     - name: Creating Base Directory Structure
       command: xdg-user-dirs-update 
 
@@ -129,15 +146,6 @@
       with_items:
         - home/patrick/.vimrc
         - home/patrick/.bashrc
-
-    # Configure Wireless Networking
-    - name: Configure Wireless Networking
-      template:
-        src: "{{ item }}"
-        dest: "/{{ item }}"
-      with_items:
-        - etc/wpa_supplicant.conf
-      become: True
 
     # Setup SSH Keypair
     - block:
