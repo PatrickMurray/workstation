@@ -4,7 +4,9 @@
 # + patrick ALL=(ALL) NOPASSWD:ALL
 
 ---
-- hosts: localhost
+- hosts:
+    - localhost
+  connection: local
   tasks:
     # Migrate To Debian Testing Track
     - block:
