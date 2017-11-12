@@ -57,7 +57,7 @@
 #             WIRELESS NETWORKING
               - iw
               - wpasupplicant
-              - nmcli
+              - network-manager
 #             WINDOW SERVER
               - xorg
 #              - xorg-server
