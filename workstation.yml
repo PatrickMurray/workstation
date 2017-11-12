@@ -56,7 +56,7 @@
             name:
 #             WIRELESS NETWORKING
               - iw
-              - wpa_supplicant
+              - wpasupplicant
               - nmcli
 #             WINDOW SERVER
               - xorg
