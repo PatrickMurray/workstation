@@ -16,6 +16,6 @@ $ wget https://www.github.com/patrickmurray/workstation/archive/master.zip
 $ unzip master.zip
 $ cd workstation-master/
 $ ansible-playbook workstation.yml # upgrade distribution
-$ ansible-playbook workstation.yml # complete configuration
+$ ansible-playbook --ask-vault-pass workstation.yml # complete configuration
 ```
 

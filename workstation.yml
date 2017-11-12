@@ -137,6 +137,7 @@
         dest: "/{{ item }}"
       with_items:
         - etc/wpa_supplicant.conf
+      become: True
 
     # Setup SSH Keypair
     - block:
