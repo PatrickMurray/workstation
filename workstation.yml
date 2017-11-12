@@ -57,6 +57,8 @@
         - name: Installing Packages
           apt:
             name:
+#             FIRMWARE
+              - firmware-iwlwifi
 #             WIRELESS NETWORKING
               - iw
               - wpasupplicant
@@ -134,7 +136,7 @@
 
         - name: Enable Interfaces
           net_interface:
-            name: enp0s25
+            name: wlp3s0
             state: up
           become: True
 
