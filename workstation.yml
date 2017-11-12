@@ -54,6 +54,10 @@
         - name: Installing Packages
           apt:
             name:
+#             WIRELESS NETWORKING
+              - iw
+              - wpa_supplicant
+              - nmcli
 #             WINDOW SERVER
               - xorg
 #              - xorg-server
@@ -125,6 +129,14 @@
       with_items:
         - home/patrick/.vimrc
         - home/patrick/.bashrc
+
+    # Configure Wireless Networking
+    - name: Configure Wireless Networking
+      template:
+        src: "{{ item }}"
+	dest: "/{{ item }}"
+      with_items:
+        - etc/wpa_supplicant.conf
 
     # Setup SSH Keypair
     - block:
