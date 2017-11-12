@@ -6,7 +6,8 @@
 ---
 - hosts:
     - localhost
-  connection: local
+  vars:
+    ansible_network_os: ios
   tasks:
     # Migrate To Debian Testing Track
     - block:
