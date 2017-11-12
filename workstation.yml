@@ -201,10 +201,13 @@
     # Setup i3
     - block:
         # TODO - check if still necessary after installing i3 from apt
-        - name: Creating Configuration Directory
+        - name: Creating Configuration Directories
           file:
-            path: /home/patrick/.config/i3
+            path: "{{ item }}"
             state: directory
+          with_items:
+            - /home/patrick/.config/i3
+            - /home/patrick/.config/i3status
 
         - name: Configure i3 Window Manager
           template:
