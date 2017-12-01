@@ -62,7 +62,6 @@
 #             WIRELESS NETWORKING
               - iw
               - wpasupplicant
-              - network-manager
 #             WINDOW SERVER
               - xorg
 #              - xorg-server
@@ -83,6 +82,7 @@
               - xterm
 #             SYSTEM UTILITIES
               - htop
+              - ranger
 #             TEXT EDITOR
               - vim
 #             CONFIGURATION MANAGEMENT
@@ -124,20 +124,31 @@
           become: True
 
 
-    # Configure Wireless Networking
+    # Configure Networking
     - block:
-        - name: Configure Wireless Networking
+        - name: Configure Interface File
           template:
             src: "{{ item }}"
             dest: "/{{ item }}"
           with_items:
-            - etc/wpa_supplicant.conf
+            - etc/network/interfaces
+          become: True
+
+        - name: Configure WPA Supplicant
+          template:
+            src: "{{ item }}"
+            dest: "/{{ item }}"
+          with_items:
+            - etc/wpa_supplicant/wpa_supplicant.conf
           become: True
 
         - name: Enable Interfaces
           net_interface:
-            name: wlp3s0
+            name: "{{ item }}"
             state: up
+          with_item:
+            - enp0s25
+            - wlp3s0
           become: True
 
 
