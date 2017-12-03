@@ -1,7 +1,7 @@
 ---
 - name: Updating Source Listing
-  template:
-    src:  "{{ role_name }}/files/sources.list"
+  copy:
+    src:  "files/sources.list"
     dest: "/etc/apt/sources.list"
   become: True
 

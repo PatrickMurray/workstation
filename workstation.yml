@@ -6,3 +6,7 @@
       include_role:
         name: apt
 
+    - name: Setup Resilio Sync
+      include_role:
+        name: resilio-sync
+
