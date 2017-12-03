@@ -1,0 +1,19 @@
+---
+- name: Updating Source Listing
+  template:
+    src:  "{{ role_name }}/files/sources.list"
+    dest: "/etc/apt/sources.list"
+  become: True
+
+
+- name: Updating Local Repository Cache
+  apt:
+    update_cache: True
+  become: True
+
+
+- name: Upgrading Distribution Packages
+  apt:
+    upgrade: dist
+  become: True
+

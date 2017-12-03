@@ -1,0 +1,275 @@
+# 1) sudo apt-get update && sudo apt-get -y upgrade
+# 2) sudo apt-get -y install ansible
+# 3) sudo visudo
+# + patrick ALL=(ALL) NOPASSWD:ALL
+
+---
+- hosts:
+    - localhost
+  vars:
+    ansible_network_os: ios
+  tasks:
+    # Migrate To Debian Testing Track
+    - block:
+        - name: Updating Source Listing
+          template:
+            src: "{{ item }}"
+            dest: "/{{ item }}"
+          with_items:
+            - etc/apt/sources.list
+          become: True
+
+        - name: Updating Local Repository
+          apt:
+            update_cache: True
+          become: True
+
+        - name: Upgrade Distribution
+          apt:
+            upgrade: dist
+          become: True
+          register: distribution
+
+
+    # Update APT Sources
+    - block:
+        - name: Adding Resilio APT GPG Key
+          apt_key:
+            url: https://linux-packages.resilio.com/resilio-sync/key.asc
+          become: True
+
+        - name: Adding Resilio APT Respository
+          apt_repository:
+            repo: deb http://linux-packages.resilio.com/resilio-sync/deb resilio-sync non-free
+            state: present
+          become: True
+
+
+    # Install Packages
+    - block:
+        - name: Cleaning Local Repository
+          apt:
+            autoclean: True
+            autoremove: True
+            update_cache: True
+          become: True
+
+        - name: Installing Packages
+          apt:
+            name:
+#             FIRMWARE
+              - firmware-iwlwifi
+#             WIRELESS NETWORKING
+              - iw
+              - wpasupplicant
+#             WINDOW SERVER
+              - xorg
+#              - xorg-server
+#              - xinit
+#              - xorg-utils
+#              - xorg-server-utils
+#              - xorg-xbacklight
+#             X DEVELOPMENT GROUP BASE DIRECTORY STRUCTURE
+              - xdg-user-dirs
+#             WINDOW MANAGER
+              - i3
+#              - i3-wm
+#              - i3lock
+#              - i3status
+#             X Wallpaper
+              - feh
+#             TERMINAL EMULATOR
+              - xterm
+#             SYSTEM UTILITIES
+              - htop
+              - ranger
+#             TEXT EDITOR
+              - vim
+#             CONFIGURATION MANAGEMENT
+              - ansible
+#             AUDIO MANAGER
+#              - pavucontrol
+#             WEB BROWSER
+              - chromium
+#              - firefox
+#             VERSION CONTROL SYSTEM
+              - git
+#             RESILIO SYNC
+              - resilio-sync
+#             THE C PROGRAMMING LANGUAGE DEVELOPMENT TOOLS
+              - gdb
+              - libbsd-dev
+              - valgrind
+#             RASTER & VECTOR GRAPHIC MANIUPLATION
+              - gimp
+              - inkscape
+#             DATABASE MANAGEMENT
+              - mysql-workbench
+              - sqlitebrowser
+#             WEB DEVELOPMENT
+#              - npm
+#              - sass
+#             PYTHON
+              - python3
+              - python3-opencv
+#              - python3-pip
+#             LATEX TYPESETTING
+              - texlive
+              - texlive-latex-extra
+              - gummi
+              - biber
+#             VIDEO ENCODING
+              - ffmpeg
+            state: latest
+          become: True
+
+
+    # Configure Networking
+    - block:
+        - name: Configure Interface File
+          template:
+            src: "{{ item }}"
+            dest: "/{{ item }}"
+          with_items:
+            - etc/network/interfaces
+          become: True
+
+        - name: Configure WPA Supplicant
+          template:
+            src: "{{ item }}"
+            dest: "/{{ item }}"
+          with_items:
+            - etc/wpa_supplicant/wpa_supplicant.conf
+          become: True
+
+        - name: Enable Interfaces
+          net_interface:
+            name: "{{ item }}"
+            state: up
+          with_item:
+            - enp0s25
+            - wlp3s0
+          become: True
+
+
+    - name: Creating Base Directory Structure
+      command: xdg-user-dirs-update 
+
+    - name: Configuring User Dotfiles
+      template:
+        src: "{{ item }}"
+        dest: "/{{ item }}"
+      with_items:
+        - home/patrick/.vimrc
+        - home/patrick/.bashrc
+
+    # Setup SSH Keypair
+    - block:
+        - name: Check Status Of SSH Private Key
+          stat:
+            path: ~/.ssh/id_rsa
+          register: ssh_private_key
+
+        - name: Check Status Of SSH Public Key
+          stat:
+            path: ~/.ssh/id_rsa.pub
+          register: ssh_public_key
+
+        - name: Delete Incomplete SSH Private Key
+          file:
+            path: ~/.ssh/id_rsa
+            state: absent
+          when: ssh_public_key.stat.exists == False
+
+        - name: Delete Incomplete SSH Public Key
+          file:
+            path: ~/.ssh/id_rsa.pub
+            state: absent
+          when: ssh_private_key.stat.exists == False
+
+        - name: Generate SSH Key-Pair
+          command: ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N ""
+          when: (ssh_private_key.stat.exists == False) or (ssh_public_key.stat.exists == False)
+
+
+    # Setup Resilio Sync
+    - block:
+        - name: Run Initialization Script
+          script: /etc/resilio-sync/init_user_config.sh
+          register: output
+
+        - name: Configuring Systemd Service
+          template:
+            src: "{{ item }}"
+            dest: "/{{ item }}"
+          with_items:
+            - lib/systemd/system/resilio-sync.service
+          become: True
+
+        - name: Reloading Systemd Service
+          systemd:
+            name: resilio-sync
+            daemon_reload: True
+          become: True
+
+        - name: Starting Systemd Service
+          systemd:
+            name: resilio-sync
+            enabled: True
+            state: started
+          become: True
+
+
+    # Setup Git
+    - block:
+        - name: Changing Profile Name
+          git_config:
+            scope: global
+            name: user.name
+            value: Patrick Murray
+
+        - name: Changing Profile Email
+          git_config:
+            scope: global
+            name: user.email
+            value: patrick@meteoritesoftware.com
+
+
+    # Setup i3
+    - block:
+        # TODO - check if still necessary after installing i3 from apt
+        - name: Creating Configuration Directories
+          file:
+            path: "{{ item }}"
+            state: directory
+          with_items:
+            - /home/patrick/.config/i3
+            - /home/patrick/.config/i3status
+
+        - name: Configure i3 Window Manager
+          template:
+            src: "{{ item }}"
+            dest: "/{{ item }}"
+          with_items:
+            - home/patrick/.config/i3/config
+            - home/patrick/.config/i3status/config
+
+        - name: Configure X
+          template:
+            src: "{{ item }}"
+            dest: "/{{ item }}"
+          with_items:
+            - home/patrick/.xinitrc
+            - home/patrick/.Xresources
+
+        - name: Start i3 On Login
+          template:
+            src: "{{ item }}"
+            dest: "/{{ item }}"
+          with_items:
+            - home/patrick/.bash_profile
+
+        - name: Copy Background Image
+          command: cp "templates/{{ item }}" "/{{ item }}"
+          with_items:
+            - home/patrick/Pictures/wallpaper.jpg
