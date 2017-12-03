@@ -15,14 +15,23 @@
 
 - name: Configure WPA Supplicant File
   copy:
-    src: "files/wpa_supplicant.conf"
-    dest: "/etc/wpa_supplicant/wpa_supplicant.conf"
+    src: files/wpa_supplicant.conf
+    dest: /etc/wpa_supplicant/wpa_supplicant.conf
+  become: True
+  register: wpa_supplicant
+
+
+- name: Restrict WPA Supplicant File
+  file:
+    path: /etc/wpa_supplicant/wpa_supplicant.conf
+    mode: 0600
   become: True
 
 
 - name: Configure Network Interface
   copy:
-    src: "files/interfaces"
-    dest: "/etc/network/interfaces"
+    src: files/interfaces
+    dest: /etc/network/interfaces
   become: True
+  register: interfaces
 
