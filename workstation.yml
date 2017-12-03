@@ -12,6 +12,11 @@
         name: firmware-iwlwifi
 
 
+    - name: Setup WPA Supplicant
+      include_role:
+        name: wpasupplicant
+
+
     - name: Setup Resilio Sync
       include_role:
         name: resilio-sync
