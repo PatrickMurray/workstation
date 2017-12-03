@@ -35,3 +35,8 @@
   become: True
   register: interfaces
 
+- name: Configure DHCP Client
+  copy: file/dhclient.conf
+    src: files/dhclient.conf
+    dest: /etc/dhcp/dhclient.conf
+
