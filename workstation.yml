@@ -21,3 +21,8 @@
       include_role:
         name: resilio-sync
 
+
+    - name: Setup i3
+      include_role:
+        name: i3
+
