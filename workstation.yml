@@ -22,7 +22,28 @@
         name: resilio-sync
 
 
+    - name: Setup xorg
+      include_role:
+        name: xorg
+
+
     - name: Setup i3
       include_role:
         name: i3
+
+
+    - name: Setup bash
+      include_role:
+        name: bash
+
+
+    - name: Setup vim
+      include_role:
+        name: vim
+
+
+
+    - name: Setup Common Packages
+      include_role:
+        name: common
 

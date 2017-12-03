@@ -1,0 +1,13 @@
+---
+- name: Install vim
+  apt:
+    name: vim
+    state: latest
+  become: True
+
+
+- name: Configure .vimrc
+  copy:
+    src: files/.vimrc
+    dest: ~/.vimrc
+

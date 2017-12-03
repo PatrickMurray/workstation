@@ -1,0 +1,37 @@
+---
+- name: Install xorg
+  apt:
+    name: xorg
+    state: latest
+  become: True
+
+
+- name: Configure .xinitrc
+  copy:
+    src: files/.xinitrc
+    dest: ~/.xinitrc
+
+
+- name: Configure .Xresources
+  copy:
+    src: files/.Xresources
+    dest: ~/.Xresources
+
+
+- name: Install xdg-user-dirs
+  apt:
+    name: xdg-user-dirs
+    state: latest
+  become: True
+
+
+- name: Create Base Directory Structure
+  command: xdg-user-dirs-update
+
+
+- name: Install xterm
+  apt:
+    name: xterm
+    state: latest
+  become: True
+
