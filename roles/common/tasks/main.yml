@@ -12,3 +12,9 @@
     state: latest
   become: True
 
+- name: Install firefox
+  apt:
+    name: firefox
+    state: latest
+  become: True
+
