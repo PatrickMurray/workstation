@@ -36,10 +36,28 @@
   become: True
 
 
+- name: Create .config Directory
+  file:
+    path: ~/.config
+    state: directory
+
+
+- name: Create .config/i3 Directory
+  file:
+    path: ~/.config/i3
+    state: directory
+
+
 - name: Configure i3
   copy:
     src: files/i3/config
     dest: ~/.config/i3/config
+
+
+- name: Create .config/i3status Directory
+  file:
+    path: ~/.config/i3status
+    state: directory
 
 
 - name: Configure i3status
