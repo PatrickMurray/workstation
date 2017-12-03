@@ -6,6 +6,12 @@
       include_role:
         name: apt
 
+
+    - name: Setup Intel Wireless Firmware
+      include_role:
+        name: firmware-iwlwifi
+
+
     - name: Setup Resilio Sync
       include_role:
         name: resilio-sync

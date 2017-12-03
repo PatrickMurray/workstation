@@ -1,0 +1,7 @@
+---
+- name: Install Intel Wireless Firmware
+  apt:
+    name: firmware-iwlwifi
+    state: latest
+  become: True
+
