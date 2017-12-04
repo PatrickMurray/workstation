@@ -18,3 +18,31 @@
     state: latest
   become: True
 
+
+- name: Install git
+  apt:
+    name: git
+    state: latest
+  become: True
+
+
+- name: Configure git User Name
+  git_config:
+    name: user.name
+    value: Patrick Murray
+    scope: global
+
+
+- name: Configure git User Email
+  git_config:
+    name: user.email
+    value: patrickm129@gmail.com
+    scope: global
+
+
+- name: Install keepassxc
+  apt:
+    name: keepassxc
+    state: latest
+  become: True
+

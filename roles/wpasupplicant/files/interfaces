@@ -9,7 +9,7 @@ iface enp0s25 inet dhcp
 
 
 # Wireless Interface
-auto wlp3s0
-iface wlp3s0 inet dhcp
+auto wlo1
+iface wlo1 inet dhcp
 	wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
 
