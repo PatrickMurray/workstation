@@ -6,6 +6,12 @@
   become: True
 
 
+- name: Configure .xprofile
+  copy:
+    src: files/.xprofile
+    dest: ~/.xprofile
+
+
 - name: Configure .xinitrc
   copy:
     src: files/.xinitrc

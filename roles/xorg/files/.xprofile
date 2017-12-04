@@ -1,0 +1,3 @@
+# set root xorg window color
+xsetroot -solid #161616
+
