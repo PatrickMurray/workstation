@@ -40,7 +40,7 @@
 - name: Start systemd Service
   systemd:
     name: resilio-sync
-    enabled: True
     state: started
+    enabled: True
   become: True
 

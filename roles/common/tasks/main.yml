@@ -46,3 +46,37 @@
     state: latest
   become: True
 
+
+- name: Install libreoffice
+  apt:
+    name: libreoffice
+    state: latest
+  become: True
+
+
+- name: Install mupdf
+  apt:
+    name: mupdf
+    state: latest
+  become: True
+
+
+- name: Install virtualenv
+  apt:
+    name: virtualenv
+    state: latest
+  become: True
+
+
+- name: Install traceroute
+  apt:
+    name: traceroute
+    state: latest
+  become: True
+
+- name: Install scrot
+  apt:
+    name: scrot
+    state: latest
+  become: True
+
