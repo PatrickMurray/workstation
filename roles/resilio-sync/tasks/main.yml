@@ -32,14 +32,14 @@
 
 - name: Reload systemd Service
   systemd:
-    name: resilio-sync
+    name: resilio-sync.service
     daemon_reload: True
   become: True
 
 
 - name: Start systemd Service
   systemd:
-    name: resilio-sync
+    name: resilio-sync.service
     state: started
     enabled: True
   become: True
