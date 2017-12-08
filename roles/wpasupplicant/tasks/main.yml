@@ -13,19 +13,38 @@
   become: True
 
 
-- name: Configure Networking systemd Unit
+- name: Configure Network systemd Unit
   copy:
     src: files/networking.service
     dest: /lib/systemd/system/networking.service
   become: True
+  register: networking_unit
 
 
-- name: Reload systemd Unit
+- name: Reload Network systemd Unit
   systemd:
     name: networking.service
     state: restarted
     daemon_reload: True
   become: True
+  when: networking_unit.changed
+
+
+- name: Configure Network Resume systemd Unit
+  copy:
+    src: files/networking_resume.service
+    dest: /lib/systemd/system/networking_resume.service
+  become: True
+  register: networking_resume_unit
+
+
+- name: Reload Network Reload systemd Unit
+  systemd:
+    name: networking_resume.service
+    enabled: True
+    daemon_reload: True
+  become: True
+  when: networking_resume_unit.changed
 
 
 - name: Configure WPA Supplicant File

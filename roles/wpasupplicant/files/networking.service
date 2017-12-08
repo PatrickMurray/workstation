@@ -8,7 +8,7 @@ Before=network.target shutdown.target network-online.target
 Conflicts=shutdown.target
 
 [Install]
-WantedBy=multi-user.target sleep.target
+WantedBy=multi-user.target
 WantedBy=network-online.target
 
 [Service]
