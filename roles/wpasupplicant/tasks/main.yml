@@ -13,6 +13,21 @@
   become: True
 
 
+- name: Configure Networking systemd Unit
+  copy:
+    src: files/networking.service
+    dest: /lib/systemd/system/networking.service
+  become: True
+
+
+- name: Reload systemd Unit
+  systemd:
+    name: networking.service
+    state: restarted
+    daemon_reload: True
+  become: True
+
+
 - name: Configure WPA Supplicant File
   copy:
     src: files/wpa_supplicant.conf

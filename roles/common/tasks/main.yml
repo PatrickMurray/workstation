@@ -80,3 +80,31 @@
     state: latest
   become: True
 
+
+- name: Install mysql-workbench
+  apt:
+    name: mysql-workbench
+    state: latest
+  become: True
+
+
+- name: Install lsyncd
+  apt:
+    name: lsyncd
+    state: latest
+  become: True
+
+
+- name: Install PIP3
+  apt:
+    name: python3-pip
+    state: latest
+  become: True
+
+
+- name: Install GIMP
+  apt:
+    name: gimp
+    state: latest
+  become: True
+
