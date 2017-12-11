@@ -6,6 +6,20 @@
   become: True
 
 
+- name: Install xbacklight
+  apt:
+    name: xbacklight
+    state: latest
+  become: True
+
+
+- name: Install xserver-xorg-video-nouveau Drivers
+  apt:
+    name: xserver-xorg-video-nouveau
+    state: latest
+  become: True
+
+
 - name: Configure .xinitrc
   copy:
     src: files/.xinitrc
