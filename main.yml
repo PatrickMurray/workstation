@@ -1,2 +1,5 @@
 ---
+- hosts: localhost
+  roles:
+    - apt
 
