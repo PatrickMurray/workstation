@@ -1,0 +1,14 @@
+---
+- name: Update APT Source List
+  copy:
+    src: "files/sources/debian.list"
+    dest: "/etc/apt/sources.list"
+
+- name: Update Local APT Repository Cache
+  apt:
+    update_cache: True
+
+- name: Upgrade APT Distribution Packages
+  apt:
+    upgrade: dist
+
