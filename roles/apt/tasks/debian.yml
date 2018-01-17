@@ -3,6 +3,7 @@
   copy:
     src: "files/sources/debian.list"
     dest: "/etc/apt/sources.list"
+    remote_src: True
   notify:
     - Update APT Cache
     - Upgrade APT Distribution
