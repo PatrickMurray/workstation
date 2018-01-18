@@ -4,7 +4,7 @@
     src: "files/sources/debian.list"
     dest: "/etc/apt/sources.list"
   notify:
-    - Update APT Cache
-    - Upgrade APT Distribution
+    - Update APT cache
+    - Upgrade APT distribution
   become: True
 
