@@ -8,13 +8,3 @@
     - Upgrade APT Distribution
   become: True
 
-- name: Update APT Cache
-  apt:
-    update_cache: True
-  become: True
-
-- name: Upgrade APT Distribution
-  apt:
-    upgrade: dist
-  become: True
-
