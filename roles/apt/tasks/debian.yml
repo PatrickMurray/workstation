@@ -3,8 +3,18 @@
   copy:
     src: "files/sources/debian.list"
     dest: "/etc/apt/sources.list"
-  notify:
-    - Update APT cache
-    - Upgrade APT distribution
+  register: updated_source
+  become: True
+
+- name: Update APT Cache
+  apt:
+    update_cache: True
+  when: updated_source.changed
+  become: True
+
+- name: Upgrade APT Distribution
+  apt:
+    upgrade: True
+  when: updated_source.changed
   become: True
 

@@ -3,10 +3,17 @@
   package:
     name: xorg
     state: latest
-  notify:
-    - Configure .xinitrc
-    - Configure .Xresources
   become: True
+
+- name: Configure .xinitrc
+  copy:
+    src: files/.xinitrc
+    dest: ~/.xinitrc
+
+- name: Configure .Xresources
+  copy:
+    src: files/.Xresources
+    dest: ~/.Xresources
 
 - name: Install xbacklight
   package:
@@ -18,9 +25,10 @@
   package:
     name: xdg-user-dirs
     state: latest
-  notify:
-    - Create home directory structure
   become: True
+
+- name: Create home directory structure
+  command: xdg-user-dirs-update
 
 - name: Install xterm
   package:
