@@ -3,13 +3,11 @@
   copy:
     src: files/.xinitrc
     dest: ~/.xinitrc
-    remote_src: True
 
 - name: Configure .Xresources
   copy:
     src: files/.Xresources
     dest: ~/.Xresources
-    remote_src: True
 
 - name: Create home directory structure
   command: xdg-user-dirs-update
