@@ -3,5 +3,6 @@
   roles:
     - apt
     - xorg
+    - bash
     - i3
 

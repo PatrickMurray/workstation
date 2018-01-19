@@ -1,12 +1,4 @@
 ---
-- name: Configure .bashrc
-  copy:
-    src: files/.bashrc
-    dest: ~/.bashrc
-
-
-- name: Configure .bash_profile
-  copy:
-    src: files/.bash_profile
-    dest: ~/.bash_profile
+- include: debian.yml
+  when: ansible_distribution == "Debian"
 
