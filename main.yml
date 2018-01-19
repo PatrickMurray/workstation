@@ -3,4 +3,5 @@
   roles:
     - apt
     - xorg
+    - i3
 
