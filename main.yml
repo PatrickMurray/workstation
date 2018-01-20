@@ -1,5 +1,20 @@
 ---
 - hosts: localhost
+  pre_tasks:
+    - name: Gather hostname
+      command: hostname
+      register: hostname
+
+    - name: Load vm variables
+      include_vars:
+        file: "host_vars/vm.yml"
+      when: hostname == "vm"
+
+    - name: Load thinkpad variables
+      include_vars:
+        file: "host_vars/thinkpad.yml"
+      when: hostname == "thinkpad"
+
   roles:
     # Package Manager
     - apt

@@ -6,8 +6,8 @@
   become: True
 
 - name: Configure Network Interface
-  copy:
-    src: files/interfaces
+  template:
+    src: templates/interfaces
     dest: /etc/network/interfaces
   become: True
 
@@ -42,8 +42,8 @@
   when: networking_resume_unit.changed
 
 - name: Configure DHCP Client
-  copy:
-    src: files/dhclient.conf
+  template:
+    src: templates/dhclient.conf
     dest: /etc/dhcp/dhclient.conf
   become: True
 
