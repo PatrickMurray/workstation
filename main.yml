@@ -19,6 +19,8 @@
     # Package Manager
     - apt
     # Network
+    - role: firmware_iwlwifi
+      when: hostname.stdout == "thinkpad"
     - network
     - wpa_supplicant
     # Display & Window Manager

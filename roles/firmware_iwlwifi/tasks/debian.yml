@@ -1,0 +1,7 @@
+---
+- name: Install firmware-iwlwifi
+  package:
+    name: firmware-iwlwifi
+    state: latest
+  become: True
+
