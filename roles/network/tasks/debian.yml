@@ -42,18 +42,12 @@
   when: networking_resume_unit.changed
 
 - name: Bring ethernet interface up
-  net_interface:
-    name: "{{ ethernet_interface }}"
-    state: up
-    enabled: True
+  command: "ip link set dev {{ ethernet_interface }} up"
   become: True
   when: ethernet_interface is not None
 
 - name: Bring wireless interface up
-  net_interface:
-    name: "{{ wireless_interface }}"
-    state: up
-    enabled: True
+  command: "ip link set dev {{ wireless_interface }} up"
   become: True
   when: wireless_interface is not None
 
