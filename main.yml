@@ -28,7 +28,7 @@
     # File System Software
     - resilio_sync
     # Identity
-    - openssh
+    - openssh_client
     - git
     # Common Applications
     - vim

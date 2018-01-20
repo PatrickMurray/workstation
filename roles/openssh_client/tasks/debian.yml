@@ -1,7 +1,7 @@
 ---
-- name: Install openssh
+- name: Install openssh-client
   package:
-    name: openssh
+    name: openssh-client
     state: latest
   become: True
 
