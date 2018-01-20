@@ -8,12 +8,12 @@
     - name: Load vm variables
       include_vars:
         file: "host_vars/vm.yml"
-      when: hostname == "vm"
+      when: hostname.stdout == "vm"
 
     - name: Load thinkpad variables
       include_vars:
         file: "host_vars/thinkpad.yml"
-      when: hostname == "thinkpad"
+      when: hostname.stdout == "thinkpad"
 
   roles:
     # Package Manager
