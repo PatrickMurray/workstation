@@ -44,12 +44,12 @@
 - name: Bring ethernet interface up
   command: "ip link set dev {{ ethernet_interface }} up"
   become: True
-  when: ethernet_interface is not None
+  when: ethernet_interface is not none
 
 - name: Bring wireless interface up
   command: "ip link set dev {{ wireless_interface }} up"
   become: True
-  when: wireless_interface is not None
+  when: wireless_interface is not none
 
 - name: Configure DHCP Client
   template:
