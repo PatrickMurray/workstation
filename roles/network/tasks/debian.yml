@@ -41,6 +41,22 @@
   become: True
   when: networking_resume_unit.changed
 
+- name: Bring ethernet interface up
+  net_interface:
+    name: "{{ ethernet_interface }}"
+    state: up
+    enabled: True
+  become: True
+  when: ethernet_interface is not None
+
+- name: Bring wireless interface up
+  net_interface:
+    name: "{{ wireless_interface }}"
+    state: up
+    enabled: True
+  become: True
+  when: wireless_interface is not None
+
 - name: Configure DHCP Client
   template:
     src: templates/dhclient.conf
