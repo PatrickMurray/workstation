@@ -1,0 +1,19 @@
+---
+- name: Install wpasupplicant
+  package:
+    name: wpasupplicant
+    state: latest
+  become: True
+
+- name: Configure WPA Supplicant File
+  copy:
+    src: files/wpa_supplicant.conf
+    dest: /etc/wpa_supplicant/wpa_supplicant.conf
+  become: True
+
+- name: Restrict WPA Supplicant File
+  file:
+    path: /etc/wpa_supplicant/wpa_supplicant.conf
+    mode: 0600
+  become: True
+

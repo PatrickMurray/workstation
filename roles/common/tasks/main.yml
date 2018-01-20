@@ -1,110 +1,41 @@
 ---
-- name: Install htop
-  apt:
-    name: htop
-    state: latest
-  become: True
+#- name: Install libreoffice
+#  apt:
+#    name: libreoffice
+#    state: latest
+#  become: True
+
+#- name: Install virtualenv
+#  apt:
+#    name: virtualenv
+#    state: latest
+#  become: True
 
 
-- name: Install ranger
-  apt:
-    name: ranger
-    state: latest
-  become: True
-
-- name: Install firefox
-  apt:
-    name: firefox
-    state: latest
-  become: True
+#- name: Install traceroute
+#  apt:
+#    name: traceroute
+#    state: latest
+#  become: True
 
 
-- name: Install git
-  apt:
-    name: git
-    state: latest
-  become: True
+#- name: Install mysql-workbench
+#  apt:
+#    name: mysql-workbench
+#    state: latest
+#  become: True
 
 
-- name: Configure git User Name
-  git_config:
-    name: user.name
-    value: Patrick Murray
-    scope: global
+#- name: Install lsyncd
+#  apt:
+#    name: lsyncd
+#    state: latest
+#  become: True
 
 
-- name: Configure git User Email
-  git_config:
-    name: user.email
-    value: patrickm129@gmail.com
-    scope: global
-
-
-- name: Install keepassxc
-  apt:
-    name: keepassxc
-    state: latest
-  become: True
-
-
-- name: Install libreoffice
-  apt:
-    name: libreoffice
-    state: latest
-  become: True
-
-
-- name: Install mupdf
-  apt:
-    name: mupdf
-    state: latest
-  become: True
-
-
-- name: Install virtualenv
-  apt:
-    name: virtualenv
-    state: latest
-  become: True
-
-
-- name: Install traceroute
-  apt:
-    name: traceroute
-    state: latest
-  become: True
-
-- name: Install scrot
-  apt:
-    name: scrot
-    state: latest
-  become: True
-
-
-- name: Install mysql-workbench
-  apt:
-    name: mysql-workbench
-    state: latest
-  become: True
-
-
-- name: Install lsyncd
-  apt:
-    name: lsyncd
-    state: latest
-  become: True
-
-
-- name: Install PIP3
-  apt:
-    name: python3-pip
-    state: latest
-  become: True
-
-
-- name: Install GIMP
-  apt:
-    name: gimp
-    state: latest
-  become: True
+#- name: Install PIP3
+#  apt:
+#    name: python3-pip
+#    state: latest
+#  become: True
 

@@ -1,0 +1,7 @@
+---
+- name: Install firefox
+  package:
+    name: firefox
+    state: latest
+  become: True
+

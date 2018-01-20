@@ -1,0 +1,7 @@
+---
+- name: Install inkscape
+  package:
+    name: inkscape
+    state: latest
+  become: True
+

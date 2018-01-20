@@ -1,0 +1,19 @@
+---
+- name: Install git
+  package:
+    name: git
+    state: latest
+  become: True
+
+- name: Configure git user name
+  git_config:
+    name: user.name
+    value: Patrick Murray
+    scope: global
+
+- name: Configure git user email
+  git_config:
+    name: user.email
+    value: patrickm129@gmail.com
+    scope: global
+

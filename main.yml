@@ -1,8 +1,29 @@
 ---
 - hosts: localhost
   roles:
+    # Package Manager
     - apt
+    # Network
+    - network
+    - wpa_supplicant
+    # Display & Window Manager
     - xorg
     - bash
     - i3
+    # File System Software
+    - resilio_sync
+    # Identity
+    - openssh
+    - git
+    # Common Applications
+    - vim
+    - htop
+    - ranger
+    - scrot
+    - mupdf
+    - keepassxc
+    - firefox
+    # Multimedia
+    - gimp
+    - inkscape
 

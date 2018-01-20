@@ -1,17 +1,15 @@
 ---
-- name: Install wpasupplicant
-  apt:
-    name: wpasupplicant
-    state: latest
-  become: True
-
-
 - name: Restrict Network Interface Configuration
   file:
     path: /etc/network/interfaces
     mode: 0600
   become: True
 
+- name: Configure Network Interface
+  copy:
+    src: files/interfaces
+    dest: /etc/network/interfaces
+  become: True
 
 - name: Configure Network systemd Unit
   copy:
@@ -19,7 +17,6 @@
     dest: /lib/systemd/system/networking.service
   become: True
   register: networking_unit
-
 
 - name: Reload Network systemd Unit
   systemd:
@@ -29,14 +26,12 @@
   become: True
   when: networking_unit.changed
 
-
 - name: Configure Network Resume systemd Unit
   copy:
     src: files/networking_resume.service
     dest: /lib/systemd/system/networking_resume.service
   become: True
   register: networking_resume_unit
-
 
 - name: Reload Network Reload systemd Unit
   systemd:
@@ -46,31 +41,9 @@
   become: True
   when: networking_resume_unit.changed
 
-
-- name: Configure WPA Supplicant File
-  copy:
-    src: files/wpa_supplicant.conf
-    dest: /etc/wpa_supplicant/wpa_supplicant.conf
-  become: True
-  register: wpa_supplicant
-
-
-- name: Restrict WPA Supplicant File
-  file:
-    path: /etc/wpa_supplicant/wpa_supplicant.conf
-    mode: 0600
-  become: True
-
-
-- name: Configure Network Interface
-  copy:
-    src: files/interfaces
-    dest: /etc/network/interfaces
-  become: True
-
-
 - name: Configure DHCP Client
   copy:
     src: files/dhclient.conf
     dest: /etc/dhcp/dhclient.conf
   become: True
+

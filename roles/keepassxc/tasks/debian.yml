@@ -1,0 +1,7 @@
+---
+- name: Install keepassxc
+  package:
+    name: keepassxc
+    state: latest
+  become: True
+

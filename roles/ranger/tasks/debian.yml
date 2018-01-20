@@ -1,0 +1,7 @@
+---
+- name: Install ranger
+  package:
+    name: ranger
+    state: latest
+  become: True
+

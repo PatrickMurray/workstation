@@ -1,0 +1,7 @@
+---
+- name: Install mupdf
+  package:
+    name: mupdf
+    state: latest
+  become: True
+
