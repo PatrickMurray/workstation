@@ -1,7 +1,7 @@
 ---
 - name: Update APT Source List
   copy:
-    src: "files/sources/debian.list"
+    src: "files/sources/debian/stable.list"
     dest: "/etc/apt/sources.list"
   register: updated_source
   become: True
