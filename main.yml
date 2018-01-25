@@ -58,8 +58,8 @@
     - role: mupdf
       when: roles.mupdf
     
-    - role: keepassxc
-      when: roles.keepassxc
+    - role: keepassx
+      when: roles.keepassx
     
     - role: firefox
       when: roles.firefox

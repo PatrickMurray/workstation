@@ -16,7 +16,7 @@ roles:
   ranger: True
   scrot: True
   mupdf: True
-  keepassxc: True
+  keepassx: True
   firefox: True
   gimp: True
   inkscape: True
