@@ -1,4 +1,33 @@
 ---
-ethernet_interface: enp0s25
-wireless_interface: wlp3s0
+roles:
+  apt: True
+  firmware_iwlwifi: True
+  network: True
+  wpa_supplicant: True
+  xorg: True
+  bash: True
+  i3: True
+  unclutter: True
+  resilio_sync: True
+  openssh_client: True
+  git: True
+  vim: True
+  htop: True
+  ranger: True
+  scrot: True
+  mupdf: True
+  keepassxc: True
+  firefox: True
+  gimp: True
+  inkscape: True
+  cmus: True
+  dnsutils: True
+  ansible: True
+  gnome_disk_utility: True
+  make: True
+  texlive: True
+
+network:
+  ethernet_interface: enp0s25
+  wireless_interface: wlp3s0
 

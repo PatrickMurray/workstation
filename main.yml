@@ -1,46 +1,95 @@
 ---
 - hosts: localhost
   pre_tasks:
-    - name: Gather hostname
-      command: hostname
-      register: hostname
-
-    - name: Load vm variables
-      include_vars:
-        file: "host_vars/vm.yml"
-      when: hostname.stdout == "vm"
-
-    - name: Load thinkpad variables
-      include_vars:
-        file: "host_vars/thinkpad.yml"
-      when: hostname.stdout == "thinkpad"
-
+    - name: Load host variables
+      include: host_vars/main.yml
   roles:
     # Package Manager
-    - apt
+    - role: apt
+      when: roles.apt
+    
     # Network
     - role: firmware_iwlwifi
-      when: hostname.stdout == "thinkpad"
-    - network
-    - wpa_supplicant
+      when: roles.firmware_iwlwifi
+    
+    - role: network
+      when: roles.network
+    
+    - role: wpa_supplicant
+      when: roles.wpa_supplicant
+    
     # Display & Window Manager
-    - xorg
-    - bash
-    - i3
+    - role: xorg
+      when: roles.xorg
+    
+    - role: bash
+      when: roles.bash
+    
+    - role: i3
+      when: roles.i3
+    
+    - role: unclutter
+      when: roles.unclutter
+
     # File System Software
-    - resilio_sync
+    - role: resilio_sync
+      when: roles.resilio_sync
+    
     # Identity
-    - openssh_client
-    - git
+    - role: openssh_client
+      when: roles.openssh_client
+    
+    - role: git
+      when: roles.git
+    
     # Common Applications
-    - vim
-    - htop
-    - ranger
-    - scrot
-    - mupdf
-    - keepassxc
-    - firefox
+    - role: vim
+      when: roles.vim
+    
+    - role: htop
+      when: roles.htop
+    
+    - role: ranger
+      when: roles.ranger
+    
+    - role: scrot
+      when: roles.scrot
+    
+    - role: mupdf
+      when: roles.mupdf
+    
+    - role: keepassxc
+      when: roles.keepassxc
+    
+    - role: firefox
+      when: roles.firefox
+    
     # Multimedia
-    - gimp
-    - inkscape
+    - role: gimp
+      when: roles.gimp
+    
+    - role: inkscape
+      when: roles.inkscape
+
+    - role: cmus
+      when: roles.cmus
+
+    # System Administration
+    - role: dnsutils
+      when: roles.dnsutils
+
+    - role: ansible
+      when: roles.ansible
+
+    # Disk Management
+    - role: gnome_disk_utility
+      when: roles.gnome_disk_utility
+
+    # Developer Tools
+    - role: make
+      when: roles.make
+
+    # Latex Writing
+    - role: texlive
+      when: roles.texlive
 

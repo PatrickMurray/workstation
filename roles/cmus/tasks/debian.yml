@@ -1,0 +1,7 @@
+---
+- name: Install cmus
+  package:
+    name: cmus
+    state: latest
+  become: True
+

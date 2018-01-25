@@ -1,0 +1,7 @@
+---
+- name: Install gnome-disk-utility
+  package:
+    name: gnome-disk-utility
+    state: latest
+  become: True
+

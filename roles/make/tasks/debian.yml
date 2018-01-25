@@ -1,0 +1,7 @@
+---
+- name: Install make
+  package:
+    name: make
+    state: latest
+  become: True
+

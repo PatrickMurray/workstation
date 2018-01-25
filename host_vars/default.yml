@@ -1,8 +1,8 @@
 ---
 roles:
-  apt: True
+  apt: False
   firmware_iwlwifi: False
-  network: True
+  network: False
   wpa_supplicant: False
   xorg: True
   bash: True
@@ -28,6 +28,6 @@ roles:
   texlive: True
 
 network:
-  ethernet_interface: enp0s3
+  ethernet_interface: null
   wireless_interface: null
 
