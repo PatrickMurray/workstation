@@ -26,6 +26,7 @@ roles:
   gnome_disk_utility: True
   make: True
   texlive: True
+  nodejs: True
 
 network:
   ethernet_interface: enp0s25

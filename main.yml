@@ -93,3 +93,7 @@
     - role: texlive
       when: roles.texlive
 
+    # Web Development
+    - role: nodejs
+      when: roles.nodejs
+
