@@ -17,7 +17,7 @@ roles:
   scrot: True
   mupdf: True
   keepassx: True
-  firefox: True
+  chromium: True
   gimp: True
   inkscape: True
   cmus: True

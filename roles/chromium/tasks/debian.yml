@@ -1,7 +1,7 @@
 ---
-- name: Install firefox
+- name: Install chromium
   package:
-    name: firefox
+    name: chromium
     state: latest
   become: True
 

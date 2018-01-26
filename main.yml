@@ -61,8 +61,8 @@
     - role: keepassx
       when: roles.keepassx
     
-    - role: firefox
-      when: roles.firefox
+    - role: chromium
+      when: roles.chromium
     
     # Multimedia
     - role: gimp
