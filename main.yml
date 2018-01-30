@@ -107,6 +107,9 @@
     - role: python3
       when: roles.python3
 
+    - role: python3_pip
+      when: roles.python3_pip
+
     - role: virtualenv
       when: roles.virtualenv
 

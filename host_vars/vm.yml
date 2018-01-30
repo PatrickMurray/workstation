@@ -30,6 +30,7 @@ roles:
   make: True
   texlive: True
   python3: True
+  python3_pip: True
   virtualenv: True
   nodejs: True
   npm: True
