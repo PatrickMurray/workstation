@@ -29,6 +29,8 @@ roles:
   gnome_disk_utility: True
   make: True
   texlive: True
+  python3: True
+  virtualenv: True
   nodejs: True
   npm: True
   lsyncd: True

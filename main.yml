@@ -103,6 +103,13 @@
     - role: texlive
       when: roles.texlive
 
+    # Python Development
+    - role: python3
+      when: roles.python3
+
+    - role: virtualenv
+      when: roles.virtualenv
+
     # Web Development
     
     # NodeJS

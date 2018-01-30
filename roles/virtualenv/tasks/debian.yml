@@ -1,0 +1,7 @@
+---
+- name: Install virtualenv
+  package:
+    name: virtualenv
+    state: latest
+  become: True
+
