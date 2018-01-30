@@ -1,0 +1,7 @@
+---
+- name: Install lsyncd
+  package:
+    name: lsyncd
+    state: latest
+  become: True
+

@@ -31,6 +31,10 @@
     - role: unclutter
       when: roles.unclutter
 
+    # Theme
+    - role: arc_theme
+      when: roles.arc_theme
+
     # File System Software
     - role: resilio_sync
       when: roles.resilio_sync
@@ -55,6 +59,9 @@
     - role: scrot
       when: roles.scrot
     
+    - role: neofetch
+      when: roles.neofetch
+
     - role: mupdf
       when: roles.mupdf
     
@@ -81,6 +88,9 @@
     - role: ansible
       when: roles.ansible
 
+    - role: awscli
+      when: roles.awscli
+
     # Disk Management
     - role: gnome_disk_utility
       when: roles.gnome_disk_utility
@@ -94,6 +104,15 @@
       when: roles.texlive
 
     # Web Development
+    
+    # NodeJS
     - role: nodejs
       when: roles.nodejs
+
+    - role: npm
+      when: roles.npm
+    
+    # Flask Development
+    - role: lsyncd
+      when: roles.lsyncd
 

@@ -1,0 +1,7 @@
+---
+- name: Install neofetch
+  package:
+    name: neofetch
+    state: latest
+  become: True
+

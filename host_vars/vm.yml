@@ -8,6 +8,7 @@ roles:
   bash: True
   i3: True
   unclutter: True
+  arc_theme: True
   resilio_sync: False
   openssh_client: False
   git: False
@@ -15,6 +16,7 @@ roles:
   htop: True
   ranger: True
   scrot: True
+  neofetch: True
   mupdf: True
   keepassx: True
   chromium: True
@@ -23,10 +25,13 @@ roles:
   cmus: True
   dnsutils: True
   ansible: True
+  awscli: True
   gnome_disk_utility: True
   make: True
   texlive: True
   nodejs: True
+  npm: True
+  lsyncd: True
 
 network:
   ethernet_interface: enp0s3

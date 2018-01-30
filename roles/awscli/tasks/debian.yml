@@ -1,0 +1,7 @@
+---
+- name: Install awscli
+  package:
+    name: awscli
+    state: latest
+  become: True
+
