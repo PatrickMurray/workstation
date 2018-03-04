@@ -5,11 +5,13 @@ fi
 
 xrandr                \
   --output  "LVDS-1"  \
-  --mode    "1368x768"
+  --mode    "1366x768"
 
-xrandr                 \
-  --output  "VGA-1"    \
-  --mode    "1920x1080"
+xrandr                   \
+  --output  "VGA-1"      \
+  --mode    "1920x1080"  \
+  --rotate  "right"
+
 
 xrandr                 \
   --output  "DP-2"     \
