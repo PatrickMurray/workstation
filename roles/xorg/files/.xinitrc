@@ -3,20 +3,38 @@ if [ -f ~/.Xresources ]; then
 fi
 
 
-xrandr                \
-  --output  "LVDS-1"  \
-  --mode    "1366x768"
+xrandr | grep "DP-2" | grep " connected "
 
-xrandr                   \
-  --output  "VGA-1"      \
-  --mode    "1920x1080"  \
-  --rotate  "left"
+if [ $? -eq 0 ];
+then
+	xrandr                \
+	  --output  "LVDS-1"  \
+	  --off
 
+	xrandr              \
+	  --output  "DP-2"  \
+	  --primary         \
+	  --auto
 
-xrandr                 \
-  --output  "DP-2"     \
-  --mode    "3840x2160"
+	xrandr               \
+	  --output  "VGA-1"  \
+	  --rotate  "left"   \
+	  --left-of "DP-2"   \
+	  --auto
+else
+	xrandr                \
+	  --output  "LVDS-1"  \
+	  --primary           \
+	  --auto
 
+	xrandr              \
+	  --output  "DP-2"  \
+	  --off
+
+	xrandr               \
+	  --output  "VGA-1"  \
+	  --off
+fi
 
 xset -b
 
