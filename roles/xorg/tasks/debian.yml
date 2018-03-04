@@ -30,6 +30,17 @@
 - name: Create home directory structure
   command: xdg-user-dirs-update
 
+- name: Create xdg Configuration Directory
+  file:
+    path: ~/.local/share/applications
+    state: directory
+    recurse: True
+
+- name: Configure xdg Default Applications
+  copy:
+    src: files/defaults.list
+    dest: ~/.local/share/applications/defaults.list
+
 - name: Install xterm
   package:
     name: xterm
