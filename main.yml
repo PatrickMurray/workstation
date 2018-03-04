@@ -71,6 +71,9 @@
     - role: chromium
       when: roles.chromium
     
+    - role: libreoffice
+      when: roles.libreoffice
+
     # Multimedia
     - role: gimp
       when: roles.gimp

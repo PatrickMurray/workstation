@@ -1,0 +1,7 @@
+---
+- name: Install libreoffice
+  package:
+    name: libreoffice
+    state: latest
+  become: True
+
