@@ -1,0 +1,7 @@
+---
+- name: Install alsa-utils
+  package:
+    name: alsa-utils
+    state: latest
+  become: True
+

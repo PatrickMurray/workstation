@@ -16,10 +16,12 @@ roles:
   htop: True
   ranger: True
   scrot: True
+  alsamixer: True
   neofetch: True
   mupdf: True
   keepassx: True
   chromium: True
+  spotify_client: True
   libreoffice: True
   gimp: True
   inkscape: True

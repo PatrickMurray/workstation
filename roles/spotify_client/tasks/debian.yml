@@ -1,0 +1,20 @@
+---
+- name: Add APT GPG Key
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 0DF731E45CE24F27EEEB1450EFDC8610341D9410
+  become: True
+
+- name: Add APT Repository
+  apt_repository:
+    repo: deb http://repository.spotify.com stable non-free
+    state: present
+    update_cache: True
+  become: True
+
+- name: Install spotify-client
+  package:
+    name: spotify-client
+    state: latest
+  become: True
+

@@ -59,6 +59,9 @@
     - role: scrot
       when: roles.scrot
     
+    - role: alsamixer
+      when: roles.alsamixer
+    
     - role: neofetch
       when: roles.neofetch
 
@@ -70,6 +73,9 @@
     
     - role: chromium
       when: roles.chromium
+   
+    - role: spotify_client
+      when: roles.spotify_client
     
     - role: libreoffice
       when: roles.libreoffice
