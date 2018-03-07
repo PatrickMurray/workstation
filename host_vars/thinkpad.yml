@@ -21,6 +21,7 @@ roles:
   mupdf: True
   keepassx: True
   chromium: True
+  tor: True
   spotify_client: True
   libreoffice: True
   gimp: True

@@ -73,6 +73,9 @@
     
     - role: chromium
       when: roles.chromium
+
+    - role: tor
+      when: roles.tor
    
     - role: spotify_client
       when: roles.spotify_client
