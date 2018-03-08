@@ -29,6 +29,7 @@ roles:
   cmus: True
   dnsutils: True
   telnet: True
+  netcat: True
   ansible: True
   awscli: True
   gnome_disk_utility: True

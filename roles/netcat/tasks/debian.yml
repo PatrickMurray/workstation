@@ -1,0 +1,7 @@
+---
+- name: Install netcat
+  package:
+    name: netcat
+    state: latest
+  become: True
+
