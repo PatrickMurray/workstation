@@ -32,6 +32,7 @@ roles:
   netcat: True
   ansible: True
   awscli: True
+  remmina: True
   gnome_disk_utility: True
   make: True
   texlive: True

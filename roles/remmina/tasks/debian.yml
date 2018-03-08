@@ -1,0 +1,7 @@
+---
+- name: Install remmina
+  package:
+    name: remmina
+    state: latest
+  become: True
+

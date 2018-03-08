@@ -109,6 +109,9 @@
     - role: awscli
       when: roles.awscli
 
+    - role: remmina
+      when: roles.remmina
+
     # Disk Management
     - role: gnome_disk_utility
       when: roles.gnome_disk_utility
