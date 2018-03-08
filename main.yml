@@ -97,6 +97,9 @@
     - role: dnsutils
       when: roles.dnsutils
 
+    - role: telnet
+      when: roles.telnet
+
     - role: ansible
       when: roles.ansible
 

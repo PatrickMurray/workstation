@@ -28,6 +28,7 @@ roles:
   inkscape: True
   cmus: True
   dnsutils: True
+  telnet: True
   ansible: True
   awscli: True
   gnome_disk_utility: True
