@@ -29,6 +29,7 @@ roles:
   cmus: True
   dnsutils: True
   telnet: True
+  curl: True
   netcat: True
   ansible: True
   awscli: True
