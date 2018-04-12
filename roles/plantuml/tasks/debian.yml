@@ -1,0 +1,7 @@
+---
+- name: Install plantuml
+  package:
+    name: plantuml
+    state: latest
+  become: True
+

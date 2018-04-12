@@ -1,0 +1,13 @@
+---
+- name: Install boto
+  package:
+    name: python-boto
+    state: latest
+  become: True
+
+- name: Install boto3
+  package:
+    name: python-boto3
+    state: latest
+  become: True
+

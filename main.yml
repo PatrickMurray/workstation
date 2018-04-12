@@ -109,6 +109,9 @@
     - role: ansible
       when: roles.ansible
 
+    - role: boto
+      when: roles.boto
+
     - role: awscli
       when: roles.awscli
 
@@ -149,4 +152,8 @@
     # Flask Development
     - role: lsyncd
       when: roles.lsyncd
+
+    # Visualization
+    - role: plantuml
+      when: roles.plantuml
 

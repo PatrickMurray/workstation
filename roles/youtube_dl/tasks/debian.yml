@@ -1,0 +1,5 @@
+---
+- package:
+    name: youtube-dl
+    state: latest
+  become: True

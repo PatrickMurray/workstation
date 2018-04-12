@@ -32,6 +32,7 @@ roles:
   curl: True
   netcat: True
   ansible: True
+  boto: True
   awscli: True
   remmina: True
   gnome_disk_utility: True
@@ -43,6 +44,7 @@ roles:
   nodejs: True
   npm: True
   lsyncd: True
+  plantuml: True
 
 network:
   ethernet_interface: enp0s25
