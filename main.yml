@@ -115,6 +115,9 @@
     - role: awscli
       when: roles.awscli
 
+    - role: gnupg
+      when: roles.gnupg
+
     - role: remmina
       when: roles.remmina
 

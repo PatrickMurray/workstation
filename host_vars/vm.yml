@@ -34,6 +34,7 @@ roles:
   ansible: True
   boto: True
   awscli: True
+  gnupg: True
   remmina: True
   gnome_disk_utility: True
   make: True

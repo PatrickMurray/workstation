@@ -1,0 +1,13 @@
+---
+- name: Install gpg
+  package:
+    name: gpg
+    state: latest
+  become: True
+
+- name: Install gnupg
+  package:
+    name: gnupg
+    state: latest
+  become: True
+
