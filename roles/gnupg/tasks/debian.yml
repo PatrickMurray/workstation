@@ -11,3 +11,9 @@
     state: latest
   become: True
 
+- name: Install gpa
+  package:
+    name: gpa
+    state: latest
+  become: True
+
