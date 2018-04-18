@@ -5,3 +5,8 @@
     state: latest
   become: True
 
+- name: Copy database to home folder
+  copy:
+    src: "files/passwords.kdbx"
+    dest: ~
+
