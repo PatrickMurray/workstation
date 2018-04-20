@@ -10,3 +10,9 @@
     src: files/.bash_profile
     dest: ~/.bash_profile
 
+
+- name: Configure .inputrc
+  copy:
+    src: files/.inputrc
+    dest: ~/.inputrc
+

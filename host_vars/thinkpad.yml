@@ -12,6 +12,7 @@ roles:
   resilio_sync: True
   openssh_client: True
   git: True
+  gnupg: True
   vim: True
   htop: True
   ranger: True
@@ -24,6 +25,7 @@ roles:
   tor: True
   spotify_client: True
   libreoffice: True
+  gnucash: True
   gimp: True
   inkscape: True
   cmus: True
@@ -34,7 +36,6 @@ roles:
   ansible: True
   boto: True
   awscli: True
-  gnupg: True
   remmina: True
   gnome_disk_utility: True
   make: True

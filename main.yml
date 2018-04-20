@@ -46,6 +46,9 @@
     - role: git
       when: roles.git
     
+    - role: gnupg
+      when: roles.gnupg
+
     # Common Applications
     - role: vim
       when: roles.vim
@@ -83,6 +86,9 @@
     - role: libreoffice
       when: roles.libreoffice
 
+    - role: gnucash
+      when: roles.gnucash
+
     # Multimedia
     - role: gimp
       when: roles.gimp
@@ -114,9 +120,6 @@
 
     - role: awscli
       when: roles.awscli
-
-    - role: gnupg
-      when: roles.gnupg
 
     - role: remmina
       when: roles.remmina
