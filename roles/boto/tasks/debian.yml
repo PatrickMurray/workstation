@@ -11,3 +11,13 @@
     state: latest
   become: True
 
+- name: Create AWS configuration directory
+  file:
+    path: ~/.aws
+    state: directory
+
+- name: Configure AWS credentials
+  copy:
+    src: files/credentials
+    dest: ~/.aws/credentials
+
