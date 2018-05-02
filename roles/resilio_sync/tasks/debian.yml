@@ -8,10 +8,6 @@
   apt_repository:
     repo: deb https://linux-packages.resilio.com/resilio-sync/deb resilio-sync non-free
     state: present
-  become: True
-
-- name: Update APT cache
-  apt:
     update_cache: True
   become: True
 
