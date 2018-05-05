@@ -5,6 +5,12 @@
     state: latest
   become: True
 
+- name: Install xautolock
+  package:
+    name: xautolock
+    state: latest
+  become: True
+
 - name: Configure .xinitrc
   copy:
     src: files/.xinitrc
