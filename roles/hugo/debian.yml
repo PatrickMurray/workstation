@@ -1,0 +1,7 @@
+---
+- name: Install hugo
+  package:
+    name: hugo
+    state: latest
+  become: True
+

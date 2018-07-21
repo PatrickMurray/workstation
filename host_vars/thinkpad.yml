@@ -36,13 +36,14 @@ roles:
   ansible: True
   boto: True
   awscli: True
-  remmina: True
+  remmina: False
   gnome_disk_utility: True
   make: True
   texlive: True
   python3: True
   python3_pip: True
   virtualenv: True
+  hugo: True
   nodejs: True
   npm: True
   lsyncd: True

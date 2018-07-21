@@ -148,6 +148,10 @@
 
     # Web Development
     
+    # Hugo
+    - role: hugo
+      when: roles.hugo
+
     # NodeJS
     - role: nodejs
       when: roles.nodejs
@@ -159,7 +163,7 @@
     - role: lsyncd
       when: roles.lsyncd
 
-    # Visualization
+    # Documentation & Visualization
     - role: plantuml
       when: roles.plantuml
 
