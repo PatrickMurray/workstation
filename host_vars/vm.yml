@@ -47,6 +47,7 @@ roles:
   nodejs: True
   npm: True
   lsyncd: True
+  pandoc: True
   plantuml: True
 
 network:

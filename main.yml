@@ -164,6 +164,9 @@
       when: roles.lsyncd
 
     # Documentation & Visualization
+    - role: pandoc
+      when: roles.pandoc
+    
     - role: plantuml
       when: roles.plantuml
 

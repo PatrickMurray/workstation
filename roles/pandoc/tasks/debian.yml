@@ -1,0 +1,6 @@
+---
+- name: Install pandoc
+  package:
+    name: pandoc
+    state: latest
+  become: True
