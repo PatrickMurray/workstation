@@ -36,6 +36,7 @@ roles:
   ansible: True
   boto: True
   awscli: True
+  terraform: True
   remmina: False
   gnome_disk_utility: True
   make: True

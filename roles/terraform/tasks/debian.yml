@@ -1,0 +1,50 @@
+---
+- name: Set Terraform version fact
+  set_fact:
+    terraform_version: 0.11.8
+
+- name: Add GPG Key
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 91A6E7F85D05C65630BEF18951852D87348FFC4C
+  become: True
+
+- name: Create a temporary download destination for binary archive
+  tempfile:
+    state: file
+    suffix: .terraform
+  register: temp_binary
+
+- name: Download binary archive
+  get_url:
+    url: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip"
+    dest: "{{ temp_binary.path }}"
+    sha256sum: 84ccfb8e13b5fce63051294f787885b76a1fedef6bdbecf51c5e586c9e20c9b7
+
+- name: Create a temporary directory destination for binary unarchival
+  tempfile:
+    state: directory
+    suffix: .terraform
+  register: temp_folder
+
+- name: Unarchive binary archive
+  unarchive:
+    src: "{{ temp_binary.path }}"
+    dest: "{{ temp_folder.path }}"
+
+- name: Clean up temporary binary archive
+  file:
+    state: absent
+    path: "{{ temp_binary.path }}"
+
+- name: Install Terraform binary
+  copy:
+    src: "{{ temp_folder.path }}/terraform"
+    dest: /usr/local/bin
+    mode: 0755
+  become: True
+
+- name: Clean up temporary binary unarchival directory
+  file:
+    state: absent
+    path: "{{ temp_folder.path }}"

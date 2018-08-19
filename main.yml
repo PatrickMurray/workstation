@@ -121,6 +121,9 @@
     - role: awscli
       when: roles.awscli
 
+    - role: terraform
+      when: roles.terraform
+
     - role: remmina
       when: roles.remmina
 
