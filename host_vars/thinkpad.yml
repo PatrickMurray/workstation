@@ -9,6 +9,7 @@ roles:
   i3: True
   unclutter: True
   redshift: True
+  geoclue: True
   arc_theme: True
   resilio_sync: True
   openssh_client: True

@@ -1,0 +1,11 @@
+---
+- name: Install geoclue-2.0
+  package:
+    state: latest
+    name: geoclue-2.0
+  become: True
+
+- name: Configure geoclue
+  copy:
+    src:
+    dest:
