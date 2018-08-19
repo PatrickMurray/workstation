@@ -31,6 +31,9 @@
     - role: unclutter
       when: roles.unclutter
 
+    - role: redshift
+      when: roles.redshift
+
     # Theme
     - role: arc_theme
       when: roles.arc_theme

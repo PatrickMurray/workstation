@@ -8,6 +8,7 @@ roles:
   bash: True
   i3: True
   unclutter: True
+  redshift: True
   arc_theme: True
   resilio_sync: True
   openssh_client: True
