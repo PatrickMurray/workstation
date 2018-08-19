@@ -7,5 +7,6 @@
 
 - name: Configure geoclue
   copy:
-    src:
-    dest:
+    src: files/geoclue.conf
+    dest: /etc/geoclue/geoclue.conf
+  become: True
