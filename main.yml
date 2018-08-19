@@ -34,9 +34,6 @@
     - role: redshift
       when: roles.redshift
 
-    - role: geoclue
-      when: roles.geoclue
-
     # Theme
     - role: arc_theme
       when: roles.arc_theme

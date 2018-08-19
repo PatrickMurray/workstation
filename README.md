@@ -1,8 +1,9 @@
 # Workstation Deployment Automation
 
+[screenshot](docs/images/screenshot.png)
+
 
 ## Prerequisites
-
 
 ```bash
 $ su

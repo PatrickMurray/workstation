@@ -164,5 +164,4 @@ new_window pixel 1
 exec --no-startup-id xautolock -time 5 -locker 'i3lock -c 000000'
 
 # redshift key bindings
-exec --no-startup-id redshift -t 2500:2500
-bindsym $mod+Shift+u exec pkill -USR1 redshift
+exec --no-startup-id redshift -l 40.7128:-74.0060
