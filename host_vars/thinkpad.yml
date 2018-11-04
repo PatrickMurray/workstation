@@ -46,8 +46,8 @@ roles:
   python3_pip: True
   virtualenv: True
   hugo: True
-  nodejs: True
-  npm: True
+  nodejs: False
+  npm: False
   lsyncd: True
   pandoc: True
   plantuml: True
