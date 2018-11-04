@@ -17,8 +17,3 @@
     file: "thinkpad.yml"
   when: hostname.stdout == "thinkpad"
 
-- name: Load zbook host variables
-  include_vars:
-    file: "zbook.yml"
-  when: hostname.stdout == "zbook"
-
