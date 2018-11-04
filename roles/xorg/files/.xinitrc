@@ -1,7 +1,25 @@
+#! /usr/bin/env bash
+
+
+# Monitor Setup
+#
+#  +--------+
+#  |        |
+#  |        | +----------------+
+#  |        | |                |
+#  |  DP-1  | |      DP-2      |    +--------+
+#  |        | |                |    | LVDS-2 |
+#  |        | +----------------+    +--------+
+#  +--------+                        \ ###### \
+#                                     +--------+
+#
+#   Monitor 1      Monitor 2          Integrated
+
+
+
 if [ -f ~/.Xresources ]; then
 	xrdb -merge -I $HOME ~/.Xresources
 fi
-
 
 xrandr | grep "DP-2" | grep " connected "
 
