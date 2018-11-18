@@ -1,0 +1,11 @@
+---
+- name: Install rofi
+  package:
+    name: rofi
+    state: latest
+  become: True
+
+- name: Configure rofi
+  copy:
+    src: files/config
+    dest: ~/.config/rofi/config

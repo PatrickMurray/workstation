@@ -28,6 +28,9 @@
     - role: i3
       when: roles.i3
     
+    - role: rofi
+      when: roles.rofi
+
     - role: unclutter
       when: roles.unclutter
 
@@ -77,12 +80,6 @@
     - role: keepassx
       when: roles.keepassx
     
-    - role: chromium
-      when: roles.chromium
-
-    - role: tor
-      when: roles.tor
-   
     - role: spotify_client
       when: roles.spotify_client
     
@@ -91,7 +88,17 @@
 
     - role: gnucash
       when: roles.gnucash
+    
+    # Web Browsers
+    - role: firefox
+      when: roles.firefox
 
+    - role: chromium
+      when: roles.chromium
+
+    - role: tor
+      when: roles.tor
+   
     # Multimedia
     - role: gimp
       when: roles.gimp

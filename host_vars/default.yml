@@ -7,6 +7,7 @@ roles:
   xorg: True
   bash: True
   i3: True
+  rofi: True
   unclutter: True
   redshift: True
   arc_theme: True
@@ -22,6 +23,7 @@ roles:
   neofetch: True
   mupdf: True
   keepassx: True
+  firefox: True
   chromium: True
   tor: True
   spotify_client: True

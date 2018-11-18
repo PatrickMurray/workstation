@@ -1,0 +1,6 @@
+---
+- package:
+    name: firefox-esr
+    state: latest
+  become: True
+
