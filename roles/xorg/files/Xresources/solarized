@@ -1,0 +1,56 @@
+#define solarized_base03        #002b36
+#define solarized_base02        #073642
+#define solarized_base01        #586e75
+#define solarized_base00        #657b83
+#define solarized_base0         #839496
+#define solarized_base1         #93a1a1
+#define solarized_base2         #eee8d5
+#define solarized_base3         #fdf6e3
+#define solarized_yellow        #b58900
+#define solarized_orange        #cb4b16
+#define solarized_red           #dc322f
+#define solarized_magenta       #d33682
+#define solarized_violet        #6c71c4
+#define solarized_blue          #268bd2
+#define solarized_cyan          #2aa198
+#define solarized_green         #859900
+
+*background:            solarized_base03
+*foreground:            solarized_base00
+*fading:                40
+*fadeColor:             solarized_base03
+*cursorColor:           solarized_base1
+*pointerColorBackground:solarized_base01
+*pointerColorForeground:solarized_base1
+
+!! black dark/light
+*color0:                solarized_base02
+*color8:                solarized_base03
+
+!! red dark/light
+*color1:                solarized_red
+*color9:                solarized_orange
+
+!! green dark/light
+*color2:                solarized_green
+*color10:               solarized_base01
+
+!! yellow dark/light
+*color3:                solarized_yellow
+*color11:               solarized_base00
+
+!! blue dark/light
+*color4:                solarized_blue
+*color12:               solarized_base0
+
+!! magenta dark/light
+*color5:                solarized_magenta
+*color13:               solarized_violet
+
+!! cyan dark/light
+*color6:                solarized_cyan
+*color14:               solarized_base1
+
+!! white dark/light
+*color7:                solarized_base2
+*color15:               solarized_base3
