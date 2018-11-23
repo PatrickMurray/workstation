@@ -24,3 +24,9 @@
     state: latest
   become: True
 
+- name: Install unattended-upgrades
+  package:
+    name: unattended-upgrades
+    state: latest
+  become: True
+
