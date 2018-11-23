@@ -93,9 +93,6 @@
     - role: firefox
       when: roles.firefox
 
-    - role: chromium
-      when: roles.chromium
-
     - role: tor
       when: roles.tor
    

@@ -24,7 +24,6 @@ roles:
   mupdf: True
   keepassx: True
   firefox: True
-  chromium: True
   tor: True
   spotify_client: True
   libreoffice: True
