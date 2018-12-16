@@ -4,7 +4,8 @@
     - name: Load host variables
       include: host_vars/main.yml
   tasks:
-    - include_role:
+    - name: Execute roles
+      include_role:
         name: "{{ item }}"
       with_items: "{{ roles }}"
 
