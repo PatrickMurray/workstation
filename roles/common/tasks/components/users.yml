@@ -1,0 +1,5 @@
+---
+- name: Create patrick user
+  user:
+    name: patrick
+  become: True

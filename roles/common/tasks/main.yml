@@ -1,41 +1,8 @@
 ---
-#- name: Install libreoffice
-#  apt:
-#    name: libreoffice
-#    state: latest
-#  become: True
-
-#- name: Install virtualenv
-#  apt:
-#    name: virtualenv
-#    state: latest
-#  become: True
-
-
-#- name: Install traceroute
-#  apt:
-#    name: traceroute
-#    state: latest
-#  become: True
-
-
-#- name: Install mysql-workbench
-#  apt:
-#    name: mysql-workbench
-#    state: latest
-#  become: True
-
-
-#- name: Install lsyncd
-#  apt:
-#    name: lsyncd
-#    state: latest
-#  become: True
-
-
-#- name: Install PIP3
-#  apt:
-#    name: python3-pip
-#    state: latest
-#  become: True
-
+- name: Include Components
+  include_tasks:
+    file: "components/{{ item }}.yml"
+  loop:
+    - users
+    - pacman
+    - pacaur

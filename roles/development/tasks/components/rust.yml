@@ -1,0 +1,6 @@
+---
+- name: Install rust
+  package:
+    name: rust
+    state: latest
+  become: True

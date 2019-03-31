@@ -1,0 +1,13 @@
+---
+- name: Install virt-manager
+  package:
+    name: virt-manager
+    state: latest
+  become: True
+
+- name: Add user to libvirt
+  user:
+    name: patrick
+    groups: libvirt
+    append: True
+  become: True

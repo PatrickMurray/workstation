@@ -1,7 +1,0 @@
----
-- name: Install telnet
-  package:
-    name: telnet
-    state: latest
-  become: True
-

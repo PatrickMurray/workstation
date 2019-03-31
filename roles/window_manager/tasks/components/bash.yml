@@ -1,0 +1,18 @@
+---
+- name: Configure .bashrc
+  copy:
+    src: files/bash/.bashrc
+    dest: ~/.bashrc
+
+
+- name: Configure .bash_profile
+  copy:
+    src: files/bash/.bash_profile
+    dest: ~/.bash_profile
+
+
+- name: Configure .inputrc
+  copy:
+    src: files/bash/.inputrc
+    dest: ~/.inputrc
+

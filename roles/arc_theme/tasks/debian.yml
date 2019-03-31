@@ -1,7 +1,0 @@
----
-- name: Install arc-theme
-  package:
-    name: arc-theme
-    state: latest
-  become: True
-

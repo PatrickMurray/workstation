@@ -1,0 +1,12 @@
+---
+firefox:
+  package:
+    name: firefox-esr
+    state: latest
+
+tor:
+  apt:
+    repository: deb http://deb.debian.org/debian stretch-backports main contrib
+  package:
+    name: torbrowser-launcher
+    state: latest

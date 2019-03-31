@@ -1,0 +1,15 @@
+[Unit]
+Description=Resilio Sync service
+Documentation=https://help.getsync.com/
+After=network.target network-online.target
+ 
+[Service]
+Type=simple
+User={{ resilio.service.user }}
+Group={{ resilio.service.group }}
+# UMask=0002
+ExecStart=/usr/bin/rslsync --nodaemon --config /home/{{ resilio.service.user }}/.config/rslsync/configuration.json
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
