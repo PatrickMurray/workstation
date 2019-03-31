@@ -1,0 +1,11 @@
+---
+- name: Install pacaur
+  package:
+    name: pacaur
+    state: latest
+  become: True
+
+
+- name: Upgrade whole system
+  aur:
+    upgrade: True

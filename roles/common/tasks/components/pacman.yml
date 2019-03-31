@@ -1,0 +1,8 @@
+---
+- name: Update pacman cache
+  pacman:
+    state: latest
+    update_cache: True
+    upgrade: True
+    recurse: True
+  become: True

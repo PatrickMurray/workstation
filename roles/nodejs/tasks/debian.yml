@@ -1,7 +1,0 @@
----
-- name: Install nodejs
-  package:
-    name: nodejs
-    state: latest
-  become: True
-

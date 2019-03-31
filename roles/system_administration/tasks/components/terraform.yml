@@ -1,0 +1,6 @@
+---
+- name: Install terraform
+  package:
+    name: terraform
+    state: latest
+  become: True

@@ -1,0 +1,7 @@
+---
+- name: Install texlive-core
+  package:
+    name: texlive-core
+    state: latest
+  become: True
+

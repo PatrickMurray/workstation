@@ -1,22 +1,33 @@
-# Workstation Deployment Automation
+# Workstation Configuration
+
+
+## Operating System Support
+
+| Distribution | Date Tested |
+| ------------ | ----------- |
+| Arch Linux   | 2019-02-24  |
+
+
+## Screenshots
 
 ![screenshot](docs/images/screenshot.png)
 
 
-## Prerequisites
+## Installation
+
+
+### Root
 
 ```bash
-$ su
-root $ nano /etc/apt/sources.list # remove cdrom
-root $ apt-get update
-root $ apt-get -y upgrade
-root $ apt-get -y install unzip ansible sudo
-root $ echo "patrick ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/patrick
-root $ exit
-$ wget https://www.github.com/patrickmurray/workstation/archive/master.zip
-$ unzip master.zip
-$ cd workstation-master/
-$ ansible-playbook workstation.yml # upgrade distribution
-$ ansible-playbook --ask-vault-pass workstation.yml # complete configuration
+pacman -S --noconfirm ansible
 ```
 
+
+### User
+
+```bash
+wget https://www.github.com/patrickmurray/workstation/archive/role_refactor.zip
+unzip role_refactor.zip
+cd workstation-role_refactor/
+ansible-playbook main.yml
+```

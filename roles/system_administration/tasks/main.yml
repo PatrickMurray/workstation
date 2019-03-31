@@ -1,0 +1,16 @@
+---
+- name: Include Components
+  include_tasks:
+    file: "components/{{ item }}.yml"
+  loop:
+    - htop
+    - dnsutils
+    - telnet
+    - curl
+    - netcat
+    - openssh
+    - ansible
+    - boto
+    - awscli
+    - terraform
+    - virt_manager

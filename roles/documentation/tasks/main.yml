@@ -3,7 +3,8 @@
   include_tasks:
     file: "components/{{ item }}.yml"
   loop:
-    - firmware
-    - interfaces
-#    - dns
-    - wpa_supplicant
+     - mupdf
+     - texlive
+     - pandoc
+#     - plantuml
+#    - libreoffice

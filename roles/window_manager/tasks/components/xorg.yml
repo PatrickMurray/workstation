@@ -1,0 +1,73 @@
+---
+- name: Install xorg-server
+  package:
+    name: xorg-server
+    state: latest
+  become: True
+
+- name: Install xorg-xinit
+  package:
+    name: xorg-xinit
+    state: latest
+  become: True
+
+- name: Install xorg-xrandr
+  package:
+    name: xorg-xrandr
+    state: latest
+  become: True
+
+- name: Install xorg-xsetroot
+  package:
+    name: xorg-xsetroot
+    state: latest
+  become: True
+
+- name: Install xautolock
+  package:
+    name: xautolock
+    state: latest
+  become: True
+
+- name: Configure .xinitrc
+  copy:
+    src: files/xorg/.xinitrc
+    dest: ~/.xinitrc
+
+- name: Configure .Xresources
+  copy:
+    src: files/xorg/.Xresources
+    dest: ~/.Xresources
+
+- name: Install xorg-xbacklight
+  package:
+    name: xorg-xbacklight
+    state: latest
+  become: True
+
+- name: Install xdg-user-dirs
+  package:
+    name: xdg-user-dirs
+    state: latest
+  become: True
+
+- name: Create home directory structure
+  command: xdg-user-dirs-update
+
+- name: Create xdg Configuration Directory
+  file:
+    path: ~/.local/share/applications
+    state: directory
+    recurse: True
+
+- name: Configure xdg Default Applications
+  copy:
+    src: files/xorg/defaults.list
+    dest: ~/.local/share/applications/defaults.list
+
+- name: Install xterm
+  package:
+    name: xterm
+    state: latest
+  become: True
+

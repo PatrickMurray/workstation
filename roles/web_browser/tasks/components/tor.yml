@@ -1,0 +1,6 @@
+---
+- name: Install tor-browser-en
+  package:
+    name: tor-browser-en
+    state: latest
+  become: True

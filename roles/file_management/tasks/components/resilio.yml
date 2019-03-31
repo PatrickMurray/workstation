@@ -1,0 +1,45 @@
+---
+- name: Install rslsync
+  aur:
+    name: rslsync
+
+
+
+- name: Create ~/.config/rslsync
+  file:
+    path: ~/.config/rslsync
+    state: directory
+
+
+- name: Create ~/.rslsync
+  file:
+    path: ~/.rslsync
+    state: directory
+
+
+- name: Create ~/Resilio
+  file:
+    path: ~/Resilio
+    state: directory
+
+
+- name: Configure rslsync
+  template:
+    src: resilio/configuration.j2
+    dest: ~/.config/rslsync/configuration.json
+
+
+- name: Setting up rslsync.service
+  template:
+    src: resilio/service.j2
+    dest: /usr/lib/systemd/system/rslsync.service
+  become: True
+
+
+- name: Restart rslsync
+  systemd:
+    name: rslsync
+    state: restarted
+    daemon_reload: True
+    enabled: True
+  become: True

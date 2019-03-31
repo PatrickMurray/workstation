@@ -1,0 +1,7 @@
+---
+- name: Install python-virtualenv
+  package:
+    name: python-virtualenv
+    state: latest
+  become: True
+

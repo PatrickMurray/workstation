@@ -1,0 +1,49 @@
+{
+  "device_name": "{{ resilio.configuration.device_name }}",
+  "listening_port": 0,
+
+  "storage_path": "{{ resilio.configuration.storage_path }}",
+
+  "pid_file": "{{ resilio.configuration.pid_file }}",
+
+  "use_upnp": true,
+
+  "download_limit": 0,
+  "upload_limit": 0,
+
+  "directory_root": "{{ resilio.configuration.directory_root }}",
+  "directory_root_policy": "all",
+
+  "webui": {
+    "listen": "0.0.0.0:8888",
+
+    "login": "{{ resilio.configuration.username }}",
+    "password_hash_unified": "{{ resilio.configuration.password_hash }}",
+    "password_hash_salt_unified" : "{{ resilio.configuration.password_salt }}",
+
+    "allow_empty_password": false,
+
+    "force_https": false,
+
+    "dir_whitelist": [
+{% set comma = joiner(",") %}
+{% for directory in resilio.configuration.whitelist %}
+        "{{ directory }}"{{ comma() }}
+{% endfor %}
+    ]
+
+  },
+
+  "shared_folders": [
+{% set comma = joiner(",") %}
+{% for directory in resilio.configuration.shared_folders %}
+    {
+      "dir": "{{ directory.dir }}",
+      "secret": "{{ directory.secret }}",
+      "selective_sync": {{ directory.selective_sync | bool | lower }}
+    }{{ comma() }}
+{% endfor %}
+  ],
+
+  "folder_rescan_interval": 600
+}

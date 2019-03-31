@@ -1,11 +1,14 @@
 ---
 - hosts: localhost
+  vars_files:
+    - secrets.yml
   pre_tasks:
     - name: Load host variables
       include: host_vars/main.yml
   tasks:
     - name: Execute roles
       include_role:
-        name: "{{ item }}"
-      with_items: "{{ roles }}"
-
+        name: "{{ role }}"
+      loop_control:
+        loop_var: role
+      loop: "{{ roles }}"

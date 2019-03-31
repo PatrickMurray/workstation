@@ -1,0 +1,12 @@
+---
+- name: Install python3
+  package:
+    name: python3
+    state: latest
+  become: True
+
+- name: Install python-pip
+  package:
+    name: python-pip
+    state: latest
+  become: True

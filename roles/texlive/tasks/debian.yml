@@ -1,7 +1,0 @@
----
-- name: Install texlive
-  package:
-    name: texlive-full
-    state: latest
-  become: True
-

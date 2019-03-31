@@ -1,0 +1,12 @@
+---
+- name: Install keepassxc
+  package:
+    name: keepassxc
+    state: latest
+  become: True
+
+- name: Copy database to home folder
+  copy:
+    src: "files/keepassx/passwords.kdbx"
+    dest: "/home/patrick"
+

@@ -3,7 +3,10 @@
   include_tasks:
     file: "components/{{ item }}.yml"
   loop:
-    - firmware
-    - interfaces
-#    - dns
-    - wpa_supplicant
+    - git
+    - vim
+    - make
+    - python3
+    - virtualenv
+    - hugo
+    - rust
