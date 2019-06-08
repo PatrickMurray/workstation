@@ -3,5 +3,3 @@
   package:
     name: curl
     state: latest
-  become: True
-

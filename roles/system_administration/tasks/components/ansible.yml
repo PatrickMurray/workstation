@@ -3,5 +3,3 @@
   package:
     name: ansible
     state: latest
-  become: True
-

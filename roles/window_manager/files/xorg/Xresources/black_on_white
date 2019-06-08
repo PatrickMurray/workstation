@@ -1,3 +1,6 @@
+# Theme
+
+
 ! special
 *.foreground:   #000000
 *.background:   #ffffff
@@ -35,3 +38,8 @@
 *.color7:       #e5e5e5
 *.color15:      #ffffff
 
+
+# RXVT
+
+
+URxvt.scrollBar: false

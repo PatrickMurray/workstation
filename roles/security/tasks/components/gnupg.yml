@@ -1,19 +1,11 @@
 ---
-#- name: Install gpg
-#  package:
-#    name: gpg
-#    state: latest
-#  become: True
-
 - name: Install gnupg
   package:
     name: gnupg
     state: latest
-  become: True
+
 
 - name: Install gpa
   package:
     name: gpa
     state: latest
-  become: True
-

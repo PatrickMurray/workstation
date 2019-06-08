@@ -3,4 +3,3 @@
   package:
     state: latest
     name: redshift
-  become: True

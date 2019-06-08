@@ -2,38 +2,46 @@
 - name: Install rslsync
   aur:
     name: rslsync
-
+  become: True
+  become_user: pacaur
 
 
 - name: Create ~/.config/rslsync
   file:
     path: ~/.config/rslsync
     state: directory
+  become: True
+  become_user: "{{ user.name }}"
 
 
 - name: Create ~/.rslsync
   file:
     path: ~/.rslsync
     state: directory
+  become: True
+  become_user: "{{ user.name }}"
 
 
 - name: Create ~/Resilio
   file:
     path: ~/Resilio
     state: directory
+  become: True
+  become_user: "{{ user.name }}"
 
 
 - name: Configure rslsync
   template:
     src: resilio/configuration.j2
     dest: ~/.config/rslsync/configuration.json
+  become: True
+  become_user: "{{ user.name }}"
 
 
 - name: Setting up rslsync.service
   template:
     src: resilio/service.j2
     dest: /usr/lib/systemd/system/rslsync.service
-  become: True
 
 
 - name: Restart rslsync
@@ -42,4 +50,3 @@
     state: restarted
     daemon_reload: True
     enabled: True
-  become: True

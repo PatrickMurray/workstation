@@ -3,20 +3,27 @@
   package:
     name: aws-cli
     state: latest
-  become: True
+
 
 - name: Create AWS configuration directory
   file:
     path: ~/.aws
     state: directory
+  become: True
+  become_user: "{{ user.name }}"
+
 
 - name: Configure AWS
   copy:
     src: files/awscli/config
     dest: ~/.aws/config
+  become: True
+  become_user: "{{ user.name}}"
+
 
 - name: Configure AWS credentials
   copy:
     src: files/awscli/credentials
     dest: ~/.aws/credentials
-
+  become: True
+  become_user: "{{ user.name }}"

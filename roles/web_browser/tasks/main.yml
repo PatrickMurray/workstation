@@ -4,4 +4,4 @@
     file: "components/{{ item }}.yml"
   loop:
     - firefox
-#    - tor
+    - tor

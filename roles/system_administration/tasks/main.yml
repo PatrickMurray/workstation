@@ -4,9 +4,11 @@
     file: "components/{{ item }}.yml"
   loop:
     - htop
+    - gotop
     - dnsutils
     - telnet
     - curl
+    - strace
     - netcat
     - openssh
     - ansible
@@ -14,3 +16,4 @@
     - awscli
     - terraform
     - virt_manager
+    - apache_tools

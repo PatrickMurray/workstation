@@ -1,3 +1,6 @@
+# Theme
+
+
 ! special
 *.foreground:   #ffffff
 *.background:   #000000
@@ -35,3 +38,8 @@
 *.color7:       #e5e5e5
 *.color15:      #ffffff
 
+
+# RXVT Terminal
+
+
+URxvt.scrollBar: false

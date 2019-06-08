@@ -5,5 +5,5 @@
   loop:
     - alsamixer
 #    - spotify
-#    - cmus
-#    - youtube_dl
+    - cmus
+    - youtube_dl

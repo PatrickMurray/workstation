@@ -3,5 +3,3 @@
   package:
     name: dnsutils
     state: latest
-  become: True
-

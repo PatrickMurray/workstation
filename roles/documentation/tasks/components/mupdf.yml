@@ -3,5 +3,3 @@
   package:
     name: mupdf
     state: latest
-  become: True
-

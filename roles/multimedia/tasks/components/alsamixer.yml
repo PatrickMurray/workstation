@@ -3,12 +3,9 @@
   package:
     name: alsa-utils
     state: latest
-  become: True
 
 
 - name: Install pulseaudio
   package:
     name: pulseaudio
     state: latest
-  become: True
-

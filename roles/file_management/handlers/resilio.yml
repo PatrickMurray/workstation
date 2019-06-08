@@ -1,6 +1,0 @@
----
-- name: restart resilio
-  service:
-    name: rslsync
-    state: restarted
-  become: True

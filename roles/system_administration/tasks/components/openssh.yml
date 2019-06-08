@@ -1,25 +1,26 @@
 ---
-#- name: Install openssh-client
-#  package:
-#    name: openssh-client
-#    state: latest
-#  become: True
-
 - name: Create ~/.ssh directory
   file:
     path: ~/.ssh
     state: directory
     mode: 0700
+  become: True
+  become_user: "{{ user.name }}"
+
 
 - name: Distribute SSH public key
   copy:
     src: files/openssh/id_rsa.pub
     dest: ~/.ssh/id_rsa.pub
     mode: 0644
+  become: True
+  become_user: "{{ user.name }}"
+
 
 - name: Distribute SSH private key
   copy:
     src: files/openssh/id_rsa
     dest: ~/.ssh/id_rsa
     mode: 0600
-
+  become: True
+  become_user: "{{ user.name }}"

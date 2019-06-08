@@ -37,11 +37,12 @@
   "shared_folders": [
 {% set comma = joiner(",") %}
 {% for directory in resilio.configuration.shared_folders %}
+    {{ comma() }}
     {
       "dir": "{{ directory.dir }}",
       "secret": "{{ directory.secret }}",
       "selective_sync": {{ directory.selective_sync | bool | lower }}
-    }{{ comma() }}
+    }
 {% endfor %}
   ],
 

@@ -3,5 +3,3 @@
   package:
     name: texlive-core
     state: latest
-  become: True
-

@@ -3,5 +3,3 @@
   package:
     name: unclutter
     state: latest
-  become: True
-

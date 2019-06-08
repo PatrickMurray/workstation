@@ -3,5 +3,3 @@
   package:
     name: neofetch
     state: latest
-  become: True
-
