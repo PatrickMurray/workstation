@@ -3,5 +3,3 @@
   package:
     name: inkscape
     state: latest
-  become: True
-

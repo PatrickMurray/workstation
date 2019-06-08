@@ -1,0 +1,6 @@
+---
+- name: Install apache-tools
+  aur:
+    name: apache-tools
+  become: True
+  become_user: pacaur

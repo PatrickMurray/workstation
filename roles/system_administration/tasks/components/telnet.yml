@@ -3,5 +3,3 @@
   package:
     name: inetutils
     state: latest
-  become: True
-

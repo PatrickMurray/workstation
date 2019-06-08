@@ -1,5 +1,5 @@
 ---
 - name: Create patrick user
   user:
-    name: patrick
-  become: True
+    name: "{{ user.name }}"
+    home: "{{ user.home }}"

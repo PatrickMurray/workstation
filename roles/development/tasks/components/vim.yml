@@ -3,11 +3,11 @@
   package:
     name: vim
     state: latest
-  become: True
 
 
 - name: Configure .vimrc
   copy:
     src: files/vim/.vimrc
     dest: ~/.vimrc
-
+  become: True
+  become_user: "{{ user.name }}"

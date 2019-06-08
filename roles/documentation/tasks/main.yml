@@ -6,5 +6,4 @@
      - mupdf
      - texlive
      - pandoc
-#     - plantuml
-#    - libreoffice
+     - plantuml

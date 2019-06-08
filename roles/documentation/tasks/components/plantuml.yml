@@ -1,7 +1,6 @@
 ---
 - name: Install plantuml
-  package:
+  aur:
     name: plantuml
-    state: latest
   become: True
-
+  become_user: pacaur

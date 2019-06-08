@@ -1,6 +1,19 @@
 ---
-- name: Install tor-browser-en
+- name: Install tor
   package:
-    name: tor-browser-en
+    name: tor
     state: latest
+
+- name: Add tor-browser GPG key
+  gpg_key:
+    state: latest
+    keyserver: pool.sks-keyservers.net
+    id: EB774491D9FF06E2
   become: True
+  become_user: pacaur
+
+- name: Install tor-browser
+  aur:
+    name: tor-browser
+  become: True
+  become_user: pacaur

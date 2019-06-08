@@ -3,4 +3,3 @@
   package:
     name: firefox
     state: latest
-  become: True

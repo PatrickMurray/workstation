@@ -3,10 +3,11 @@
   package:
     name: keepassxc
     state: latest
-  become: True
+
 
 - name: Copy database to home folder
   copy:
     src: "files/keepassx/passwords.kdbx"
-    dest: "/home/patrick"
-
+    dest: "{{ user.home }}"
+  become: True
+  become_user: "{{ user.name }}"

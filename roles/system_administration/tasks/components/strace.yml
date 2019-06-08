@@ -1,0 +1,5 @@
+---
+- name: Install strace
+  package:
+    name: strace
+    state: latest

@@ -3,5 +3,3 @@
   package:
     name: gnucash
     state: latest
-  become: True
-

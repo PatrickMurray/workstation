@@ -1,6 +1,6 @@
 ---
-- name: Install spotify
+- name: Install gotop
   aur:
-    name: spotify
+    name: gotop
   become: True
   become_user: pacaur

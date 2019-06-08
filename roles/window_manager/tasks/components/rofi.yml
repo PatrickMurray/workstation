@@ -3,14 +3,19 @@
   package:
     name: rofi
     state: latest
-  become: True
+
 
 - name: Create rofi configuration directory
   file:
     state: directory
     path: ~/.config/rofi
+  become: True
+  become_user: "{{ user.name }}"
+
 
 - name: Configure rofi
   copy:
     src: files/rofi/config
     dest: ~/.config/rofi/config
+  become: True
+  become_user: "{{ user.name }}"

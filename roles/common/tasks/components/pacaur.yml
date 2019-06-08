@@ -3,9 +3,22 @@
   package:
     name: pacaur
     state: latest
-  become: True
+
+
+- name: Create pacaur user
+  user:
+    name: pacaur
+    group: wheel
+
+
+- name: Pacaur sudoers.d authorization
+  copy:
+    src: files/pacaur/sudoers
+    dest: /etc/sudoers.d/pacaur
 
 
 - name: Upgrade whole system
   aur:
     upgrade: True
+  become: True
+  become_user: pacaur
