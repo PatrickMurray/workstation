@@ -1,0 +1,18 @@
+---
+- name: Install apt-transport-https
+  package:
+    name: apt-transport-https
+    state: latest
+
+
+- name: Configure /etc/apt/sources.list
+  copy:
+    src: files/apt/sources.list
+    dest: /etc/apt/sources.list
+
+
+- name: Update apt
+  apt:
+    autoclean: True
+    autoremove: True
+    update_cache: True

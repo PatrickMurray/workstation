@@ -1,4 +1,10 @@
 ---
+- name: Install bash
+  package:
+    name: bash
+    state: latest
+
+
 - name: Configure .bashrc
   copy:
     src: files/bash/.bashrc

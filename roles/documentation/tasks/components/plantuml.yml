@@ -1,6 +1,5 @@
 ---
-- name: Install plantuml
-  aur:
-    name: plantuml
-  become: True
-  become_user: pacaur
+- name: Install ruby-asciidoctor-plantuml
+  package:
+    name: ruby-asciidoctor-plantuml
+    state: latest

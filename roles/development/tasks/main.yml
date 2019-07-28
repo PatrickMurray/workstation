@@ -5,7 +5,7 @@
   loop:
     - git
     - vim
-    - make
+#    - make
     - python3
     - virtualenv
     - hugo

@@ -5,5 +5,4 @@
   loop:
     - firmware
     - interfaces
-#    - dns
     - wpa_supplicant

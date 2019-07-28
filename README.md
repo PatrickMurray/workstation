@@ -3,9 +3,9 @@
 
 ## Operating System Support
 
-| Distribution | Date Tested |
-| ------------ | ----------- |
-| Arch Linux   | 2019-02-24  |
+| Operating Systemn | Release | Date Tested |
+| ----------------- | ------- | ----------- |
+| Debian            | 10.0    | 2019-07-07  |
 
 
 ## Screenshots
@@ -20,13 +20,21 @@
 
 ```bash
 # Install Ansible
-pacman -S --noconfirm ansible
+apt-get -y install ansible
 
 # Fetch Configuration Management
 wget https://www.github.com/patrickmurray/workstation/archive/master.zip
-unzip role_refactor.zip
-cd workstation-role_master/
+unzip master.zip
+cd workstation-master/
 
 # Configure :)
 ansible-playbook main.yml
 ```
+
+
+## To-Do
+
+1) Wireless firmware
+2) WPA supplicant configuration & testing
+3) Move user password to Ansible vault
+4) Setup Resilio-Sync

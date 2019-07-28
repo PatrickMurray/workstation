@@ -1,19 +1,48 @@
 ---
+
+- name: Add tor-browser GPG key
+  apt_key:
+    url: https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc
+
+
+- name: Install apt-transport-tor
+  package:
+    name: apt-transport-tor
+    state: latest
+
+
+- name: Add tor apt repository
+  apt_repository:
+    repo: "{{ item }}"
+    update_cache: True
+  with_items:
+    - deb     tor://sdscoq7snqtznauu.onion/torproject.org buster main
+    - deb-src tor://sdscoq7snqtznauu.onion/torproject.org buster main
+
+
+- name: Add Debian experimental repository
+  apt_repository:
+    repo: "{{ item }}"
+    update_cache: True
+  with_items:
+    - deb     https://deb.debian.org/debian experimental main contrib
+    - deb-src https://deb.debian.org/debian experimental main contrib
+
+
+- name: Install deb.torproject.org-keyring
+  package:
+    name: deb.torproject.org-keyring
+    state: latest
+
+
 - name: Install tor
   package:
     name: tor
     state: latest
 
-- name: Add tor-browser GPG key
-  gpg_key:
-    state: latest
-    keyserver: pool.sks-keyservers.net
-    id: EB774491D9FF06E2
-  become: True
-  become_user: pacaur
 
-- name: Install tor-browser
-  aur:
-    name: tor-browser
-  become: True
-  become_user: pacaur
+- name: Install torbrowser-launcher
+  apt:
+    name: torbrowser-launcher
+    default_release: experimental
+    state: latest

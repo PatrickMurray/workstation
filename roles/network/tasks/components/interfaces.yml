@@ -3,57 +3,15 @@
   file:
     path: /etc/network/interfaces
     mode: 0600
-  become: True
+
 
 - name: Configure Network Interface
   template:
     src: templates/interfaces/interfaces
     dest: /etc/network/interfaces
-  become: True
 
-- name: Configure Network systemd Unit
-  copy:
-    src: files/interfaces/networking.service
-    dest: /lib/systemd/system/networking.service
-  become: True
-  register: networking_unit
-
-- name: Reload Network systemd Unit
-  systemd:
-    name: networking.service
-    state: restarted
-    daemon_reload: True
-  become: True
-  when: networking_unit.changed
-
-#- name: Configure Network Resume systemd Unit
-#  copy:
-#    src: files/interfaces/networking_resume.service
-#    dest: /lib/systemd/system/networking_resume.service
-#  become: True
-#  register: networking_resume_unit
-
-#- name: Reload Network Reload systemd Unit
-#  systemd:
-#    name: networking_resume.service
-#    enabled: True
-#    daemon_reload: True
-#  become: True
-#  when: networking_resume_unit.changed
-
-- name: Bring ethernet interface up
-  command: "ip link set dev {{ network.ethernet_interface }} up"
-  become: True
-  when: network.ethernet_interface is not none
-
-- name: Bring wireless interface up
-  command: "ip link set dev {{ network.wireless_interface }} up"
-  become: True
-  when: network.wireless_interface is not none
 
 - name: Configure DHCP Client
   template:
     src: templates/interfaces/dhclient.conf
     dest: /etc/dhcp/dhclient.conf
-  become: True
-

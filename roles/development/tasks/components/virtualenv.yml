@@ -1,5 +1,5 @@
 ---
-- name: Install python-virtualenv
+- name: Install python3-virtualenv
   package:
-    name: python-virtualenv
+    name: python3-virtualenv
     state: latest

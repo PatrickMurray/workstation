@@ -4,6 +4,16 @@
     name: i3
     state: latest
 
+- name: Install i3status
+  package:
+    name: i3status
+    state: latest
+
+- name: Install i3lock
+  package:
+    name: i3lock
+    state: latest
+
 
 - name: Create .config Directory
   file:
