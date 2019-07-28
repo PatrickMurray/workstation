@@ -1,5 +1,7 @@
 ---
-- name: Create patrick user
+- name: "Create {{ user.name }} user"
   user:
     name: "{{ user.name }}"
+#    password: "{{ user.password_hash }}"
     home: "{{ user.home }}"
+    shell: "{{ user.shell }}"

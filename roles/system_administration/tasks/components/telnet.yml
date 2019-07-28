@@ -1,5 +1,5 @@
 ---
-- name: Install inetutils
+- name: Install telnet
   package:
-    name: inetutils
+    name: telnet
     state: latest

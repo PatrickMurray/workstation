@@ -1,25 +1,25 @@
 ---
 - name: Install xorg-server
   package:
-    name: xorg-server
+    name: xorg
     state: latest
 
 
-- name: Install xorg-xinit
+- name: Install xinit
   package:
-    name: xorg-xinit
+    name: xinit
     state: latest
 
 
-- name: Install xorg-xrandr
+- name: Install xauth
   package:
-    name: xorg-xrandr
+    name: xauth
     state: latest
 
 
-- name: Install xorg-xsetroot
+- name: Install x11-xserver-utils
   package:
-    name: xorg-xsetroot
+    name: x11-xserver-utils
     state: latest
 
 
@@ -45,9 +45,9 @@
   become_user: "{{ user.name }}"
 
 
-- name: Install xorg-xbacklight
+- name: Install xbacklight
   package:
-    name: xorg-xbacklight
+    name: xbacklight
     state: latest
 
 

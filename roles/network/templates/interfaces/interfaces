@@ -2,21 +2,21 @@
 auto lo
 iface lo inet loopback
 
-{% if network.ethernet_interface is not none %}
 
-# Ethernet Interface
-allow-hotplug {{ network.ethernet_interface }}
-iface {{ network.ethernet_interface }} inet dhcp
+# Ethernet Interfaces
+{% for interface in network.ethernet.interfaces %}
 
-{% endif %}
+allow-hotplug {{ interface }}
+iface {{ interface }} inet dhcp
 
+{% endfor %}
 
-{% if network.wireless_interface is not none %}
 
 # Wireless Interface
-allow-hotplug {{ network.wireless_interface }}
-iface {{ network.wireless_interface }} inet dhcp
+{% for interface in network.wireless.interfaces %}
+
+allow-hotplug {{ interface }}
+iface {{ interface }} inet dhcp
 	wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
 
-{% endif %}
-
+{% endfor %}

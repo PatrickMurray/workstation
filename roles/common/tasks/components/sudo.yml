@@ -1,0 +1,10 @@
+---
+- name: Install sudo
+  package:
+    name: sudo
+    state: latest
+
+- name: Configure sudoers
+  template:
+    src: sudoers/user.j2
+    dest: "/etc/sudoers.d/{{ user.name }}"

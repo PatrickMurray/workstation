@@ -1,11 +1,5 @@
 ---
-- name: Install boto
+- name: Install python3-boto3
   package:
-    name: python-boto
-    state: latest
-
-
-- name: Install boto3
-  package:
-    name: python-boto3
+    name: python3-boto3
     state: latest

@@ -1,6 +1,5 @@
 ---
 - name: Install gotop
-  aur:
+  package:
     name: gotop
-  become: True
-  become_user: pacaur
+    state: latest

@@ -5,8 +5,8 @@
     state: latest
 
 
-- name: Add user to libvirt
-  user:
-    name: "{{ user.name }}"
-    groups: libvirt
-    append: True
+#- name: Add user to libvirt
+#  user:
+#    name: "{{ user.name }}"
+#    groups: libvirt
+#    append: True
