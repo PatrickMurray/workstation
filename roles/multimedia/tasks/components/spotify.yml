@@ -1,6 +1,16 @@
 ---
-- name: Install spotify
-  aur:
-    name: spotify
-  become: True
-  become_user: pacaur
+- name: Add spotify apt key
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: A87FF9DF48BF1C90
+
+
+- name: Add spotify apt repository
+  apt_repository:
+    repo: deb http://repository.spotify.com stable non-free
+    update_cache: True
+
+
+- name: Install spotify-client
+  package:
+    name: spotify-client
