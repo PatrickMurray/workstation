@@ -4,6 +4,7 @@
     file: "components/{{ item }}.yml"
   loop:
     - alsamixer
-#    - spotify
     - cmus
     - youtube_dl
+    - vlc
+    - spotify

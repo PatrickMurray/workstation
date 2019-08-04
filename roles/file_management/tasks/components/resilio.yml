@@ -1,11 +1,11 @@
 ---
-- name: Add resilio apt key
+- name: Add resilio-sync apt key
   apt_key:
     url: https://linux-packages.resilio.com/resilio-sync/key.asc
     id: BE66CC4C3F171DE2
 
 
-- name: Add resilio sync apt repository
+- name: Add resilio-sync apt repository
   apt_repository:
     repo: deb https://linux-packages.resilio.com/resilio-sync/deb resilio-sync non-free
     update_cache: True
@@ -17,16 +17,32 @@
     state: latest
 
 
-- name: Set up resilio-sync.service
-  template:
-    src: resilio/service.j2
-    dest: /usr/lib/systemd/system/resilio-sync.service
+- name: Create ~/.config/rslsync
+  file:
+    path: "{{ resilio.configuration.configuration_directory }}"
+    state: directory
+    owner: "{{ resilio.service.user }}"
+    group: "{{ resilio.service.group }}"
+  become: True
+  become_user: "{{ user.name }}"
 
 
 - name: Configure resilio-sync
   template:
     src: resilio/configuration.j2
-    dest: /etc/resilio-sync/config.json
+    dest: "{{ resilio.configuration.configuration_path }}"
+    owner: "{{ resilio.service.user }}"
+    group: "{{ resilio.service.group }}"
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: Create ~/.rslsync
+  file:
+    path: "{{ resilio.configuration.directory_root }}"
+    state: directory
+  become: True
+  become_user: "{{ user.name }}"
 
 
 - name: Create ~/Resilio
@@ -40,11 +56,10 @@
     - "/home/{{ user.name }}/Resilio"
 
 
-- name: Add user to resilio-sync group
-  user:
-    name: "{{ user.name }}"
-    groups: "{{ resilio.service.group }}"
-    append: True
+- name: Configure resilio-sync systemd service
+  template:
+    src: resilio/service.j2
+    dest: "{{ resilio.service.path }}"
 
 
 - name: Restart resilio-sync
