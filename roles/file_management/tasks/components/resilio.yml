@@ -1,11 +1,11 @@
 ---
-- name: Add resilio apt key
+- name: Add resilio-sync apt key
   apt_key:
     url: https://linux-packages.resilio.com/resilio-sync/key.asc
     id: BE66CC4C3F171DE2
 
 
-- name: Add resilio sync apt repository
+- name: Add resilio-sync apt repository
   apt_repository:
     repo: deb https://linux-packages.resilio.com/resilio-sync/deb resilio-sync non-free
     update_cache: True
@@ -27,7 +27,7 @@
   become_user: "{{ user.name }}"
 
 
-- name: Configure rslsync
+- name: Configure resilio-sync
   template:
     src: resilio/configuration.j2
     dest: "{{ resilio.configuration.configuration_path }}"
