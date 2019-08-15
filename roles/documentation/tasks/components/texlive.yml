@@ -1,5 +1,5 @@
 ---
-- name: Install texlive-base
+- name: Install texlive
   package:
-    name: texlive-base
+    name: texlive
     state: latest
