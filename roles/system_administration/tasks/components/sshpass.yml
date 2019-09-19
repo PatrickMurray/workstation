@@ -1,0 +1,5 @@
+---
+- name: Install sshpass
+  package:
+    name: sshpass
+    state: latest

@@ -11,6 +11,7 @@
     - strace
     - netcat
     - openssh
+    - sshpass
     - ansible
     - boto
     - awscli
