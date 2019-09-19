@@ -14,5 +14,10 @@
 - name: Update apt
   apt:
     autoclean: True
-    autoremove: True
     update_cache: True
+
+
+- name: Upgrade apt
+  apt:
+    upgrade: dist
+    autoremove: True
