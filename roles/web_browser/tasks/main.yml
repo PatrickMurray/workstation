@@ -6,5 +6,5 @@
     loop_var: component
   loop:
     - firefox
-#    - tor
+    - tor
 
