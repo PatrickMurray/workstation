@@ -1,0 +1,5 @@
+---
+- name: Install graphviz
+  package:
+    name: graphviz
+    state: latest
