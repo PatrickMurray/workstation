@@ -1,42 +1,57 @@
+#define theme_black         #000000
+#define theme_black_light   #454545
+
+#define theme_red           #ff0000
+#define theme_red_light     #ff8080
+
+#define theme_green         #00ff00
+#define theme_green_light   #80ff80
+
+#define theme_yellow        #ffff00
+#define theme_yellow_light  #ffff80
+
+#define theme_blue          #0000ff
+#define theme_blue_light    #8080ff
+
+#define theme_magenta       #ff00ff
+#define theme_magenta_light #ff80ff
+
+#define theme_cyan          #00ffff
+#define theme_cyan_light    #80ffff
+
+#define theme_white         #ffffff
+#define theme_white_light   #f2f2f2
+
+
 # Theme
 
 
 ! special
-*.foreground:   #ffffff
-*.background:   #000000
-*.cursorColor:  #000000
+*.foreground:   theme_white
+*.background:   theme_black
+*.cursorColor:  theme_white
 
-! black
-*.color0:       #000000
-*.color8:       #4d4d4d
 
-! red
-*.color1:       #cc0403
-*.color9:       #3e0605
+! base colors
+*.color0:       theme_black
+*.color1:       theme_red
+*.color2:       theme_green
+*.color3:       theme_yellow
+*.color4:       theme_blue
+*.color5:       theme_magenta
+*.color6:       theme_cyan
+*.color7:       theme_white
 
-! green
-*.color2:       #19cb00
-*.color10:      #23fd00
 
-! yellow
-*.color3:       #cecb00
-*.color11:      #fffd00
-
-! blue
-*.color4:       #001cd1
-*.color12:      #0026ff
-
-! magenta
-*.color5:       #cb1ed1
-*.color13:      #fd28ff
-
-! cyan
-*.color6:       #0dcdcd
-*.color14:      #14ffff
-
-! white
-*.color7:       #e5e5e5
-*.color15:      #ffffff
+! light colors
+*.color8:       theme_black_light
+*.color9:       theme_red_light
+*.color10:      theme_green_light
+*.color11:      theme_yellow_light
+*.color12:      theme_blue_light
+*.color13:      theme_magenta_light
+*.color14:      theme_cyan_light
+*.color15:      theme_white_light
 
 
 # RXVT Terminal
