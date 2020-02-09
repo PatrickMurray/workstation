@@ -6,5 +6,6 @@
      - mupdf
      - texlive
      - pandoc
+     - retext
      - plantuml
      - graphviz
