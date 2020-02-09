@@ -10,3 +10,4 @@
     - virtualenv
     - hugo
     - rust
+    - arduino
