@@ -23,7 +23,7 @@
 #define theme_white_light   #f2f2f2
 
 
-# Theme
+! Theme
 
 
 ! special
@@ -52,9 +52,3 @@
 *.color13:      theme_magenta_light
 *.color14:      theme_cyan_light
 *.color15:      theme_white_light
-
-
-# RXVT Terminal
-
-
-URxvt.scrollBar: false

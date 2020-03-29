@@ -7,6 +7,6 @@
     - bash
     - i3wm
     - rofi
-    - rxvt
+    - kitty
     - unclutter
     - redshift

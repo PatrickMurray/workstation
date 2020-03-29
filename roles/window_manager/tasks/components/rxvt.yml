@@ -1,5 +1,0 @@
----
-- name: Install rxvt-unicode
-  package:
-    name: rxvt-unicode
-    state: latest
