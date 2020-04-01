@@ -1,0 +1,35 @@
+---
+- name: Add Duo GPG public key
+  apt_key:
+    url: https://duo.com/DUO-GPG-PUBLIC-KEY.asc
+    id: DF1A60B56EFE2DC8CA8A9A6101EF98E910448FDB
+
+
+- name: Add Duo apt repository
+  apt_repository:
+    repo: deb https://pkg.duosecurity.com/Debian buster main
+    update_cache: True
+
+
+- name: Install duo-unix
+  package:
+    name: duo-unix
+    state: latest
+
+
+- name: Configure /etc/duo/pam_duo.conf
+  template:
+    src: duo/pam_duo.conf.j2
+    dest: /etc/duo/pam_duo.conf
+
+
+- name: "Configure /etc/pam.d/"
+  copy:
+    src: "files/pam/{{ item }}"
+    dest: "/etc/pam.d/{{ item }}"
+  loop:
+    - common-account
+    - common-auth
+    - common-password
+    - common-session
+    - common-session-noninteractive
