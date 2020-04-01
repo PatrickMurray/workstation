@@ -1,0 +1,10 @@
+[duo]
+host     = {{ duo["api"]["hostname"] }}
+
+ikey     = {{ duo["keys"]["integration"] }}
+skey     = {{ duo["keys"]["secret"] }}
+
+failmode = {{ duo["options"]["failmode"] }}
+autopush = {{ duo["options"]["autopush"] }}
+prompts  = {{ duo["options"]["prompts"] }}
+pushinfo = {{ duo["options"]["pushinfo"] }}
