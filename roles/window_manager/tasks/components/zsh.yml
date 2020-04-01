@@ -1,0 +1,46 @@
+---
+- name: Install zsh
+  package:
+    name: zsh
+    state: latest
+
+
+- name: Clone ohmyzsh Github repository
+  git:
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
+    dest: ~/.oh-my-zsh
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: Configure ~/.zshrc
+  template:
+    src: zsh/zshrc.j2
+    dest: ~/.zshrc
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: Configure ~/.zlogin
+  copy:
+    src: files/zsh/.zlogin
+    dest: ~/.zlogin
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: Create ~/.config/zsh/autoload directory
+  file:
+    path: ~/.config/zsh/autoload
+    state: directory
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: "Configure ~/{{ zsh.autoload.path }} functions"
+  copy:
+    src: "files/zsh/autoload/{{ item }}"
+    dest: "~/{{ zsh.autoload.path }}/{{ item }}"
+  loop: "{{ zsh.autoload.functions }}"
+  become: True
+  become_user: "{{ user.name }}"

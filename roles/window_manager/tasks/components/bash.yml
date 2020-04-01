@@ -5,22 +5,6 @@
     state: latest
 
 
-- name: Configure .bashrc
-  copy:
-    src: files/bash/.bashrc
-    dest: ~/.bashrc
-  become: True
-  become_user: "{{ user.name }}"
-
-
-- name: Configure .bash_profile
-  copy:
-    src: files/bash/.bash_profile
-    dest: ~/.bash_profile
-  become: True
-  become_user: "{{ user.name }}"
-
-
 - name: Configure .inputrc
   copy:
     src: files/bash/.inputrc

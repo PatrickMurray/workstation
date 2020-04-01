@@ -1,0 +1,5 @@
+---
+- name: Disable root account login
+  user:
+    name: root
+    password_lock: True

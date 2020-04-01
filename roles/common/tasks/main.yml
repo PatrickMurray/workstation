@@ -4,6 +4,7 @@
     file: "components/{{ item }}.yml"
   loop:
     - apt
+    - root
     - users
     - sudo
     - filesystem_drivers
