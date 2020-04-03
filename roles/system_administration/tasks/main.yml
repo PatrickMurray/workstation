@@ -15,6 +15,6 @@
     - ansible
     - boto
     - awscli
-#    - terraform
+    - terraform
     - virt_manager
     - apache_tools

@@ -1,5 +1,12 @@
 ---
-- name: Install terraform
-  package:
-    name: terraform
-    state: latest
+- name: Download Terraform release
+  get_url:
+    url: "https://releases.hashicorp.com/terraform/{{ terraform.version }}/terraform_{{ terraform.version }}_{{ terraform.platform }}_{{ terraform.architecture }}.zip"
+    dest: /tmp
+    checksum: "{{ terraform.checksum }}"
+
+
+- name: Install Terraform
+  unarchive:
+    src: "/tmp/terraform_{{ terraform.version }}_{{ terraform.platform }}_{{ terraform.architecture }}.zip"
+    dest: /usr/bin
