@@ -1,0 +1,5 @@
+---
+- name: Install chirp
+  package:
+    name: chirp
+    state: latest
