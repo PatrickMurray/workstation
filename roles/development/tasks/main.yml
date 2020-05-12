@@ -10,4 +10,5 @@
     - virtualenv
     - hugo
     - rust
+    - npm
     - arduino

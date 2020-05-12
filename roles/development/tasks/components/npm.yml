@@ -1,0 +1,5 @@
+---
+- name: Install npm
+  package:
+    name: npm
+    state: latest
