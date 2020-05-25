@@ -19,3 +19,5 @@
     - virt_manager
     - apache_tools
     - meshcommander
+    - nmap
+    - traceroute
