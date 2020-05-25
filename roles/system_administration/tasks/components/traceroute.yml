@@ -1,0 +1,5 @@
+---
+- name: Install traceroute
+  package:
+    name: traceroute
+    state: latest

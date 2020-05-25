@@ -2,7 +2,9 @@
 - name: Add Duo GPG public key
   apt_key:
     url: https://duo.com/DUO-GPG-PUBLIC-KEY.asc
-    id: DF1A60B56EFE2DC8CA8A9A6101EF98E910448FDB
+#    id: DF1A60B56EFE2DC8CA8A9A6101EF98E910448FDB
+# NOTE: Duo rotates their GPG key fairly frequently, so we cannot pin the ID
+# without introducing the risk of breaking apt-get update.
 
 
 - name: Add Duo apt repository
