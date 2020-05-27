@@ -1,5 +1,5 @@
 ---
 - name: Install ansible
-  package:
+  pip:
     name: ansible
     state: latest

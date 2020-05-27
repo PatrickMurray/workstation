@@ -20,7 +20,8 @@
 
 ```bash
 # Install Ansible
-apt-get -y install unzip ansible gnupg
+apt-get -y install unzip gnupg
+pip3 install ansible
 
 # Fetch Configuration Management
 wget https://www.github.com/patrickmurray/workstation/archive/master.zip
