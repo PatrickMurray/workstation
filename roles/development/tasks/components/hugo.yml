@@ -1,5 +1,12 @@
 ---
-- name: Install hugo
-  package:
-    name: hugo
-    state: latest
+# TODO - Do not install Hugo from the apt-source as it's out of date
+#- name: Install hugo
+#  package:
+#    name: hugo
+#    state: absent # latest
+
+
+- name: Install hugo from deb
+  apt:
+    deb: https://github.com/gohugoio/hugo/releases/download/v0.72.0/hugo_extended_0.72.0_Linux-64bit.deb
+
