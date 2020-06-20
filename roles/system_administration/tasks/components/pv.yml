@@ -1,0 +1,5 @@
+---
+- name: Install pv
+  package:
+    name: pv
+    state: latest
