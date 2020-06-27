@@ -19,8 +19,18 @@
 ### Root
 
 ```bash
+# Install Dependencies
+apt-get  \
+  -y  \
+    install  \
+      unzip  \
+      gnupg  \
+      wget  \
+      python3-pip  \
+      git  \
+      libc-bin;
+
 # Install Ansible
-apt-get -y install unzip gnupg
 pip3 install ansible
 
 # Fetch Configuration Management

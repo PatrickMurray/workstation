@@ -10,7 +10,7 @@
         loop_var: role
       loop:
         - common
-        - network
+#        - network
         - window_manager
         - file_management
         - web_browser
@@ -22,5 +22,5 @@
         - graphic_design
         - finance
         - unixporn
-        - gaming
+#        - gaming
         - amateur_radio

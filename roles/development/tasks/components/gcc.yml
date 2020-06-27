@@ -1,0 +1,11 @@
+---
+- name: Install gcc
+  package:
+    name: gcc
+    state: latest
+
+
+- name: Install libc
+  package:
+    name: libc-bin
+    state: latest

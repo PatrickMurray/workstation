@@ -4,7 +4,14 @@
     name: exfat-fuse
     state: latest
 
+
 - name: Install exfat-utils
   package:
     name: exfat-utils
+    state: latest
+
+
+- name: Install ntfs-3g
+  package:
+    name: ntfs-3g
     state: latest
