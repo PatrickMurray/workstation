@@ -52,3 +52,7 @@
 *.color13:      theme_magenta_light
 *.color14:      theme_cyan_light
 *.color15:      theme_white_light
+
+
+! X Org
+Xft.dpi: 120

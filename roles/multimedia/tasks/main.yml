@@ -7,4 +7,5 @@
     - cmus
     - youtube_dl
     - vlc
-    - spotify
+#    - spotify
+    - ffmpeg

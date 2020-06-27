@@ -21,3 +21,9 @@
   apt:
     upgrade: dist
     autoremove: True
+
+
+- name: Install software-properties-common
+  package:
+    name: software-properties-common
+    state: latest

@@ -1,0 +1,5 @@
+---
+- name: Install wget
+  package:
+    name: wget
+    state: latest
