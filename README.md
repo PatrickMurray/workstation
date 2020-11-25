@@ -20,15 +20,14 @@
 
 ```bash
 # Install Dependencies
-apt-get  \
+apt install  \
   -y  \
-    install  \
-      unzip  \
-      gnupg  \
-      wget  \
-      python3-pip  \
-      git  \
-      libc-bin;
+  unzip  \
+  gnupg  \
+  wget  \
+  python3-pip  \
+  git  \
+  libc-bin;
 
 # Install Ansible
 pip3 install ansible
