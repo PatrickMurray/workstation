@@ -6,6 +6,7 @@
 | Operating Systemn | Release | Date Tested |
 | ----------------- | ------- | ----------- |
 | Debian            | 10.0    | 2019-07-07  |
+| Debian            | 10.7    | 2021-01-28  |
 
 
 ## Screenshots
@@ -22,12 +23,10 @@
 # Install Dependencies
 apt install  \
   -y  \
-  unzip  \
-  gnupg  \
-  wget  \
   python3-pip  \
-  git  \
-  libc-bin;
+  wget  \
+  unzip  \
+  git;
 
 # Install Ansible
 pip3 install ansible
