@@ -1,0 +1,5 @@
+---
+- name: Install tree
+  package:
+    name: tree
+    state: latest
