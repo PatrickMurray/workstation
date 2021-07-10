@@ -17,7 +17,7 @@
     - boto
     - awscli
     - terraform
-    - virt_manager
+#    - virt_manager
     - apache_tools
     - meshcommander
     - nmap
