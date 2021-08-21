@@ -3,7 +3,7 @@
   include_tasks:
     file: "components/{{ item }}.yml"
   loop:
-    - duo
+#    - duo
     - gnupg
     - keepassx
     - bitwarden
