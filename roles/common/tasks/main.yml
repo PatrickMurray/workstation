@@ -4,6 +4,7 @@
     file: "components/{{ item }}.yml"
   loop:
     - apt
+    - sysctl
     - root
     - users
     - sudo

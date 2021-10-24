@@ -1,0 +1,5 @@
+---
+- name: Increase inotify max file watches for NPM/React create-react-app 
+  ansible.posix.sysctl:
+    name: fs.inotify.max_user_watches
+    value: 1048576
