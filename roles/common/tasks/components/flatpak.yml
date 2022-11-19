@@ -1,0 +1,7 @@
+---
+- name: Add flathub flatpak remote repository
+  command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+
+- name: Enable flathub remote repository
+  command: flatpak remote-modify --enable flathub

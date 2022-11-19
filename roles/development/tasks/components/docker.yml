@@ -1,7 +1,7 @@
 ---
-- name: Install docker.io
+- name: Install moby-engine
   package:
-    name: docker.io
+    name: moby-engine
     state: latest
 
 

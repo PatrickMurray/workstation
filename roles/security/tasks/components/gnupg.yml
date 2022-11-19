@@ -3,9 +3,3 @@
   package:
     name: gnupg
     state: latest
-
-
-- name: Install gpa
-  package:
-    name: gpa
-    state: latest

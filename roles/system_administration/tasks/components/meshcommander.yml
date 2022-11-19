@@ -1,6 +1,0 @@
----
-- name: Install meshcommander from NPM
-  npm:
-    name: meshcommander
-    state: latest
-    global: True

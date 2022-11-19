@@ -3,10 +3,8 @@
   include_tasks:
     file: "components/{{ item }}.yml"
   loop:
-    - apt
-    - sysctl
     - root
     - users
+    - dnf
+    - flatpak
     - sudo
-    - filesystem_drivers
-    - archive_zippers

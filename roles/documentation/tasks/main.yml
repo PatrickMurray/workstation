@@ -3,9 +3,7 @@
   include_tasks:
     file: "components/{{ item }}.yml"
   loop:
-     - mupdf
      - texlive
      - pandoc
-     - retext
      - plantuml
      - graphviz

@@ -1,5 +1,0 @@
----
-- name: Install unclutter
-  package:
-    name: unclutter
-    state: latest

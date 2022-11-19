@@ -1,5 +1,0 @@
----
-- name: Install arduino
-  package:
-    name: arduino
-    state: latest

@@ -5,6 +5,12 @@
     state: latest
 
 
+- name: Set zsh as user shell
+  user:
+    name: "{{ user.name }}"
+    shell: "{{ user.shell }}"
+
+
 - name: Clone ohmyzsh Github repository
   git:
     repo: https://github.com/ohmyzsh/ohmyzsh.git
@@ -39,8 +45,10 @@
 
 - name: "Configure ~/{{ zsh.autoload.path }} functions"
   copy:
-    src: "files/zsh/autoload/{{ item }}"
-    dest: "~/{{ zsh.autoload.path }}/{{ item }}"
-  loop: "{{ zsh.autoload.functions }}"
+    src: "files/zsh/autoload/{{ function }}"
+    dest: "~/{{ zsh.autoload.path }}/{{ function }}"
+  with_items: "{{ zsh.autoload.functions }}"
+  loop_control:
+    loop_var: "function"
   become: True
   become_user: "{{ user.name }}"

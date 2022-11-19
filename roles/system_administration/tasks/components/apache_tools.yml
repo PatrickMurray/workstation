@@ -1,5 +1,0 @@
----
-- name: Install open-infrastructure-apache-tools
-  package:
-    name: open-infrastructure-apache-tools
-    state: latest

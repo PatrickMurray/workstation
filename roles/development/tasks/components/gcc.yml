@@ -5,7 +5,7 @@
     state: latest
 
 
-- name: Install libc
+- name: Install glibc
   package:
-    name: libc-bin
+    name: glibc
     state: latest

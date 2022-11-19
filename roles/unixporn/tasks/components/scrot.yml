@@ -1,5 +1,0 @@
----
-- name: Install scrot
-  package:
-    name: scrot
-    state: latest

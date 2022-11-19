@@ -1,0 +1,30 @@
+---
+# References:
+# 1) https://unix.stackexchange.com/a/327986
+# 2) https://github.com/GNOME/gsettings-desktop-schemas/blob/master/schemas/org.gnome.desktop.interface.gschema.xml.in
+
+- name: Configure gnome clock interface format
+  dconf:
+    key: "/org/gnome/desktop/interface/clock-format"
+    value: "'24h'"
+    state: present
+  become_user: "{{ user.name }}"
+  become: True
+
+
+- name: Configure gnome clock interface to show seconds
+  dconf:
+    key: "/org/gnome/desktop/interface/clock-show-seconds"
+    value: "true"
+    state: present
+  become_user: "{{ user.name }}"
+  become: True
+
+
+- name: Configure gnome clock interface to hide date
+  dconf:
+    key: "/org/gnome/desktop/interface/clock-show-date"
+    value: "false"
+    state: present
+  become_user: "{{ user.name }}"
+  become: True

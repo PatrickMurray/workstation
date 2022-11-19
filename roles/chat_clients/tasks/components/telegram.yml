@@ -1,0 +1,6 @@
+---
+- name: Install telegram
+  flatpak:
+    name: org.telegram.desktop
+    remote: flathub
+    state: present

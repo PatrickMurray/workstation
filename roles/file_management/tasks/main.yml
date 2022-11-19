@@ -6,4 +6,3 @@
     loop_var: component
   loop:
     - resilio
-    - ranger

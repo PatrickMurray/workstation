@@ -3,8 +3,3 @@
   package:
     name: texlive
     state: absent
-
-- name: Install texlive-full
-  package:
-    name: texlive-full
-    state: latest

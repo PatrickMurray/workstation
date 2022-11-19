@@ -1,5 +1,0 @@
----
-- name: Install dnsutils
-  package:
-    name: dnsutils
-    state: latest

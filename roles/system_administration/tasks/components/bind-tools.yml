@@ -1,5 +1,0 @@
----
-- name: Install bind-tools
-  package:
-    name: bind-tools
-    state: latest

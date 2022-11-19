@@ -1,5 +1,5 @@
 ---
-- name: Install ansible
-  pip:
-    name: ansible
+- name: Install ansible-core
+  package:
+    name: ansible-core
     state: latest

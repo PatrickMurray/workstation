@@ -1,5 +1,5 @@
 ---
-- name: Install rustc
+- name: Install rust
   package:
-    name: rustc
+    name: rust
     state: latest
