@@ -1,5 +1,0 @@
----
-- name: Install gnucash
-  package:
-    name: gnucash
-    state: latest

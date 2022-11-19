@@ -1,0 +1,46 @@
+---
+# Reference Documentation:
+# https://help.gnome.org/admin/system-admin-guide/stable/desktop-background.html.en
+
+- name: Copy desktop background
+  copy:
+    src: gnome/desktop_background.png
+    dest: "{{ user.home }}/Pictures/desktop_background.png"
+  become_user: "{{ user.name }}"
+  become: True
+
+
+- name: Configure gnome desktop background picture-uri
+  dconf:
+    key: "/org/gnome/desktop/background/picture-uri"
+    value: "'file://{{ user.home }}/Pictures/desktop_background.png'"
+    state: present
+  become_user: "{{ user.name }}"
+  become: True
+
+
+- name: Configure gnome desktop background picture-options
+  dconf:
+    key: "/org/gnome/desktop/background/picture-options"
+    value: "'zoom'"
+    state: present
+  become_user: "{{ user.name }}"
+  become: True
+
+
+- name: Configure gnome desktop background primary-color
+  dconf:
+    key: "/org/gnome/desktop/background/primary-color"
+    value: "'222D82'"
+    state: present
+  become_user: "{{ user.name }}"
+  become: True
+
+
+- name: Configure gnome desktop background secondary-color
+  dconf:
+    key: "/org/gnome/desktop/background/secondary-color"
+    value: "'222D82'"
+    state: present
+  become_user: "{{ user.name }}"
+  become: True

@@ -1,5 +1,5 @@
 ---
 - name: Install torbrowser-launcher
-  apt:
+  package:
     name: torbrowser-launcher
     state: latest

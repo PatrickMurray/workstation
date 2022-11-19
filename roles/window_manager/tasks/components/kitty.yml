@@ -1,5 +1,0 @@
----
-- name: Install kitty terminal emulator
-  package:
-    name: kitty
-    state: latest

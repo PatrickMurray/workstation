@@ -3,5 +3,4 @@
   include_tasks:
     file: "components/{{ item }}.yml"
   loop:
-    - scrot
     - neofetch

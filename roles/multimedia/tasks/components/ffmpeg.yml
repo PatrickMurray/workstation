@@ -1,5 +1,5 @@
 ---
-- name: Install ffmpeg
+- name: Install ffmpeg-free
   package:
-    name: ffmpeg
+    name: ffmpeg-free
     state: latest

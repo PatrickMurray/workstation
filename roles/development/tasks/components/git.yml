@@ -8,7 +8,7 @@
 - name: Configure git user name
   git_config:
     name: user.name
-    value: Patrick Murray
+    value: "{{ git.name }}"
     scope: global
   become: True
   become_user: "{{ user.name }}"
@@ -17,7 +17,7 @@
 - name: Configure git user email
   git_config:
     name: user.email
-    value: patrickm129@gmail.com
+    value: "{{ git.email }}"
     scope: global
   become: True
   become_user: "{{ user.name }}"

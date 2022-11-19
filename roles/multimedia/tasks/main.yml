@@ -3,9 +3,6 @@
   include_tasks:
     file: "components/{{ item }}.yml"
   loop:
-    - alsamixer
-    - cmus
     - youtube_dl
-    - vlc
-#    - spotify
     - ffmpeg
+    - spotify

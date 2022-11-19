@@ -1,14 +1,16 @@
 ---
-- name: Add resilio-sync apt key
-  apt_key:
-    url: https://linux-packages.resilio.com/resilio-sync/key.asc
-    id: BE66CC4C3F171DE2
+- name: Add resilio-sync package signing key
+  rpm_key:
+    key: https://linux-packages.resilio.com/resilio-sync/key.asc
 
 
-- name: Add resilio-sync apt repository
-  apt_repository:
-    repo: deb https://linux-packages.resilio.com/resilio-sync/deb resilio-sync non-free
-    update_cache: True
+- name: Add resilio-sync yum repository
+  yum_repository:
+    name: resilio-sync
+    description: Resilio Sync RPM Repository
+    baseurl: https://linux-packages.resilio.com/resilio-sync/rpm/$basearch
+    gpgcheck: True
+    gpgkey: https://linux-packages.resilio.com/resilio-sync/key.asc
 
 
 - name: Install resilio-sync

@@ -1,0 +1,11 @@
+---
+# Reference Documentation:
+# https://extensions.gnome.org/extension/23/battery-percentage-indicator/
+
+- name: Configure gnome battery tray interface percentage
+  dconf:
+    key: "/org/gnome/desktop/interface/show-battery-percentage"
+    value: "true"
+    state: present
+  become_user: "{{ user.name }}"
+  become: True

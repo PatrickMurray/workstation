@@ -1,8 +1,0 @@
----
-- name: Include Components
-  include_tasks:
-    file: "components/{{ item }}.yml"
-  loop:
-    - firmware
-    - interfaces
-    - wpa_supplicant

@@ -1,0 +1,6 @@
+---
+- name: Install discord
+  flatpak:
+    name: com.discordapp.Discord
+    remote: flathub
+    state: present

@@ -1,16 +1,6 @@
 ---
-- name: Add spotify apt key
-  apt_key:
-    url: https://download.spotify.com/debian/pubkey_0D811D58.gpg
-    id: D1742AD60D811D58
-
-
-- name: Add spotify apt repository
-  apt_repository:
-    repo: deb http://repository.spotify.com stable non-free
-    update_cache: True
-
-
-- name: Install spotify-client
-  package:
-    name: spotify-client
+- name: Install spotify
+  flatpak:
+    name: com.spotify.Client
+    remote: flathub
+    state: present

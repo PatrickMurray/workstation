@@ -1,5 +1,0 @@
----
-- name: Install retext
-  package:
-    name: retext
-    state: latest

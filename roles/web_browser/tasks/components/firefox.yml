@@ -1,5 +1,5 @@
 ---
-- name: Installing firefox-esr
+- name: Installing firefox
   package:
-    name: firefox-esr
+    name: firefox
     state: latest

@@ -1,4 +1,6 @@
 ---
 - name: Install bitwarden
-  apt:
-    deb: https://vault.bitwarden.com/download/?app=desktop&platform=linux&variant=deb
+  flatpak:
+    name: com.bitwarden.desktop
+    remote: flathub
+    state: present
