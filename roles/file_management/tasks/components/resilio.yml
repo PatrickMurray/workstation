@@ -8,13 +8,11 @@
   apt_key:
     url: https://linux-packages.resilio.com/resilio-sync/key.asc
     id: E1B42102EBECA969E30D2CA4BE66CC4C3F171DE2
-    keyring: /etc/apt/keyrings/resilio-sync.gpg
 
 
 - name: Add resilio-sync apt repository
   apt_repository:
-    repo: "deb https://linux-packages.resilio.com/resilio-sync/deb resilio-sync non-free"
-    filename: "/etc/apt/sources.list.d/resilio-sync.list"
+    repo: "deb http://linux-packages.resilio.com/resilio-sync/deb resilio-sync non-free"
     state: present
 
 
