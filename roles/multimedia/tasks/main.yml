@@ -5,4 +5,3 @@
   loop:
     - youtube_dl
     - ffmpeg
-    - spotify

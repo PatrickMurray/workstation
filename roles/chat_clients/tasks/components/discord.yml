@@ -1,6 +1,6 @@
 ---
 - name: Install discord
-  flatpak:
-    name: com.discordapp.Discord
-    remote: flathub
+  snap:
+    name: discord
+    channel: latest/stable
     state: present

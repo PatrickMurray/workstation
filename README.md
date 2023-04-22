@@ -5,7 +5,7 @@
 
 | Operating Systemn | Release | Date Tested |
 | ----------------- | ------- | ----------- |
-| Fedora            | 37      | 2022-11-19  |
+| Ubuntu Desktop    | 22.04   | 2023-04-22  |
 
 
 ## Screenshots
@@ -20,7 +20,8 @@
 
 ```bash
 # Install Ansible
-dnf install -y ansible-core
+apt-get install -r python3-pip
+pip3 install ansible
 
 # Fetch Configuration Management
 wget https://www.github.com/patrickmurray/workstation/archive/master.zip
@@ -28,7 +29,7 @@ unzip master.zip
 cd workstation-master/
 
 # Configure :)
-ansible-galaxy install -r requirements.yml
+#ansible-galaxy install -r requirements.yml
 ansible-playbook main.yml
 ```
 

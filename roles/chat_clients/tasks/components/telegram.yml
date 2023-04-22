@@ -1,6 +1,6 @@
 ---
-- name: Install telegram
-  flatpak:
-    name: org.telegram.desktop
-    remote: flathub
+- name: Install telegram-desktop
+  snap:
+    name: telegram-desktop
+    channel: latest/stable
     state: present

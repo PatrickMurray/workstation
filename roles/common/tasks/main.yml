@@ -5,6 +5,7 @@
   loop:
     - root
     - users
-    - dnf
-    - flatpak
-    - sudo
+    - apt
+    #- dnf
+    #- flatpak
+    #- sudo

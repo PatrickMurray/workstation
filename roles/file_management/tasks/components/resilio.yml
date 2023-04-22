@@ -1,16 +1,21 @@
 ---
-- name: Add resilio-sync package signing key
-  rpm_key:
-    key: https://linux-packages.resilio.com/resilio-sync/key.asc
+# gpg --show-keys key.asc 
+# pub   rsa2048 2017-12-22 [SC]
+#       E1B42102EBECA969E30D2CA4BE66CC4C3F171DE2
+# uid                      Resilio, Inc. <support@getsync.com>
+
+- name: Add resilio-sync apt-key
+  apt_key:
+    url: https://linux-packages.resilio.com/resilio-sync/key.asc
+    id: E1B42102EBECA969E30D2CA4BE66CC4C3F171DE2
+    keyring: /etc/apt/keyrings/resilio-sync.gpg
 
 
-- name: Add resilio-sync yum repository
-  yum_repository:
-    name: resilio-sync
-    description: Resilio Sync RPM Repository
-    baseurl: https://linux-packages.resilio.com/resilio-sync/rpm/$basearch
-    gpgcheck: True
-    gpgkey: https://linux-packages.resilio.com/resilio-sync/key.asc
+- name: Add resilio-sync apt repository
+  apt_repository:
+    repo: "deb https://linux-packages.resilio.com/resilio-sync/deb resilio-sync non-free"
+    filename: "/etc/apt/sources.list.d/resilio-sync.list"
+    state: present
 
 
 - name: Install resilio-sync

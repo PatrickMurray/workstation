@@ -1,0 +1,12 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: True
+
+- name: Update distribution
+  apt:
+    upgrade: dist
+
+- name: Remove unneeded dependencies
+  apt:
+    autoremove: True

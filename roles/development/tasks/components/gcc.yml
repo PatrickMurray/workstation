@@ -7,5 +7,5 @@
 
 - name: Install glibc
   package:
-    name: glibc
+    name: glibc-source
     state: latest

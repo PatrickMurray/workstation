@@ -1,6 +1,6 @@
 ---
 - name: Install bitwarden
-  flatpak:
-    name: com.bitwarden.desktop
-    remote: flathub
+  snap:
+    name: bitwarden
+    channel: latest/stable
     state: present
