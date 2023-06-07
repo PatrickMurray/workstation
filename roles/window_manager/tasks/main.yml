@@ -4,4 +4,4 @@
     file: "components/{{ item }}.yml"
   loop:
     - zsh
-    #- gnome
+    - gnome

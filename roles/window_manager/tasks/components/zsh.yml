@@ -11,6 +11,12 @@
     shell: "{{ user.shell }}"
 
 
+- name: Install git
+  package:
+    name: git
+    state: latest
+
+
 - name: Clone ohmyzsh Github repository
   git:
     repo: https://github.com/ohmyzsh/ohmyzsh.git

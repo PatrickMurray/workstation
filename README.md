@@ -20,7 +20,8 @@
 
 ```bash
 # Install Ansible
-apt-get install -r python3-pip
+apt update
+apt install -r python3-pip
 pip3 install ansible
 
 # Fetch Configuration Management
