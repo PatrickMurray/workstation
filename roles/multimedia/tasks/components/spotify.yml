@@ -1,6 +1,0 @@
----
-- name: Install spotify
-  flatpak:
-    name: com.spotify.Client
-    remote: flathub
-    state: present
