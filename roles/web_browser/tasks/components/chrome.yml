@@ -1,0 +1,5 @@
+---
+- name: Installing google-chrome-stable
+  package:
+    name: google-chrome-stable
+    state: latest
