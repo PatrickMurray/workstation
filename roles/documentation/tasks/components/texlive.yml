@@ -2,4 +2,5 @@
 - name: Install texlive
   package:
     name: texlive
-    state: absent
+    state: latest
+
