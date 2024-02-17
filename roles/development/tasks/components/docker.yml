@@ -6,7 +6,7 @@
 
 
 - name: Install docker-compose
-  pip:
+  package:
     name: docker-compose
     state: latest
 
