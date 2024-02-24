@@ -24,3 +24,16 @@
       - docker
     append: True
 
+
+- name: Configure docker systemd unit
+  systemd:
+    name: docker
+    state: started
+    enabled: True
+
+
+- name: Configure containerdr systemd unit
+  systemd:
+    name: containerd
+    state: started
+    enabled: True

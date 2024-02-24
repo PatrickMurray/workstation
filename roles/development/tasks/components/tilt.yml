@@ -1,0 +1,53 @@
+---
+# CATTLE PATROL INSTALLATION
+- name: Download ctlptl archive
+  get_url:
+    url: "https://github.com/tilt-dev/ctlptl/releases/download/v{{ kubernetes.ctlptl.version }}/ctlptl.{{ kubernetes.ctlptl.version }}.linux.x86_64.tar.gz"
+    dest: "/tmp"
+    checksum: "{{ kubernetes.ctlptl.checksum }}"
+  register: ctlptl_archive
+
+
+- name: Create temporary directory for ctlptl archive extraction
+  tempfile:
+    state: directory
+    suffix: "-ctlptl"
+  register: ctlptl_tempdir
+
+
+- name: Extract ctlptl archive
+  unarchive:
+    src: "{{ ctlptl_archive.dest }}"
+    dest: "{{ ctlptl_tempdir.path }}"
+
+
+- name: Install ctlptl binary
+  command:
+    cmd: "install {{ ctlptl_tempdir.path }}/ctlptl /usr/local/bin/ctlptl"
+
+
+# TILT INSTALLATION
+- name: Download tilt archive
+  get_url:
+    url: "https://github.com/tilt-dev/tilt/releases/download/v{{ kubernetes.tilt.version }}/tilt.{{ kubernetes.tilt.version }}.linux.x86_64.tar.gz"
+    dest: "/tmp"
+    checksum: "{{ kubernetes.tilt.checksum }}"
+  register: tilt_archive
+
+
+- name: Create temporary directory for tilt archive extraction
+  tempfile:
+    state: directory
+    suffix: "-tilt"
+  register: tilt_tempdir
+
+
+- name: Extract tilt archive
+  unarchive:
+    src: "{{ tilt_archive.dest }}"
+    dest: "{{ tilt_tempdir.path }}"
+
+
+- name: Install tilt binary
+  command:
+    cmd: "install {{ tilt_tempdir.path }}/tilt /usr/local/bin/tilt"

@@ -1,0 +1,18 @@
+---
+- name: Download minikube binary
+  get_url:
+    url: "https://github.com/kubernetes/minikube/releases/download/v{{ kubernetes.minikube.version }}/minikube-linux-amd64"
+    dest: "/tmp"
+    checksum: "{{ kubernetes.minikube.checksum }}"
+  register: minikube_results
+
+
+- name: Install minikube
+  command:
+    cmd: "install {{ minikube_results.dest }} /usr/local/bin/minikube"
+
+
+- name: Configure minikube driver to be docker
+  command:
+    cmd: "minikube config set driver docker"
+  become_user: "{{ user.name }}"
