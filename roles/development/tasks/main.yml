@@ -13,4 +13,7 @@
     - rust
     - npm
     - docker
+    - kubernetes
+    - minikube
+    - tilt
     - visualstudiocode

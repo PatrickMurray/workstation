@@ -1,0 +1,19 @@
+---
+- name: Add kubernetes package signing key
+  rpm_key:
+    key: "https://pkgs.k8s.io/core:/stable:/v{{ kubernetes.kubectl.version }}/rpm/repodata/repomd.xml.key"
+
+
+- name: Add kubernetes yum repository
+  yum_repository:
+    name: Kubernetes
+    description: Kubernetes Yum Repository
+    baseurl: "https://pkgs.k8s.io/core:/stable:/v{{ kubernetes.kubectl.version }}/rpm/"
+    gpgcheck: True
+    gpgkey: "https://pkgs.k8s.io/core:/stable:/v{{ kubernetes.kubectl.version }}/rpm/repodata/repomd.xml.key"
+
+
+- name: Install kubectl
+  package:
+    name: kubectl
+    state: latest
