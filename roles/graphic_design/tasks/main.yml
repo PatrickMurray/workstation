@@ -5,3 +5,4 @@
   loop:
     - gimp
     - inkscape
+    - openscad
