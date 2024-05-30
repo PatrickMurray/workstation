@@ -1,0 +1,5 @@
+---
+- name: Install openscad
+  package:
+    name: openscad
+    state: latest
