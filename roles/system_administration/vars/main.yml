@@ -1,6 +1,0 @@
----
-terraform:
-  version: 1.0.5
-  platform: linux
-  architecture: amd64
-  checksum: sha256:7ce24478859ab7ca0ba4d8c9c12bb345f52e8efdc42fa3ef9dd30033dbf4b561

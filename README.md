@@ -5,7 +5,7 @@
 
 | Operating Systemn | Release | Date Tested |
 | ----------------- | ------- | ----------- |
-| Fedora            | 39      | 2024-02-16  |
+| Fedora            | 40      | 2024-08-08  |
 
 
 ## Screenshots
