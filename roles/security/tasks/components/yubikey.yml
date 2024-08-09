@@ -1,0 +1,36 @@
+---
+- name: Install pam_yubico
+  package:
+    name: pam_yubico
+    state: latest
+
+
+- name: Install pam-u2f
+  package:
+    name: pam-u2f
+    state: latest
+
+
+- name: Install pamu2fcfg
+  package:
+    name: pamu2fcfg
+    state: latest
+
+
+- name: Configure /etc/pam.d/u2f-required
+  copy:
+    src: yubico/u2f-required
+    dest: /etc/pam.d/u2f-required
+
+
+- name: Configure /etc/pam.d/u2f-sufficient
+  copy:
+    src: yubico/u2f-sufficient
+    dest: /etc/pam.d/u2f-sufficient
+
+
+- name: Configure /etc/u2f_mappings
+  copy:
+    src: yubico/u2f_keys
+    dest: /etc/u2f_mappings
+  become: True

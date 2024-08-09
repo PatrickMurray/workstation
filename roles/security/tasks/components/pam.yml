@@ -1,0 +1,11 @@
+---
+- name: Configure /etc/pam.d/sudo
+  copy:
+    src: pam/sudo
+    dest: /etc/pam.d/sudo
+
+
+- name: Configure /etc/pam.d/gdm-password
+  copy:
+    src: pam/gdm-password
+    dest: /etc/pam.d/gdm-password
