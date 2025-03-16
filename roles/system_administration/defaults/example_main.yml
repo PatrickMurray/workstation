@@ -1,0 +1,7 @@
+---
+terraform:
+  version: X.Y.Z
+  platform: linux
+  architecture: amd64
+  checksum: sha256:0000000000000000000000000000000000000000000000000000000000000000
+

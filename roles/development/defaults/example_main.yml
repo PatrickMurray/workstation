@@ -1,0 +1,22 @@
+---
+git:
+  name: John Doe
+  email: johndoe@example.com
+
+
+kubernetes:
+  kubectl:
+    version: X.Y.Z
+  
+  minikube:
+    version: X.Y.Z
+    checksum: "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+
+  ctlptl:
+    version: X.Y.Z
+    checksum: "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+
+  tilt:
+    version: X.Y.Z
+    checksum: "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+

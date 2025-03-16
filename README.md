@@ -19,6 +19,6 @@
 ### Root
 
 ```bash
-bash -c "$(curl -fsSl https://raw.githubusercontent.com/PatrickMurray/workstation/HEAD/installation.sh)"
+bash -c "$(curl -fsSl https://raw.githubusercontent.com/PatrickMurray/workstation/HEAD/install.sh)"
 ```
 
