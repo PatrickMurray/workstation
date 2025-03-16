@@ -1,0 +1,5 @@
+---
+- name: Install fastfetch
+  package:
+    name: fastfetch
+    state: latest

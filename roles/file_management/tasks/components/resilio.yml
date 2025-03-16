@@ -1,4 +1,7 @@
 ---
+# INSTALLATION
+
+
 - name: Add resilio-sync package signing key
   rpm_key:
     key: https://linux-packages.resilio.com/resilio-sync/key.asc
@@ -19,50 +22,90 @@
     state: latest
 
 
-- name: Create ~/.config/rslsync
+# CONFIG DIRECTORY
+
+
+- name: Create configuration directory
   file:
-    path: "{{ resilio.configuration.configuration_directory }}"
+    path: "{{ resilio.service.configuration.directory }}"
     state: directory
-    owner: "{{ resilio.service.user }}"
-    group: "{{ resilio.service.group }}"
   become: True
   become_user: "{{ user.name }}"
 
-
-- name: Configure resilio-sync
+- name: Configure resilio
   template:
     src: resilio/configuration.j2
-    dest: "{{ resilio.configuration.configuration_path }}"
-    owner: "{{ resilio.service.user }}"
-    group: "{{ resilio.service.group }}"
+    dest: "{{ resilio.service.configuration.directory }}/{{ resilio.service.configuration.configuration_filename }}"
+  become: True
+  become_user: "{{ user.name }}"
+
+- name: Copy resilio license key
+  copy:
+    src: resilio/license.btskey
+    dest: "{{ resilio.service.configuration.directory }}/{{ resilio.service.configuration.license_filename }}"
   become: True
   become_user: "{{ user.name }}"
 
 
-- name: Create ~/.rslsync
+# RUNTIME DIRECTORY
+
+
+- name: Create runtime directory
   file:
-    path: "{{ resilio.configuration.directory_root }}"
+    path: "{{ resilio.service.runtime.directory }}"
     state: directory
   become: True
   become_user: "{{ user.name }}"
 
 
-- name: Create ~/Resilio
+# LIBRARY DIRECTORY
+
+
+- name: Create library directory
   file:
+    path: "{{ resilio.service.library.directory }}"
     state: directory
-    path: "{{ item }}"
-    owner: "{{ resilio.service.user }}"
-    group: "{{ resilio.service.group }}"
-  with_items:
-    - "/home/{{ user.name }}/.rslsync"
-    - "/home/{{ user.name }}/Resilio"
+  become: True
+  become_user: "{{ user.name }}"
 
 
-- name: Configure resilio-sync systemd service
+# SETUP IDENTITY
+
+
+- name: Create resilio identity
+  command:
+    argv:
+      - /usr/bin/rslsync
+      - --identity
+      - "{{ resilio.service.configuration.identity }}"
+      - --config
+      - "{{ resilio.service.configuration.directory }}/{{ resilio.service.configuration.configuration_filename }}"
+      - --nodaemon
+    creates: "{{ resilio.service.library.directory }}/sync.dat"
+  become: True
+  become_user: "{{ user.name }}"
+
+- name: Apply resilio license
+  command:
+    argv:
+      - /usr/bin/rslsync
+      - --license
+      - "{{ resilio.service.configuration.directory }}/{{ resilio.service.configuration.license_filename }}"
+      - --config
+      - "{{ resilio.service.configuration.directory }}/{{ resilio.service.configuration.configuration_filename }}"
+      - --nodaemon
+    creates: "{{ resilio.service.library.directory }}/License"
+  become: True
+  become_user: "{{ user.name }}"
+
+
+# CONFIGURE SYSTEMD
+
+
+- name: Configure systemd service
   template:
     src: resilio/service.j2
-    dest: "{{ resilio.service.path }}"
-
+    dest: "{{ resilio.service.systemd.path }}"
 
 - name: Restart resilio-sync
   systemd:
