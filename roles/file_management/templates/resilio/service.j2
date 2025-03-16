@@ -1,15 +1,29 @@
 [Unit]
 Description=Resilio Sync service
 Documentation=https://help.getsync.com/
-After=network.target network-online.target
+After=network.target
  
 [Service]
-Type=simple
-User={{ resilio.service.user }}
-Group={{ resilio.service.group }}
-# UMask=0002
-ExecStart=/usr/bin/rslsync --nodaemon --config {{ resilio.configuration.configuration_path }}
-Restart=always
+Type=forking
+Restart=on-failure
+PermissionsStartOnly=true
+
+User={{ resilio.service.systemd.user }}
+Group={{ resilio.service.systemd.group }}
+
+Environment="SYNC_USER={{ resilio.service.systemd.user }}"
+Environment="SYNC_GROUP={{ resilio.service.systemd.group }}"
+
+Environment="SYNC_RUN_DIR={{ resilio.service.runtime.directory }}"
+Environment="SYNC_LIB_DIR={{ resilio.service.library.directory }}"
+Environment="SYNC_CONF_DIR={{ resilio.service.configuration.directory }}"
+
+PIDFile={{ resilio.service.runtime.directory }}/{{ resilio.service.runtime.pid_filename }}
+
+ExecStart=/usr/bin/rslsync  \
+  --config ${SYNC_CONF_DIR}/{{ resilio.service.configuration.configuration_filename }}
+
+ExecStartPost=/bin/sleep 1
 
 [Install]
 WantedBy=multi-user.target
