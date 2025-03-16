@@ -6,7 +6,6 @@
     loop_var: component
   loop:
     - firefox
-    - chrome
     - chromium
     - tor
 
