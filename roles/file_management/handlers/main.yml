@@ -1,0 +1,8 @@
+---
+- name: Restart resilio-sync
+  systemd:
+    name: resilio-sync
+    state: restarted
+    scope: user
+  become: True
+  become_user: "{{ user.name }}"

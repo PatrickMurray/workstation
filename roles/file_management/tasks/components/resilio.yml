@@ -20,7 +20,8 @@
   package:
     name: resilio-sync
     state: latest
-
+  notify:
+    - Restart resilio-sync
 
 # CONFIG DIRECTORY
 
@@ -38,6 +39,8 @@
     dest: "{{ resilio.service.configuration.directory }}/{{ resilio.service.configuration.configuration_filename }}"
   become: True
   become_user: "{{ user.name }}"
+  notify:
+    - Restart resilio-sync
 
 - name: Copy resilio license key
   copy:
@@ -45,6 +48,8 @@
     dest: "{{ resilio.service.configuration.directory }}/{{ resilio.service.configuration.license_filename }}"
   become: True
   become_user: "{{ user.name }}"
+  notify:
+    - Restart resilio-sync
 
 
 # RUNTIME DIRECTORY
@@ -84,6 +89,20 @@
     creates: "{{ resilio.service.library.directory }}/sync.dat"
   become: True
   become_user: "{{ user.name }}"
+  register: resilio_identity_result
+  failed_when: resilio_identity_result.rc != 0
+  notify:
+    - Restart resilio-sync
+
+- name: Display resilio identity output
+  debug:
+    var: resilio_identity_result
+  when: resilio_identity_result.rc != 0
+
+- name: Fail if resilio identity failed
+  fail:
+    msg: "rslsync identity failed"
+  when: resilio_identity_result.rc != 0
 
 - name: Apply resilio license
   command:
@@ -97,19 +116,52 @@
     creates: "{{ resilio.service.library.directory }}/License"
   become: True
   become_user: "{{ user.name }}"
+  register: resilio_license_apply_result
+  failed_when: resilio_license_apply_result.rc != 0
+  notify:
+    - Restart resilio-sync
+
+- name: Display resilio license apply output
+  debug:
+    var: resilio_license_apply_result
+  when: resilio_license_apply_result.rc != 0
+
+- name: Fail if resilio license apply failed
+  fail:
+    msg: "rslsync license apply failed"
+  when: resilio_license_apply_result.rc != 0
 
 
 # CONFIGURE SYSTEMD
 
 
-- name: Configure systemd service
+- name: Configure resilio-sync systemd user-service unit
   template:
     src: resilio/service.j2
     dest: "{{ resilio.service.systemd.path }}"
+  notify:
+    - Restart resilio-sync
 
-- name: Restart resilio-sync
+- name: Configure resilio-sync systemd user-service
   systemd:
     name: resilio-sync
-    state: restarted
-    daemon_reload: True
     enabled: True
+    daemon_reload: True
+    scope: user
+  become: True
+  become_user: "{{ user.name }}"
+
+- name: Configure resilio-sync systemd system-service
+  systemd:
+    name: resilio-sync
+    enabled: False
+    state: stopped
+    scope: system
+
+- name: Enable lingering for user
+  command:
+    argv:
+      - /usr/bin/loginctl
+      - enable-linger
+      - "{{ user.name }}"
+    creates: "/var/lib/systemd/linger/{{ user.name }}"
