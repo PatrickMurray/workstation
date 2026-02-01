@@ -6,5 +6,5 @@
     - gnupg
     - bitwarden
     - selinux
-    - yubikey
-    - pam
+#    - yubikey
+#    - pam

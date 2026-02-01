@@ -11,10 +11,18 @@
     shell: "{{ user.shell }}"
 
 
-- name: Clone ohmyzsh Github repository
+- name: Clone ohmyzsh repository
   git:
     repo: https://github.com/ohmyzsh/ohmyzsh.git
     dest: ~/.oh-my-zsh
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: Clone zsh-autosuggestions repository
+  git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions.git
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
   become: True
   become_user: "{{ user.name }}"
 
