@@ -1,0 +1,23 @@
+---
+# Reference Documentation:
+# https://help.gnome.org/system-admin-guide/logout-automatic.html
+#
+# Screen lock settings for GNOME Wayland desktop environment
+
+
+- name: Configure screen lock on suspend
+  dconf:
+    key: "/org/gnome/desktop/screensaver/lock-enabled"
+    value: "{{ gnome.lock_session.enabled | lower }}"
+    state: present
+  become_user: "{{ user.name }}"
+  become: True
+
+
+- name: Configure Wayland session idle delay (lock screen)
+  dconf:
+    key: "/org/gnome/desktop/session/idle-delay"
+    value: "uint32 {{ gnome.lock_session.timeout }}" # 5 minutes
+    state: present
+  become_user: "{{ user.name }}"
+  become: True

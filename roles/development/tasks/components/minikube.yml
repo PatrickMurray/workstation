@@ -1,18 +1,50 @@
 ---
+- name: Check if minikube binary exists
+  stat:
+    path: /usr/local/bin/minikube
+  register: minikube_binary
+
+
+- name: Get current minikube version (if installed)
+  command: "minikube version --short"
+  register: minikube_current_version
+  when: minikube_binary.stat.exists
+  changed_when: false
+
+
+- name: Set fact for reinstall needed
+  set_fact:
+    minikube_reinstall_needed: >-
+      {{
+        not minikube_binary.stat.exists or
+        (minikube_current_version.stdout | default('') != 'v' + kubernetes.minikube.version)
+      }}
+
+
 - name: Download minikube binary
   get_url:
     url: "https://github.com/kubernetes/minikube/releases/download/v{{ kubernetes.minikube.version }}/minikube-linux-amd64"
     dest: "/tmp"
     checksum: "{{ kubernetes.minikube.checksum }}"
+  when: minikube_reinstall_needed
   register: minikube_results
+
+
+- name: Uninstall existing minikube (if version differs)
+  command: "rm /usr/local/bin/minikube"
+  become: True
+  when: minikube_binary.stat.exists and minikube_reinstall_needed
 
 
 - name: Install minikube
   command:
     cmd: "install {{ minikube_results.dest }} /usr/local/bin/minikube"
+  become: True
+  when: minikube_reinstall_needed
 
 
 - name: Configure minikube driver to be docker
   command:
     cmd: "minikube config set driver docker"
   become_user: "{{ user.name }}"
+  when: minikube_reinstall_needed

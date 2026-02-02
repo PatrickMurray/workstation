@@ -5,7 +5,7 @@
 - name: Configure gnome dash favorite-apps
   dconf:
     key: "/org/gnome/shell/favorite-apps"
-    value: "['firefox.desktop', 'gnome-terminal.desktop', 'com.bitwarden.desktop.desktop', 'org.telegram.desktop.desktop', 'com.discordapp.Discord.desktop', 'torbrowser.desktop']"
+    value: "{{ gnome.desktop.dock.favorite_applications | to_json }}"
     state: present
   become_user: "{{ user.name }}"
   become: True

@@ -1,0 +1,121 @@
+---
+# Window Manager Configuration Defaults - Example Values
+# Copy this file to main.yml and customize for your environment
+
+# GNOME Settings
+gnome:
+  # Desktop Settings
+  desktop:
+    # Top Panel
+    panel:
+      # Time Settings
+      time:
+        timezone: "America/New_York"  # Change to your timezone
+        format: "24h"                # "12h" or "24h"
+        show_seconds: true           # true or false
+        show_date: false             # true or false
+
+      # Battery Indicator
+      battery:
+        show_percentage: true       # Show battery percentage in panel
+
+    # Desktop background
+    background:
+      mode: "picture"              # "picture", "solid", or "slideshow"
+      picture_uri: "file://{{ user.home }}/Pictures/desktop_background.png"
+      # Alternative: picture_uri: "file:///usr/share/backgrounds/fedora-workstation/default"
+    
+    # Dock
+    dock:
+      # Auto-Hide
+      auto_hide: true               # true or false
+      
+      # Favorite Applications
+      favorite_applications:
+        - "firefox.desktop"
+        - "org.gnome.Terminal.desktop"
+        - "org.gnome.Nautilus.desktop"
+        - "org.gnome.gedit.desktop"
+        # Add more applications as needed:
+        # - "org.libreoffice.LibreOffice.desktop"
+        # - "org.gnome.Nautilus.desktop"
+        # - "code.desktop"  # VS Code
+  
+  # Power Management
+  power_management:
+    # Power mode
+    mode: "performance"             # "performance", "balanced", or "power-saver"
+    
+    # Power Button Behavior
+    power_button:
+      action: "interactive"        # "interactive", "suspend", "hibernate", "shutdown"
+    
+    # Battery Power Settings
+    battery_power:
+      # Charging mode
+      charging_mode: "preserve-battery-health"  # "preserve-battery-health" or "full_capacity"
+
+      # Automatic Power Saver On Low Battery
+      power_saver_on_low_battery: true            # true or false
+
+  # Lock Session Settings
+  lock_session:
+    enabled: true                 # Enable screen lock
+    timeout: 300                  # Seconds before lock (300 = 5 minutes)
+
+  # Inactivity Settings
+  inactivity:
+    ac_power:
+      action: "nothing"            # "nothing", "suspend", "hibernate", "shutdown"
+      timeout: 0                   # Seconds (0 = never)    
+    battery_power:
+      action: "suspend"            # "nothing", "suspend", "hibernate", "shutdown"
+      timeout: 360                 # Seconds (360 = 6 minutes)
+  
+  # Screen Settings
+  screen:
+    # Turn off screen after timeout
+    blank_timeout: 600             # Seconds (600 = 10 minutes)
+    
+    # Dim Screen Brightness
+    dim_brightness: true           # true or false
+
+# ZSH Configuration
+zsh:
+  # Oh-My-Zsh
+  oh_my_zsh:
+    repo: "https://github.com/ohmyzsh/ohmyzsh.git"
+    dest: "{{ user.home }}/.oh-my-zsh"
+  
+  # Custom Themes & Plugins
+  custom:
+    # Custom Themes
+    themes:
+      enabled: true                # Enable custom themes
+
+    # Custom Plugins
+    plugins:
+      enabled:
+        - zsh_autosuggestions      # Enable this plugin
+        # Add more plugins as needed:
+        # - zsh_syntax_highlighting
+        # - zsh_completions
+      
+      # Plugin Definitions
+      zsh_autosuggestions:
+        repo: "https://github.com/zsh-users/zsh-autosuggestions.git"
+        dest: "{{ user.home }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+      
+      # Example additional plugin:
+      # zsh_syntax_highlighting:
+      #   repo: "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+      #   dest: "{{ user.home }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+  
+  # Function Autoloading
+  autoload:
+    path: .config/zsh/autoload     # Relative to home directory
+    functions:
+      - git-squash                 # Custom functions to autoload
+      # Add more functions as needed:
+      # - git-branch
+      # - docker-cleanup

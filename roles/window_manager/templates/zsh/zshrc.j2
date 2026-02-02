@@ -70,7 +70,9 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  zsh-autosuggestions
+{% for plugin in zsh.custom.plugins.enabled %}
+  {{ plugin }}
+{% endfor %}
 )
 
 source $ZSH/oh-my-zsh.sh

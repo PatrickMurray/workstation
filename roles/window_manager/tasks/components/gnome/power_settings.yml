@@ -1,0 +1,119 @@
+---
+# Reference Documentation:
+# 1. https://help.gnome.org/system-admin-guide/power-settings.html
+# 2. https://extensions.gnome.org/extension/23/battery-percentage-indicator/
+# 3. https://help.gnome.org/system-admin-guide/logout-automatic.html
+
+
+# BATTERY CHARGING
+
+
+- name: Configure battery charging mode
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/power/battery-charge-mode"
+    value: "'{{ gnome.power_management.battery_power.charging_mode }}'"
+    state: present
+  become_user: "{{ user.name }}"
+  become: True
+
+
+# POWER MODE
+
+
+- name: Configure power mode
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/power/power-mode"
+    value: "'{{ gnome.power_management.mode }}'"
+    state: present
+  become_user: "{{ user.name }}"
+  become: True
+
+
+# POWER BUTTON BEHAVIOR
+
+
+- name: Configure power button behavior
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/power/power-button-action"
+    value: "'{{ gnome.power_management.power_button.action }}'"
+    state: present
+  become_user: "{{ user.name }}"
+  become: True
+
+
+# SHOW BATTERY PERCENTAGE
+
+
+- name: Show battery percentage in system tray
+  dconf:
+    key: "/org/gnome/desktop/interface/show-battery-percentage"
+    value: "{{ gnome.desktop.panel.battery.show_percentage | lower }}"
+    state: present
+  become_user: "{{ user.name }}"
+  become: True
+
+
+# AUTOMATIC POWER SAVER
+
+
+- name: Configure automatic power saver on low battery
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/power/power-saver-profile-on-low-battery"
+    value: "{{ gnome.power_management.battery_power.power_saver_on_low_battery | lower }}"
+    state: present
+  become_user: "{{ user.name }}"
+  become: True
+
+
+# AUTOMATIC SUSPEND - BATTERY POWER
+
+
+- name: Configure gnome battery-power inactivity action
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-battery-type"
+    value: "'{{ gnome.inactivity.battery_power.action }}'"
+    state: present
+  become_user: "{{ user.name }}"
+  become: True
+
+
+- name: Configure gnome battery-power inactivity timeout
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-battery-timeout"
+    value: "{{ gnome.inactivity.battery_power.timeout }}"
+    state: present
+  become_user: "{{ user.name }}"
+  become: True
+
+
+# AUTOMATIC SUSPEND - AC POWER
+
+
+- name: Configure gnome AC-power inactivity action
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type"
+    value: "'{{ gnome.inactivity.ac_power.action }}'"
+    state: present
+  become_user: "{{ user.name }}"
+  become: True
+
+
+- name: Configure gnome AC-power inactivity timeout
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout"
+    value: "{{ gnome.inactivity.ac_power.timeout }}"
+    state: present
+  become_user: "{{ user.name }}"
+  become: True
+
+
+# DIM SCREEN BRIGHTNESS
+
+
+- name: Configure screen brightness dimming
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/power/dim-screen"
+    value: "{{ gnome.screen.dim_brightness | lower }}"
+    state: present
+  become_user: "{{ user.name }}"
+  become: True

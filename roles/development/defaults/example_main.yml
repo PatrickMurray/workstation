@@ -5,18 +5,26 @@ git:
 
 
 kubernetes:
+  # Releases: https://github.com/kubernetes/kubectl/tags
+  # Last Updated: YYYY-MM-DD
   kubectl:
-    version: X.Y.Z
-  
+    version: "0.00"
+
+  # Releases: https://github.com/kubernetes/minikube/releases
+  # Last Updated: YYYY-MM-DD
   minikube:
-    version: X.Y.Z
-    checksum: "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    version: "0.0.0"
+    checksum: "sha256:..."
 
+  # Releases: https://github.com/tilt-dev/ctlptl/releases
+  # Last Updated: YYYY-MM-DD
   ctlptl:
-    version: X.Y.Z
-    checksum: "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    version: "0.0.0"
+    checksum: "sha256:..."
 
+  # Releases: https://github.com/tilt-dev/tilt/releases
+  # Last Updated: YYYY-MM-DD
   tilt:
-    version: X.Y.Z
-    checksum: "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    version: "0.0.0"
+    checksum: "sha256:..."
 
