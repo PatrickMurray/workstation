@@ -11,7 +11,8 @@
   loop_control:
     loop_var: component
   loop:
-    - desktop_background
-    - battery_percentage
     - clock_format
+    - desktop_background
     - favorite_applications
+    - power_settings
+    - screen_lock

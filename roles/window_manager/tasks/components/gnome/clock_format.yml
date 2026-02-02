@@ -1,12 +1,18 @@
 ---
 # References:
-# 1) https://unix.stackexchange.com/a/327986
-# 2) https://github.com/GNOME/gsettings-desktop-schemas/blob/master/schemas/org.gnome.desktop.interface.gschema.xml.in
+# 1. https://unix.stackexchange.com/a/327986
+# 2. https://github.com/GNOME/gsettings-desktop-schemas/blob/master/schemas/org.gnome.desktop.interface.gschema.xml.in
+
+- name: Set system timezone
+  timezone:
+    name: "{{ gnome.desktop.panel.time.timezone }}"
+  become: True
+
 
 - name: Configure gnome clock interface format
   dconf:
     key: "/org/gnome/desktop/interface/clock-format"
-    value: "'24h'"
+    value: "'{{ gnome.desktop.panel.time.format }}'"
     state: present
   become_user: "{{ user.name }}"
   become: True
@@ -15,7 +21,7 @@
 - name: Configure gnome clock interface to show seconds
   dconf:
     key: "/org/gnome/desktop/interface/clock-show-seconds"
-    value: "true"
+    value: "{{ gnome.desktop.panel.time.show_seconds | lower }}"
     state: present
   become_user: "{{ user.name }}"
   become: True
@@ -24,7 +30,7 @@
 - name: Configure gnome clock interface to hide date
   dconf:
     key: "/org/gnome/desktop/interface/clock-show-date"
-    value: "false"
+    value: "{{ gnome.desktop.panel.time.show_date | lower }}"
     state: present
   become_user: "{{ user.name }}"
   become: True

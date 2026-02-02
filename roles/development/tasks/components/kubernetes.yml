@@ -1,7 +1,64 @@
 ---
+- name: Check if kubectl binary exists
+  stat:
+    path: /usr/bin/kubectl
+  register: kubectl_binary
+
+
+- name: Get current kubectl version (if installed)
+  command: "kubectl version --client"
+  register: kubectl_current_version
+  when: kubectl_binary.stat.exists
+  changed_when: false
+
+
+- name: Extract current version from kubectl output
+  set_fact:
+    kubectl_current_version: >-
+      {{
+        (kubectl_current_version.stdout.split('\n')[0] | regex_replace('Client Version: v', '') | regex_replace('\s.*', '')) or ''
+      }}
+    kubectl_current_major_minor: >-
+      {{
+        (kubectl_current_version.stdout.split('\n')[0] | regex_replace('Client Version: v', '') | regex_replace('\s.*', '')).split('.')[0] + '.' +
+        (kubectl_current_version.stdout.split('\n')[0] | regex_replace('Client Version: v', '') | regex_replace('\s.*', '')).split('.')[1] or ''
+      }}
+  when: kubectl_binary.stat.exists
+
+
+- name: Set fact for reinstall needed
+  set_fact:
+    kubectl_reinstall_needed: >-
+      {{
+        not kubectl_binary.stat.exists or
+        (kubectl_current_major_minor is defined and
+         kubectl_current_major_minor != kubernetes.kubectl.version)
+      }}
+    kubectl_major_minor_changed: >-
+      {{
+        not kubectl_binary.stat.exists or
+        (kubectl_current_major_minor is defined and
+         kubectl_current_major_minor != kubernetes.kubectl.version)
+      }}
+
+
+- name: Remove old kubernetes yum repository (if different version)
+  yum_repository:
+    name: Kubernetes
+    state: absent
+  when: kubectl_major_minor_changed
+
+- name: Remove old kubectl package (if different version was installed)
+  package:
+    name: kubectl
+    state: absent
+  when: kubectl_major_minor_changed
+
+
 - name: Add kubernetes package signing key
   rpm_key:
     key: "https://pkgs.k8s.io/core:/stable:/v{{ kubernetes.kubectl.version }}/rpm/repodata/repomd.xml.key"
+  when: kubectl_reinstall_needed
 
 
 - name: Add kubernetes yum repository
@@ -11,9 +68,11 @@
     baseurl: "https://pkgs.k8s.io/core:/stable:/v{{ kubernetes.kubectl.version }}/rpm/"
     gpgcheck: True
     gpgkey: "https://pkgs.k8s.io/core:/stable:/v{{ kubernetes.kubectl.version }}/rpm/repodata/repomd.xml.key"
+  when: kubectl_reinstall_needed
 
 
 - name: Install kubectl
   package:
     name: kubectl
-    state: latest
+    state: present
+  when: kubectl_reinstall_needed

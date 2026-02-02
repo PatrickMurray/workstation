@@ -1,6 +1,3 @@
 ---
-zsh:
-  autoload:
-    path: .config/zsh/autoload
-    functions:
-      - git-squash
+# This file can be used for environment-specific overrides
+# Default configuration in defaults/main.yml

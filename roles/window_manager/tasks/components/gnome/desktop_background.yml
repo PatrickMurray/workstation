@@ -13,7 +13,7 @@
 - name: Configure gnome desktop background picture-uri
   dconf:
     key: "/org/gnome/desktop/background/picture-uri"
-    value: "'file://{{ user.home }}/Pictures/desktop_background.png'"
+    value: "'{{ gnome.desktop.background.picture_uri }}'"
     state: present
   become_user: "{{ user.name }}"
   become: True

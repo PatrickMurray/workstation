@@ -1,11 +1,46 @@
 ---
 # CATTLE PATROL INSTALLATION
+
+
+- name: Check if ctlptl binary exists
+  stat:
+    path: /usr/local/bin/ctlptl
+  register: ctlptl_binary
+
+
+- name: Get current ctlptl version (if installed)
+  command: "ctlptl version"
+  register: ctlptl_current_version
+  when: ctlptl_binary.stat.exists
+  changed_when: false
+
+
+- name: Extract current version from ctlptl output
+  set_fact:
+    ctlptl_current_version_number: >-
+      {{
+        (ctlptl_current_version.stdout | regex_replace('v', '') | regex_replace('[,\s].*', '')) or ''
+      }}
+  when: ctlptl_binary.stat.exists
+
+
+- name: Set fact for reinstall needed
+  set_fact:
+    ctlptl_reinstall_needed: >-
+      {{
+        not ctlptl_binary.stat.exists or
+        (ctlptl_current_version_number is defined and
+         ctlptl_current_version_number != kubernetes.ctlptl.version)
+      }}
+
+
 - name: Download ctlptl archive
   get_url:
     url: "https://github.com/tilt-dev/ctlptl/releases/download/v{{ kubernetes.ctlptl.version }}/ctlptl.{{ kubernetes.ctlptl.version }}.linux.x86_64.tar.gz"
     dest: "/tmp"
     checksum: "{{ kubernetes.ctlptl.checksum }}"
   register: ctlptl_archive
+  when: ctlptl_reinstall_needed
 
 
 - name: Create temporary directory for ctlptl archive extraction
@@ -13,26 +48,62 @@
     state: directory
     suffix: "-ctlptl"
   register: ctlptl_tempdir
+  when: ctlptl_reinstall_needed
 
 
 - name: Extract ctlptl archive
   unarchive:
     src: "{{ ctlptl_archive.dest }}"
     dest: "{{ ctlptl_tempdir.path }}"
+  when: ctlptl_reinstall_needed
 
 
 - name: Install ctlptl binary
   command:
     cmd: "install {{ ctlptl_tempdir.path }}/ctlptl /usr/local/bin/ctlptl"
+  when: ctlptl_reinstall_needed
 
 
 # TILT INSTALLATION
+- name: Check if tilt binary exists
+  stat:
+    path: /usr/local/bin/tilt
+  register: tilt_binary
+
+
+- name: Get current tilt version (if installed)
+  command: "tilt version"
+  register: tilt_current_version
+  when: tilt_binary.stat.exists
+  changed_when: false
+
+
+- name: Extract current version from tilt output
+  set_fact:
+    tilt_current_version_number: >-
+      {{
+        (tilt_current_version.stdout | regex_replace('v', '') | regex_replace('[,\s].*', '')) or ''
+      }}
+  when: tilt_binary.stat.exists
+
+
+- name: Set fact for reinstall needed
+  set_fact:
+    tilt_reinstall_needed: >-
+      {{
+        not tilt_binary.stat.exists or
+        (tilt_current_version_number is defined and
+         tilt_current_version_number != kubernetes.tilt.version)
+      }}
+
+
 - name: Download tilt archive
   get_url:
     url: "https://github.com/tilt-dev/tilt/releases/download/v{{ kubernetes.tilt.version }}/tilt.{{ kubernetes.tilt.version }}.linux.x86_64.tar.gz"
     dest: "/tmp"
     checksum: "{{ kubernetes.tilt.checksum }}"
   register: tilt_archive
+  when: tilt_reinstall_needed
 
 
 - name: Create temporary directory for tilt archive extraction
@@ -40,14 +111,17 @@
     state: directory
     suffix: "-tilt"
   register: tilt_tempdir
+  when: tilt_reinstall_needed
 
 
 - name: Extract tilt archive
   unarchive:
     src: "{{ tilt_archive.dest }}"
     dest: "{{ tilt_tempdir.path }}"
+  when: tilt_reinstall_needed
 
 
 - name: Install tilt binary
   command:
     cmd: "install {{ tilt_tempdir.path }}/tilt /usr/local/bin/tilt"
+  when: tilt_reinstall_needed
