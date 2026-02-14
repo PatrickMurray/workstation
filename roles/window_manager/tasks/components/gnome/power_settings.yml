@@ -6,27 +6,62 @@
 
 
 # BATTERY CHARGING
+# Note: Battery charging mode is controlled by UPower via D-Bus
+# We use direct dbus-send commands to set charge thresholds
 
-
-- name: Configure battery charging mode
-  dconf:
-    key: "/org/gnome/settings-daemon/plugins/power/battery-charge-mode"
-    value: "'{{ gnome.power_management.battery_power.charging_mode }}'"
-    state: present
+- name: Enable battery charge threshold
+  command:
+    argv:
+      - dbus-send
+      - --system
+      - --dest=org.freedesktop.UPower
+      - --type=method_call
+      - /org/freedesktop/UPower/devices/battery_BAT0
+      - org.freedesktop.UPower.Device.EnableChargeThreshold
+      - boolean:true
   become_user: "{{ user.name }}"
-  become: True
+
+- name: Set battery charge start threshold to 75%
+  command:
+    argv:
+      - dbus-send
+      - --system
+      - --dest=org.freedesktop.UPower
+      - --type=method_call
+      - /org/freedesktop/UPower/devices/battery_BAT0
+      - org.freedesktop.DBus.Properties.Set
+      - string:"org.freedesktop.UPower.Device"
+      - string:"ChargeStartThreshold"
+      - variant:uint32:75
+  become_user: "{{ user.name }}"
+
+- name: Set battery charge end threshold to 80%
+  command:
+    argv:
+      - dbus-send
+      - --system
+      - --dest=org.freedesktop.UPower
+      - --type=method_call
+      - /org/freedesktop/UPower/devices/battery_BAT0
+      - org.freedesktop.DBus.Properties.Set
+      - string:"org.freedesktop.UPower.Device"
+      - string:"ChargeEndThreshold"
+      - variant:uint32:80
+  become_user: "{{ user.name }}"
 
 
 # POWER MODE
 
-
-- name: Configure power mode
-  dconf:
-    key: "/org/gnome/settings-daemon/plugins/power/power-mode"
-    value: "'{{ gnome.power_management.mode }}'"
-    state: present
+- name: Get current power profile
+  command: tuned-adm profile
   become_user: "{{ user.name }}"
-  become: True
+  register: current_power_profile
+  changed_when: false
+
+- name: Configure power mode using tuned
+  command: tuned-adm profile {{ gnome.power_management.mode }}
+  become_user: "{{ user.name }}"
+  when: current_power_profile.stdout != gnome.power_management.mode
 
 
 # POWER BUTTON BEHAVIOR
@@ -80,7 +115,7 @@
 - name: Configure gnome battery-power inactivity timeout
   dconf:
     key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-battery-timeout"
-    value: "{{ gnome.inactivity.battery_power.timeout }}"
+    value: "{{ gnome.inactivity.battery_power.timeout | int }}"
     state: present
   become_user: "{{ user.name }}"
   become: True
@@ -101,7 +136,7 @@
 - name: Configure gnome AC-power inactivity timeout
   dconf:
     key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout"
-    value: "{{ gnome.inactivity.ac_power.timeout }}"
+    value: "{{ gnome.inactivity.ac_power.timeout | int }}"
     state: present
   become_user: "{{ user.name }}"
   become: True
