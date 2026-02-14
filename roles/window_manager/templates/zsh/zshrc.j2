@@ -71,11 +71,18 @@ ZSH_THEME="robbyrussell"
 plugins=(
   git
 {% for plugin in zsh.custom.plugins.enabled %}
+{% if plugin != 'zsh_autosuggestions' %}
   {{ plugin }}
+{% endif %}
 {% endfor %}
 )
 
 source $ZSH/oh-my-zsh.sh
+
+# Load zsh-autosuggestions manually if enabled
+{% if 'zsh_autosuggestions' in zsh.custom.plugins.enabled %}
+source {{ user.home }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+{% endif %}
 
 # User configuration
 
