@@ -7,7 +7,7 @@ set -e
 
 # Configuration
 ANSIBLE_REQUIREMENTS_FILENAME="requirements.yml"
-ANSIBLE_INVENTORY_FILENAME="inventory_clean.yml"
+ANSIBLE_INVENTORY_FILENAME="inventory.yml"
 
 # Colors for output
 RED='\033[0;31m'
