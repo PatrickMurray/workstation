@@ -1,0 +1,30 @@
+---
+# Default workstation playbook
+# Full workstation with all roles
+
+- hosts: localhost
+  vars_files:
+    - "{{ playbook_dir }}/../secrets.yml"
+  vars:
+    workstation_type: "default"
+    workstation_roles:
+      - common
+      - desktop_environment
+      - file_management
+      - web_browser
+      - development
+      - system_administration
+      - multimedia
+      - documentation
+      - security
+      - graphic_design
+      - chat_clients
+  tasks:
+    - name: Execute roles for workstation
+      include_role:
+        name: "{{ role }}"
+        apply:
+          tags: workstation_setup
+      loop_control:
+        loop_var: role
+      loop: "{{ workstation_roles }}"

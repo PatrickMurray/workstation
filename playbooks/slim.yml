@@ -1,0 +1,25 @@
+---
+# Slim workstation playbook
+# Minimal workstation with essential roles
+
+- hosts: localhost
+  vars_files:
+    - "{{ playbook_dir }}/../secrets.yml"
+  vars:
+    workstation_type: "slim"
+    workstation_roles:
+      - common
+      - desktop_environment
+      - web_browser
+      - development
+      - system_administration
+      - security
+  tasks:
+    - name: Execute roles for workstation
+      include_role:
+        name: "{{ role }}"
+        apply:
+          tags: workstation_setup
+      loop_control:
+        loop_var: role
+      loop: "{{ workstation_roles }}"

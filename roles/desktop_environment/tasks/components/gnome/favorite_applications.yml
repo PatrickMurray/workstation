@@ -5,7 +5,7 @@
 - name: Configure gnome dash favorite-apps
   dconf:
     key: "/org/gnome/shell/favorite-apps"
-    value: "{{ gnome.desktop.dock.favorite_applications | to_json }}"
+    value: "'{{ gnome.desktop.dock.favorite_applications | to_json }}'"
     state: present
   become_user: "{{ user.name }}"
   become: True

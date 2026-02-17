@@ -1,22 +1,11 @@
 ---
-- hosts: localhost
-  vars_files:
-    - secrets.yml
-  tasks:
-    - name: Execute roles
-      include_role:
-        name: "{{ role }}"
-      loop_control:
-        loop_var: role
-      loop:
-        - common
-        - window_manager
-        - file_management
-        - web_browser
-        - development
-        - system_administration
-        - multimedia
-        - documentation
-        - security
-        - graphic_design
-        - chat_clients
+# Main workstation playbook
+# Routes to appropriate workstation profile based on input
+
+- name: Include default workstation playbook
+  import_playbook: playbooks/default.yml
+  when: workstation_type | default('default') == 'default'
+
+- name: Include slim workstation playbook  
+  import_playbook: playbooks/slim.yml
+  when: workstation_type | default('default') == 'slim'
