@@ -19,9 +19,9 @@
   set_fact:
     ctlptl_current_version_number: >-
       {{
-        (ctlptl_current_version.stdout | regex_replace('v', '') | regex_replace('[,\s].*', '')) or ''
+        (ctlptl_current_version.stdout | regex_replace('v', '') | regex_replace(',.*', '')) or ''
       }}
-  when: ctlptl_binary.stat.exists
+  when: ctlptl_binary.stat.exists and ctlptl_current_version.stdout is defined and not ctlptl_current_version.skipped | default(false)
 
 
 - name: Set fact for reinstall needed
@@ -29,8 +29,9 @@
     ctlptl_reinstall_needed: >-
       {{
         not ctlptl_binary.stat.exists or
-        (ctlptl_current_version_number is defined and
-         ctlptl_current_version_number != kubernetes.ctlptl.version)
+        (ctlptl_binary.stat.exists and 
+         ctlptl_current_version_number is defined and
+         (ctlptl_current_version_number | default('') != kubernetes.ctlptl.version))
       }}
 
 
@@ -55,13 +56,13 @@
   unarchive:
     src: "{{ ctlptl_archive.dest }}"
     dest: "{{ ctlptl_tempdir.path }}"
-  when: ctlptl_reinstall_needed
+  when: ctlptl_reinstall_needed and ctlptl_tempdir is defined and ctlptl_tempdir.path is defined
 
 
 - name: Install ctlptl binary
   command:
     cmd: "install {{ ctlptl_tempdir.path }}/ctlptl /usr/local/bin/ctlptl"
-  when: ctlptl_reinstall_needed
+  when: ctlptl_reinstall_needed and ctlptl_tempdir is defined and ctlptl_tempdir.path is defined
 
 
 # TILT INSTALLATION
@@ -82,9 +83,9 @@
   set_fact:
     tilt_current_version_number: >-
       {{
-        (tilt_current_version.stdout | regex_replace('v', '') | regex_replace('[,\s].*', '')) or ''
+        (tilt_current_version.stdout | regex_replace('v', '') | regex_replace(',.*', '')) or ''
       }}
-  when: tilt_binary.stat.exists
+  when: tilt_binary.stat.exists and tilt_current_version.stdout is defined and not tilt_current_version.skipped | default(false)
 
 
 - name: Set fact for reinstall needed
@@ -92,8 +93,9 @@
     tilt_reinstall_needed: >-
       {{
         not tilt_binary.stat.exists or
-        (tilt_current_version_number is defined and
-         tilt_current_version_number != kubernetes.tilt.version)
+        (tilt_binary.stat.exists and 
+         tilt_current_version_number is defined and
+         (tilt_current_version_number | default('') != kubernetes.tilt.version))
       }}
 
 
@@ -118,10 +120,10 @@
   unarchive:
     src: "{{ tilt_archive.dest }}"
     dest: "{{ tilt_tempdir.path }}"
-  when: tilt_reinstall_needed
+  when: tilt_reinstall_needed and tilt_tempdir is defined and tilt_tempdir.path is defined
 
 
 - name: Install tilt binary
   command:
     cmd: "install {{ tilt_tempdir.path }}/tilt /usr/local/bin/tilt"
-  when: tilt_reinstall_needed
+  when: tilt_reinstall_needed and tilt_tempdir is defined and tilt_tempdir.path is defined

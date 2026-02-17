@@ -1,0 +1,8 @@
+---
+# Clean inventory file
+# Simple host definitions without complex templating
+
+all:
+  hosts:
+    localhost:
+      ansible_connection: local

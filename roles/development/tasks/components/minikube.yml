@@ -12,14 +12,24 @@
   changed_when: false
 
 
+- name: Extract current version from minikube output
+  set_fact:
+    minikube_current_version: >-
+      {{
+        (minikube_current_version.stdout.split('\n')[0] | regex_replace('Client Version: v', '') | regex_replace('\s.*', '')) or ''
+      }}
+  when: minikube_binary.stat.exists and minikube_current_version.stdout is defined
+
+
 - name: Set fact for reinstall needed
   set_fact:
     minikube_reinstall_needed: >-
       {{
         not minikube_binary.stat.exists or
-        (minikube_current_version.stdout | default('') != 'v' + kubernetes.minikube.version)
+        (minikube_binary.stat.exists and 
+         minikube_current_version.stdout is defined and
+         (minikube_current_version.stdout | default('') != 'v' + kubernetes.minikube.version))
       }}
-
 
 - name: Download minikube binary
   get_url:

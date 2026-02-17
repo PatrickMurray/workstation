@@ -18,12 +18,15 @@
       {{
         (kubectl_current_version.stdout.split('\n')[0] | regex_replace('Client Version: v', '') | regex_replace('\s.*', '')) or ''
       }}
+  when: kubectl_binary.stat.exists and kubectl_current_version.stdout is defined
+
+- name: Extract current major minor version
+  set_fact:
     kubectl_current_major_minor: >-
       {{
-        (kubectl_current_version.stdout.split('\n')[0] | regex_replace('Client Version: v', '') | regex_replace('\s.*', '')).split('.')[0] + '.' +
-        (kubectl_current_version.stdout.split('\n')[0] | regex_replace('Client Version: v', '') | regex_replace('\s.*', '')).split('.')[1] or ''
+        (kubectl_current_version.split('.')[0] + '.' + (kubectl_current_version.split('.')[1] if (kubectl_current_version.split('.') | length) > 1 else '0'))
       }}
-  when: kubectl_binary.stat.exists
+  when: kubectl_binary.stat.exists and kubectl_current_version is defined and kubectl_current_version != ''
 
 
 - name: Set fact for reinstall needed
