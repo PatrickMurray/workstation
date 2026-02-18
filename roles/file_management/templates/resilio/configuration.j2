@@ -16,7 +16,10 @@
 
   "shared_folders": [
 {% set comma = joiner(",") %}
-{% for folder in resilio.folders.list %}
+{% set workstation_type = workstation_type | default('default') %}
+{% set folder_keys = resilio.folders.workstation_type_folders[workstation_type] %}
+{% for folder_key in folder_keys %}
+    {% set folder = resilio.folders.definitions[folder_key] %}
     {{ comma() }}
     {
       "dir": "{{ resilio.folders.directory }}/{{ folder.name }}",
