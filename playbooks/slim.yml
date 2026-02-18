@@ -10,6 +10,7 @@
     workstation_roles:
       - common
       - desktop_environment
+      - file_management
       - web_browser
       - development
       - system_administration
