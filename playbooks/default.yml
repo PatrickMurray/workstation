@@ -18,6 +18,7 @@
       - documentation
       - security
       - graphic_design
+      - 3d_modeling
       - chat_clients
   tasks:
     - name: Execute roles for workstation
