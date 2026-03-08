@@ -15,6 +15,7 @@
       - development
       - system_administration
       - security
+      - 3d_modeling
   tasks:
     - name: Execute roles for workstation
       include_role:
