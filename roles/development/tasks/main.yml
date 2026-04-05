@@ -12,7 +12,7 @@
     - hugo
     - rust
     - npm
-    - docker
+    - podman
     - kubernetes
     - minikube
     - tilt
