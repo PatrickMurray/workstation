@@ -58,7 +58,9 @@ if [[ "${WORKSTATION_TYPE}" != "default" && "${WORKSTATION_TYPE}" != "slim" ]]; 
 fi
 
 # CREATE TEMP DIRECTORY
-TEMP_DIRECTORY=$(mktemp --directory --suffix "_${GITHUB_USERNAME}_${GITHUB_REPOSITORY}_${GITHUB_BRANCH}")
+# Replace forward slashes in branch name for safe directory naming
+SAFE_BRANCH_NAME=$(echo "${GITHUB_BRANCH}" | sed 's|/|-|g')
+TEMP_DIRECTORY=$(mktemp --directory --suffix "_${GITHUB_USERNAME}_${GITHUB_REPOSITORY}_${SAFE_BRANCH_NAME}")
 
 if [[ "${?}" -ne 0 ]]; then
     echo -e "${RED}An error occurred while initializing the temporary directory${NC}"
@@ -90,14 +92,21 @@ if [[ "${?}" -ne 0 ]]; then
     exit -1
 fi
 
-unzip "${GITHUB_BRANCH}.zip"
+unzip "*.zip"
 
 if [[ "${?}" -ne 0 ]]; then
     echo -e "${RED}An error occurred while extracting the archive${NC}"
     exit -1
 fi
 
-cd "${GITHUB_REPOSITORY}-${GITHUB_BRANCH}"
+# Find the extracted directory (handles branch names with slashes)
+EXTRACTED_DIR=$(find . -maxdepth 1 -type d -name "${GITHUB_REPOSITORY}-*" | head -n 1)
+if [[ -z "${EXTRACTED_DIR}" ]]; then
+    echo -e "${RED}Could not find extracted repository directory${NC}"
+    exit -1
+fi
+
+cd "${EXTRACTED_DIR}"
 
 if [[ "${?}" -ne 0 ]]; then
     echo -e "${RED}An error occurred while changing to the repository directory${NC}"
