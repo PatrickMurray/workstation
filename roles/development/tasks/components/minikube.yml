@@ -53,15 +53,8 @@
   when: minikube_reinstall_needed
 
 
-- name: Configure minikube driver to be podman
+- name: Configure minikube driver to be docker
   command:
-    cmd: "minikube config set driver podman"
+    cmd: "minikube config set driver docker"
   become_user: "{{ user.name }}"
   when: minikube_reinstall_needed
-
-
-#- name: Configure minikube to run rootless
-#  command:
-#    cmd: "minikube config set rootless true"
-#  become_user: "{{ user.name }}"
-#  when: minikube_reinstall_needed
