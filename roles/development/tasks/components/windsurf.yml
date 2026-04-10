@@ -1,7 +1,13 @@
 ---
+# $ gpg --show-keys RPM-GPG-KEY-windsurf 
+# pub   rsa4096 2024-09-30 [SC]
+#       EE2C46CC44E1578C23135B0E9E608A1B9FD62A3F
+# uid                      Tom Knowles (Codeium) (Windsurf repository signing key) <tom@codeium.com>
+# sub   rsa4096 2024-09-30 [E]
 - name: Add Windsurf package signing key
   rpm_key:
     key: https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/yum/RPM-GPG-KEY-windsurf
+    fingerprint: "EE2C46CC44E1578C23135B0E9E608A1B9FD62A3F"
 
 
 - name: Add Windsurf yum repository
