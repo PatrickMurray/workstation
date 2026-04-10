@@ -61,6 +61,7 @@
 - name: Add kubernetes package signing key
   rpm_key:
     key: "https://pkgs.k8s.io/core:/stable:/v{{ kubernetes.kubectl.version }}/rpm/repodata/repomd.xml.key"
+    fingerprint: "{{ kubernetes.kubectl.fingerprint }}"
   when: kubectl_reinstall_needed
 
 

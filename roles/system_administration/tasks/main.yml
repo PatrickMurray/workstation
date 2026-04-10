@@ -14,7 +14,7 @@
     - pv
     - strace
     - telnet
-#    - terraform
+    - terraform
     - traceroute
     - tree
     - unzip

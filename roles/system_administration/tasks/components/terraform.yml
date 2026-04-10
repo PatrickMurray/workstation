@@ -1,12 +1,23 @@
 ---
-- name: Download Terraform release
-  get_url:
-    url: "https://releases.hashicorp.com/terraform/{{ terraform.version }}/terraform_{{ terraform.version }}_{{ terraform.platform }}_{{ terraform.architecture }}.zip"
-    dest: /tmp
-    checksum: "{{ terraform.checksum }}"
+# $ gpg --show-keys gpg          
+# pub   rsa4096 2023-01-10 [SC] [expires: 2028-01-09]
+#       798AEC654E5C15428C8E42EEAA16FCBCA621E701
+# uid                      HashiCorp Security (HashiCorp Package Signing) <security+packaging@hashicorp.com>
+# sub   rsa4096 2023-01-10 [S] [expires: 2028-01-09]
+- name: Add HashiCorp package signing key
+  rpm_key:
+    key: https://rpm.releases.hashicorp.com/gpg
+    fingerprint: "798AEC654E5C15428C8E42EEAA16FCBCA621E701"
 
+- name: Add HashiCorp yum repository
+  yum_repository:
+    name: hashicorp
+    description: HashiCorp YUM Repository
+    baseurl: https://rpm.releases.hashicorp.com/fedora/$releasever/$basearch/stable
+    gpgcheck: True
+    gpgkey: https://rpm.releases.hashicorp.com/gpg
 
 - name: Install Terraform
-  unarchive:
-    src: "/tmp/terraform_{{ terraform.version }}_{{ terraform.platform }}_{{ terraform.architecture }}.zip"
-    dest: /usr/bin
+  package:
+    name: terraform
+    state: latest
