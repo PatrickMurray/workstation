@@ -140,10 +140,18 @@
 # CONFIGURE SYSTEMD
 
 
+- name: Create systemd user directory
+  file:
+    path: "{{ resilio.service.systemd.directory }}"
+    state: directory
+    mode: '0755'
+  become: True
+  become_user: "{{ user.name }}"
+
 - name: Configure resilio-sync systemd user-service unit
   template:
     src: resilio/service.j2
-    dest: "{{ resilio.service.systemd.path }}"
+    dest: "{{ resilio.service.systemd.directory }}/{{ resilio.service.systemd.service_filename }}"
   notify:
     - Restart resilio-sync
 
@@ -154,8 +162,6 @@
     state: started
     daemon_reload: True
     scope: user
-  become: True
-  become_user: "{{ user.name }}"
 
 - name: Configure resilio-sync systemd system-service
   systemd:
@@ -168,3 +174,6 @@
   command:
     cmd: "loginctl enable-linger {{ user.name }}"
     creates: "/var/lib/systemd/linger/{{ user.name }}"
+
+- name: Flush handlers to restart resilio-sync once
+  meta: flush_handlers

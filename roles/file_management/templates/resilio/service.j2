@@ -12,7 +12,7 @@ ExecStart=/usr/bin/rslsync  \
 ExecStartPost=/bin/sleep 1
 
 # Security Hardening
-ProtectHome=read-only
+ProtectHome=true
 ProtectSystem=strict
 PrivateTmp=true
 NoNewPrivileges=true

@@ -4,5 +4,6 @@
     name: resilio-sync
     state: restarted
     scope: user
+    daemon_reload: True
   become: True
   become_user: "{{ user.name }}"
