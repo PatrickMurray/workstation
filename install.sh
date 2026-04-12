@@ -21,6 +21,15 @@ if [[ "${EUID}" -ne 0 ]]; then
     exit -1
 fi
 
+# UPGRADE SYSTEM PACKAGES
+echo -e "${YELLOW}Upgrading system packages...${NC}"
+dnf upgrade -y
+
+if [[ "${?}" -ne 0 ]]; then
+    echo -e "${RED}An error occurred while upgrading system packages${NC}"
+    exit -1
+fi
+
 # Workstation type selection
 WORKSTATION_TYPE="${1:-}"
 

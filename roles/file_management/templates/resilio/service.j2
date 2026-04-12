@@ -12,11 +12,15 @@ ExecStart=/usr/bin/rslsync  \
 ExecStartPost=/bin/sleep 1
 
 # Security Hardening
-ProtectHome=true
+ProtectHome=read-only
 ProtectSystem=strict
 PrivateTmp=true
 NoNewPrivileges=true
-ReadWritePaths={{ resilio.folders.directory }} {{ resilio.service.configuration.directory }}
+ReadWritePaths=\
+  {{ resilio.folders.directory }} \
+  {{ resilio.service.configuration.directory }} \
+  {{ resilio.service.runtime.directory }} \
+  {{ resilio.service.library.directory }}
 
 [Install]
 WantedBy=default.target
