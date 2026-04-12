@@ -152,6 +152,9 @@
   template:
     src: resilio/service.j2
     dest: "{{ resilio.service.systemd.directory }}/{{ resilio.service.systemd.service_filename }}"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: '0644'
   notify:
     - Restart resilio-sync
 
@@ -159,8 +162,6 @@
   systemd:
     name: resilio-sync
     enabled: True
-    state: started
-    daemon_reload: True
     scope: user
 
 - name: Configure resilio-sync systemd system-service

@@ -14,5 +14,5 @@
     - clock_format
     - desktop_background
     - favorite_applications
-    # - power_settings  # TODO: Re-enable when power settings bugs are resolved
+    - power_settings
     - screen_lock
