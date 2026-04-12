@@ -1,67 +1,7 @@
 ---
 # Reference Documentation:
 # 1. https://help.gnome.org/system-admin-guide/power-settings.html
-# 2. https://extensions.gnome.org/extension/23/battery-percentage-indicator/
-# 3. https://help.gnome.org/system-admin-guide/logout-automatic.html
-
-
-# BATTERY CHARGING
-# Note: Battery charging mode is controlled by UPower via D-Bus
-# We use direct dbus-send commands to set charge thresholds
-
-- name: Enable battery charge threshold
-  command:
-    argv:
-      - dbus-send
-      - --system
-      - --dest=org.freedesktop.UPower
-      - --type=method_call
-      - /org/freedesktop/UPower/devices/battery_BAT0
-      - org.freedesktop.UPower.Device.EnableChargeThreshold
-      - boolean:true
-  become_user: "{{ user.name }}"
-
-- name: Set battery charge start threshold to 75%
-  command:
-    argv:
-      - dbus-send
-      - --system
-      - --dest=org.freedesktop.UPower
-      - --type=method_call
-      - /org/freedesktop/UPower/devices/battery_BAT0
-      - org.freedesktop.DBus.Properties.Set
-      - string:"org.freedesktop.UPower.Device"
-      - string:"ChargeStartThreshold"
-      - variant:uint32:75
-  become_user: "{{ user.name }}"
-
-- name: Set battery charge end threshold to 80%
-  command:
-    argv:
-      - dbus-send
-      - --system
-      - --dest=org.freedesktop.UPower
-      - --type=method_call
-      - /org/freedesktop/UPower/devices/battery_BAT0
-      - org.freedesktop.DBus.Properties.Set
-      - string:"org.freedesktop.UPower.Device"
-      - string:"ChargeEndThreshold"
-      - variant:uint32:80
-  become_user: "{{ user.name }}"
-
-
-# POWER MODE
-
-- name: Get current power profile
-  command: tuned-adm profile
-  become_user: "{{ user.name }}"
-  register: current_power_profile
-  changed_when: false
-
-- name: Configure power mode using tuned
-  command: tuned-adm profile {{ gnome.power_management.mode }}
-  become_user: "{{ user.name }}"
-  when: current_power_profile.stdout != gnome.power_management.mode
+# 2. https://developer.gnome.org/gio/stable/GSettings.html
 
 
 # POWER BUTTON BEHAVIOR
@@ -88,39 +28,6 @@
   become: True
 
 
-# AUTOMATIC POWER SAVER
-
-
-- name: Configure automatic power saver on low battery
-  dconf:
-    key: "/org/gnome/settings-daemon/plugins/power/power-saver-profile-on-low-battery"
-    value: "{{ gnome.power_management.battery_power.power_saver_on_low_battery | lower }}"
-    state: present
-  become_user: "{{ user.name }}"
-  become: True
-
-
-# AUTOMATIC SUSPEND - BATTERY POWER
-
-
-- name: Configure gnome battery-power inactivity action
-  dconf:
-    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-battery-type"
-    value: "'{{ gnome.inactivity.battery_power.action }}'"
-    state: present
-  become_user: "{{ user.name }}"
-  become: True
-
-
-- name: Configure gnome battery-power inactivity timeout
-  dconf:
-    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-battery-timeout"
-    value: "{{ gnome.inactivity.battery_power.timeout | int }}"
-    state: present
-  become_user: "{{ user.name }}"
-  become: True
-
-
 # AUTOMATIC SUSPEND - AC POWER
 
 
@@ -137,18 +44,6 @@
   dconf:
     key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout"
     value: "{{ gnome.inactivity.ac_power.timeout | int }}"
-    state: present
-  become_user: "{{ user.name }}"
-  become: True
-
-
-# DIM SCREEN BRIGHTNESS
-
-
-- name: Configure screen brightness dimming
-  dconf:
-    key: "/org/gnome/settings-daemon/plugins/power/dim-screen"
-    value: "{{ gnome.screen.dim_brightness | lower }}"
     state: present
   become_user: "{{ user.name }}"
   become: True
