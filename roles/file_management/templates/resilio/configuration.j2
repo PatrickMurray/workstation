@@ -1,5 +1,5 @@
 {
-  "device_name": "{{ ansible_hostname }}",
+  "device_name": "{{ resilio.device_name | default('workstation') }}",
   "listening_port": 0,
 
   "storage_path": "{{ resilio.service.library.directory }}",
