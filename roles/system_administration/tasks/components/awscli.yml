@@ -21,9 +21,17 @@
   become_user: "{{ user.name}}"
 
 
-- name: Configure AWS credentials
-  copy:
-    src: files/awscli/credentials
-    dest: ~/.aws/credentials
+#- name: Configure AWS credentials
+#  copy:
+#    src: files/awscli/credentials
+#    dest: ~/.aws/credentials
+#  become: True
+#  become_user: "{{ user.name}}"
+
+
+- name: Remove AWS credentials
+  file:
+    path: ~/.aws/credentials
+    state: absent
   become: True
   become_user: "{{ user.name }}"
