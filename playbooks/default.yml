@@ -12,11 +12,12 @@
       - desktop_environment
       - file_management
       - web_browser
+      - security
       - development
       - system_administration
       - multimedia
       - documentation
-      - security
+      - network
       - graphic_design
       - 3d_modeling
       - chat_clients

@@ -8,19 +8,46 @@
   become_user: "{{ user.name }}"
 
 
-- name: Distribute SSH public key
+- name: Configure SSH
   copy:
-    src: files/openssh/id_rsa.pub
-    dest: ~/.ssh/id_rsa.pub
+    src: files/ssh/config
+    dest: ~/.ssh/config
     mode: 0644
   become: True
   become_user: "{{ user.name }}"
 
 
-- name: Distribute SSH private key
+- name: Add Workstation 2026-05-02 SSH private key
   copy:
-    src: files/openssh/id_rsa
-    dest: ~/.ssh/id_rsa
+    src: files/ssh/id-ed25519-workstation-2026-05-02
+    dest: ~/.ssh/id-ed25519-workstation-2026-05-02
+    mode: 0600
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: Add Workstation 2026-05-02 SSH public key
+  copy:
+    src: files/ssh/id-ed25519-workstation-2026-05-02.pub
+    dest: ~/.ssh/id-ed25519-workstation-2026-05-02.pub
+    mode: 0644
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: Add Zbook 2017-09-27 SSH public key
+  copy:
+    src: files/ssh/id-rsa-zbook-2017-09-27.pub
+    dest: ~/.ssh/id-rsa-zbook-2017-09-27.pub
+    mode: 0644
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: Add Zbook 2017-09-27 SSH private key
+  copy:
+    src: files/ssh/id-rsa-zbook-2017-09-27
+    dest: ~/.ssh/id-rsa-zbook-2017-09-27
     mode: 0600
   become: True
   become_user: "{{ user.name }}"

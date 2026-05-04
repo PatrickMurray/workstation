@@ -5,6 +5,12 @@
     state: latest
 
 
+- name: Install git-crypt
+  package:
+    name: git-crypt
+    state: latest
+
+
 - name: Configure git user name
   git_config:
     name: user.name
@@ -18,6 +24,33 @@
   git_config:
     name: user.email
     value: "{{ git.email }}"
+    scope: global
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: Configure GPG signing
+  git_config:
+    name: commit.gpgsign
+    value: true
+    scope: global
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: Configure GPG signing key
+  git_config:
+    name: user.signingkey
+    value: "{{ user.signingkey }}"
+    scope: global
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: Configure GPG program
+  git_config:
+    name: gpg.program
+    value: gpg
     scope: global
   become: True
   become_user: "{{ user.name }}"
