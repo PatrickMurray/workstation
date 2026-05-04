@@ -12,9 +12,10 @@
       - desktop_environment
       - file_management
       - web_browser
+      - security
       - development
       - system_administration
-      - security
+      - network
       - 3d_modeling
   tasks:
     - name: Execute roles for workstation

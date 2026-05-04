@@ -1,5 +1,78 @@
 ---
+# GPG Key Generation
+# To generate a secure Ed25519 GPG key for signing commits:
+#
+#   cat > /tmp/gpg-batch <<'EOF'
+#   %echo Generating GPG key
+#   Key-Type: EDDSA
+#   Key-Curve: Ed25519
+#   Subkey-Type: ECDH
+#   Subkey-Curve: Curve25519
+#   Name-Real: Your Name
+#   Name-Email: your@email.com
+#   Expire-Date: 0
+#   Passphrase: YOUR_STRONG_PASSPHRASE
+#   %commit
+#   %echo done
+#   EOF
+#
+#   gpg --batch --gen-key /tmp/gpg-batch
+#   rm /tmp/gpg-batch
+#
+# Get your key ID:
+#   gpg --list-secret-keys --keyid-format=long
+#
+# Export your key for backup:
+#   gpg --export-secret-keys --armor YOUR_KEY_ID > gpg-private-backup.asc
+#
+# Get your public key:
+#   gpg --armor --export YOUR_KEY_ID
+#   gpg --armor --export your@email.com
+#
+# Configure git to use it:
+#   git config --global user.signingkey KEY_ID
+#   git config --global commit.gpgsign true
+#
+# On a new system, restore your key from backup:
+#   gpg --import gpg-private-backup.asc
+#
+# Remove your key:
+#   gpg --delete-secret-and-public-key KEY_ID
+
+
 - name: Install gnupg
   package:
     name: gnupg
     state: latest
+
+- name: Check if GPG key exists
+  command: gpg --list-secret-keys --keyid-format=long {{ user.signingkey }}
+  become: True
+  become_user: "{{ user.name }}"
+  register: gpg_key_check
+  changed_when: false
+  failed_when: false
+
+- name: Decrypt GPG key backup
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/gpg/gpg-private-workstation-2026-05-02.asc"
+    dest: "/tmp/gpg-private-backup.asc"
+    decrypt: yes
+    mode: "0600"
+  when: gpg_key_check.rc != 0
+  become: True
+  become_user: "{{ user.name }}"
+
+- name: Import GPG key
+  command: gpg --import /tmp/gpg-private-backup.asc
+  become: True
+  become_user: "{{ user.name }}"
+  register: gpg_import
+  when: gpg_key_check.rc != 0
+  changed_when: "'imported' in gpg_import.stderr or 'imported' in gpg_import.stdout"
+
+- name: Cleanup decrypted GPG key
+  ansible.builtin.file:
+    path: /tmp/gpg-private-backup.asc
+    state: absent
+  when: gpg_key_check.rc != 0
