@@ -20,7 +20,7 @@
 - name: Add user to docker group
   user:
     name: "{{ user.name }}"
-    groups: 
+    groups:
       - docker
     append: True
 

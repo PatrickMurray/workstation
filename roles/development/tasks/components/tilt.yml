@@ -29,7 +29,7 @@
     ctlptl_reinstall_needed: >-
       {{
         not ctlptl_binary.stat.exists or
-        (ctlptl_binary.stat.exists and 
+        (ctlptl_binary.stat.exists and
          ctlptl_current_version_number is defined and
          (ctlptl_current_version_number | default('') != kubernetes.ctlptl.version))
       }}
@@ -93,7 +93,7 @@
     tilt_reinstall_needed: >-
       {{
         not tilt_binary.stat.exists or
-        (tilt_binary.stat.exists and 
+        (tilt_binary.stat.exists and
          tilt_current_version_number is defined and
          (tilt_current_version_number | default('') != kubernetes.tilt.version))
       }}

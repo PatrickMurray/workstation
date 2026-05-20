@@ -4,6 +4,7 @@
     file: "components/{{ item }}.yml"
   loop:
     - git
+    - precommit
     - vim
     - make
     - gcc

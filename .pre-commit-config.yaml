@@ -1,0 +1,24 @@
+# Pre-commit configuration for workstation repository
+# Install with: pre-commit install
+# Run manually: pre-commit run --all-files
+
+repos:
+  # Check for ansible-vault encryption
+  - repo: local
+    hooks:
+      - id: ansible-vault-encryption
+        name: Check ansible-vault encryption
+        entry: .githooks/check-vault-encryption.sh
+        language: script
+        files: ^(roles/.*/defaults/main.yml|secrets.yml)$
+
+  # General file checks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-yaml
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-merge-conflict

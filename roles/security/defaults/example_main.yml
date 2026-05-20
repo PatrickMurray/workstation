@@ -3,4 +3,3 @@ yubikey:
   u2f_keys:
     - username: username
       config: ""
-

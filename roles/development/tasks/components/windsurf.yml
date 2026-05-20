@@ -1,5 +1,5 @@
 ---
-# $ gpg --show-keys RPM-GPG-KEY-windsurf 
+# $ gpg --show-keys RPM-GPG-KEY-windsurf
 # pub   rsa4096 2024-09-30 [SC]
 #       EE2C46CC44E1578C23135B0E9E608A1B9FD62A3F
 # uid                      Tom Knowles (Codeium) (Windsurf repository signing key) <tom@codeium.com>

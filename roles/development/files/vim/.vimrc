@@ -25,4 +25,3 @@
 " Highlight the current line of source being edited with a horizontal
 " underline.
 :set cursorline
-

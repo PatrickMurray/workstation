@@ -24,12 +24,12 @@ gnome:
       mode: "picture"              # "picture", "solid", or "slideshow"
       picture_uri: "file://{{ user.home }}/Pictures/desktop_background.png"
       # Alternative: picture_uri: "file:///usr/share/backgrounds/fedora-workstation/default"
-    
+
     # Dock
     dock:
       # Auto-Hide
       auto_hide: true               # true or false
-      
+
       # Favorite Applications
       favorite_applications:
         - "firefox.desktop"
@@ -40,16 +40,16 @@ gnome:
         # - "org.libreoffice.LibreOffice.desktop"
         # - "org.gnome.Nautilus.desktop"
         # - "code.desktop"  # VS Code
-  
+
   # Power Management
   power_management:
     # Power mode
     mode: "performance"             # "performance", "balanced", or "power-saver"
-    
+
     # Power Button Behavior
     power_button:
       action: "interactive"        # "interactive", "suspend", "hibernate", "shutdown"
-    
+
     # Battery Power Settings
     battery_power:
       # Charging mode
@@ -67,16 +67,16 @@ gnome:
   inactivity:
     ac_power:
       action: "nothing"            # "nothing", "suspend", "hibernate", "shutdown"
-      timeout: 0                   # Seconds (0 = never)    
+      timeout: 0                   # Seconds (0 = never)
     battery_power:
       action: "suspend"            # "nothing", "suspend", "hibernate", "shutdown"
       timeout: 360                 # Seconds (360 = 6 minutes)
-  
+
   # Screen Settings
   screen:
     # Turn off screen after timeout
     blank_timeout: 600             # Seconds (600 = 10 minutes)
-    
+
     # Dim Screen Brightness
     dim_brightness: true           # true or false
 
@@ -86,7 +86,7 @@ zsh:
   oh_my_zsh:
     repo: "https://github.com/ohmyzsh/ohmyzsh.git"
     dest: "{{ user.home }}/.oh-my-zsh"
-  
+
   # Custom Themes & Plugins
   custom:
     # Custom Themes
@@ -100,17 +100,17 @@ zsh:
         # Add more plugins as needed:
         # - zsh_syntax_highlighting
         # - zsh_completions
-      
+
       # Plugin Definitions
       zsh_autosuggestions:
         repo: "https://github.com/zsh-users/zsh-autosuggestions.git"
         dest: "{{ user.home }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
-      
+
       # Example additional plugin:
       # zsh_syntax_highlighting:
       #   repo: "https://github.com/zsh-users/zsh-syntax-highlighting.git"
       #   dest: "{{ user.home }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
-  
+
   # Function Autoloading
   autoload:
     path: .config/zsh/autoload     # Relative to home directory
