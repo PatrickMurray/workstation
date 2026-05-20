@@ -34,9 +34,27 @@
   ignore_errors: true
   changed_when: false
 
+- name: Get current date
+  command: date +%Y-%m-%d
+  register: current_date
+  changed_when: false
+
+- name: Check Tailscale auth key expiration
+  set_fact:
+    tailscale_key_expired: true
+  when:
+    - tailscale.expiration_date is defined
+    - current_date.stdout > tailscale.expiration_date
+
+- name: Warn about expired Tailscale auth key
+  debug:
+    msg: "WARNING: Tailscale auth key expired on {{ tailscale.expiration_date }}. Skipping Tailscale authentication. Please generate a new key at https://login.tailscale.com/admin/settings/keys and update the workstation repository."
+  when: tailscale_key_expired | default(false)
+
 - name: Authenticate with Tailscale
   command: tailscale up --auth-key={{ tailscale.auth_key }}
   when:
     - tailscale.auth_key | length > 0
     - tailscale_status.rc != 0
+    - not tailscale_key_expired | default(false)
   no_log: true
