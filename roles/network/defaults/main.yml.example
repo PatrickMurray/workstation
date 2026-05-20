@@ -1,0 +1,16 @@
+---
+# Example Tailscale configuration file
+# This file is encrypted with ansible-vault in the actual repository
+# To encrypt: ansible-vault encrypt roles/network/defaults/main.yml
+# To decrypt: ansible-vault decrypt roles/network/defaults/main.yml
+
+tailscale:
+  # Tailscale auth key for workstation enrollment
+  # Generate at: https://login.tailscale.com/admin/settings/keys
+  # Valid for 90 days maximum
+  auth_key: "tskey-auth-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
+  # Expiration date for the auth key (YYYY-MM-DD format)
+  # Used to warn when the key needs to be renewed
+  # Calculate: Issue date + 90 days
+  expiration_date: "2026-01-01"

@@ -26,7 +26,7 @@
     minikube_reinstall_needed: >-
       {{
         not minikube_binary.stat.exists or
-        (minikube_binary.stat.exists and 
+        (minikube_binary.stat.exists and
          minikube_current_version.stdout is defined and
          (minikube_current_version.stdout | default('') != 'v' + kubernetes.minikube.version))
       }}

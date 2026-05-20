@@ -27,4 +27,3 @@ kubernetes:
   tilt:
     version: "0.0.0"
     checksum: "sha256:..."
-

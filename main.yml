@@ -6,6 +6,6 @@
   import_playbook: playbooks/default.yml
   when: workstation_type | default('default') == 'default'
 
-- name: Include slim workstation playbook  
+- name: Include slim workstation playbook
   import_playbook: playbooks/slim.yml
   when: workstation_type | default('default') == 'slim'

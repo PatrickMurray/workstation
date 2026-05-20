@@ -1,5 +1,5 @@
 ---
-# $ gpg --show-keys microsoft.asc 
+# $ gpg --show-keys microsoft.asc
 # ...
 # pub   rsa2048 2015-10-28 [SC]
 #       BC528686B50D79E339D3721CEB3E94ADBE1229CF
@@ -21,4 +21,3 @@
   package:
     name: code
     state: latest
-
