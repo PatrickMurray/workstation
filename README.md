@@ -12,17 +12,19 @@
 
 ## Installation
 
-### Root
+### Interactive
+
+Run the below command from a `root` shell:
 
 ```bash
 bash -c "$(curl -fsSl https://raw.githubusercontent.com/PatrickMurray/workstation/HEAD/install.sh)"
 ```
 
-### Local Development
+### Manual
+
+One one of the below commands from a `root` shell:
 
 ```bash
-sudo su -
-
 # Default workstation
 ansible-playbook \
   --inventory inventory.yml \
@@ -35,41 +37,4 @@ ansible-playbook \
   main.yml;
 ```
 
-
-## Manual Steps
-
-### Tailscale Network Configuration
-
-This playbook automatically configures workstations to join the Tailscale mesh network using an auth key stored in `roles/network/defaults/main.yml`.
-
-#### Key Management
-
-**Important**: Tailscale auth keys have a maximum expiration of 90 days due to Tailscale API limitations. You must periodically re-issue the auth key to maintain network connectivity.
-
-##### Generate Auth Key:
-
-1. Navigate to the infracode repository: [github.com/patrickmurray/infracode](https://github.com/patrickmurray/infracode)
-
-2. Apply the Terraform configuration to generate a new auth key:
-   ```bash
-   terraform apply
-   ```
-
-3. Get the new auth key:
-   ```bash
-   terraform output mesh_network_auth_keys
-   ```
-
-4. Update the workstation repository with the new key
-   ```bash
-   ansible-vault decrypt roles/network/defaults/main.yml
-   # Edit
-   ansible-vault encrypt roles/network/defaults/main.yml
-   ```
-
-5. Commit and push the updated key:
-   ```bash
-   git add roles/network/defaults/main.yml
-   git commit -m "Update Tailscale auth key"
-   git push
-   ```
+For development setup, see [DEVELOPMENT.md](DEVELOPMENT.md).
