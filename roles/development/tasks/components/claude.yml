@@ -1,0 +1,24 @@
+---
+# $ gpg --show-key claude-code.asc
+# pub   rsa4096 2026-03-30 [SCE]
+#       31DDDE24DDFAB679F42D7BD2BAA929FF1A7ECACE
+# uid                      Anthropic Claude Code Release Signing <security@anthropic.com>
+- name: Add Claude Code package signing key
+  rpm_key:
+    key: https://downloads.claude.ai/keys/claude-code.asc
+    fingerprint: "31DDDE24DDFAB679F42D7BD2BAA929FF1A7ECACE"
+
+
+- name: Add Claude Code yum repository
+  yum_repository:
+    name: claude-code
+    description: Claude Code Yum Repository
+    baseurl: https://downloads.claude.ai/claude-code/rpm/stable
+    gpgcheck: True
+    gpgkey: https://downloads.claude.ai/keys/claude-code.asc
+
+
+- name: Install claude-code
+  package:
+    name: claude-code
+    state: latest
