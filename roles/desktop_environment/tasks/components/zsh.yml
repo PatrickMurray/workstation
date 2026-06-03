@@ -26,7 +26,7 @@
   become: True
   become_user: "{{ user.name }}"
   loop: "{{ zsh.custom.plugins.enabled }}"
-  when: zsh.custom.plugins
+  when: zsh.custom.plugins.enabled | length > 0
 
 
 - name: Configure ~/.zshrc

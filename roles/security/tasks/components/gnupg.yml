@@ -64,7 +64,7 @@
   become_user: "{{ user.name }}"
 
 - name: Import GPG key
-  command: gpg --import /tmp/gpg-private-backup.asc
+  command: gpg --batch --pinentry-mode loopback --import /tmp/gpg-private-backup.asc
   become: True
   become_user: "{{ user.name }}"
   register: gpg_import

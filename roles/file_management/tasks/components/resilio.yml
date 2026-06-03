@@ -110,15 +110,11 @@
   when: resilio_identity_result.rc != 0
 
 - name: Apply resilio license
-  command:
-    argv:
-      - /usr/bin/rslsync
-      - --license
-      - "{{ resilio.service.configuration.directory }}/{{ resilio.service.configuration.license_filename }}"
-      - --config
-      - "{{ resilio.service.configuration.directory }}/{{ resilio.service.configuration.configuration_filename }}"
-      - --nodaemon
-    creates: "{{ resilio.service.library.directory }}/License"
+  shell:
+    cmd: "set -o pipefail; /usr/bin/rslsync --license {{ resilio.service.configuration.license_filename }} --config {{ resilio.service.configuration.configuration_filename }} --nodaemon 2>&1 | base64"
+    chdir: "{{ resilio.service.configuration.directory }}"
+    creates: "{{ resilio.service.library.directory}}/License"
+    executable: /bin/bash
   become: True
   become_user: "{{ user.name }}"
   register: resilio_license_apply_result
@@ -128,7 +124,7 @@
 
 - name: Display resilio license apply output
   debug:
-    var: resilio_license_apply_result
+    msg: "{{ resilio_license_apply_result | ansible.builtin.b64decode }}"
   when: resilio_license_apply_result.rc != 0
 
 - name: Fail if resilio license apply failed
