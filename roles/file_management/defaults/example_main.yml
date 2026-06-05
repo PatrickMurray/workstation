@@ -1,0 +1,39 @@
+---
+resilio:
+  device_name: "{{ ansible_hostname }}"
+  service:
+    systemd:
+      directory: "/home/{{ user.name }}/.config/systemd/user"
+      service_filename: resilio-sync.service
+    configuration:
+      directory: "/home/{{ user.name }}/.config/resilio-sync"
+      configuration_filename: config.json
+      license_filename: Sync_Home_XXXXX.btskey
+      identity: "{{ user.name }}"
+    runtime:
+      directory: "/home/{{ user.name }}/.config/resilio-sync/runtime"
+      pid_filename: resilio-sync.pid
+    library:
+      directory: "/home/{{ user.name }}/.config/resilio-sync/storage"
+  folders:
+    directory: "/home/{{ user.name }}/Resilio"
+    definitions:
+      folder_a:
+        name: Folder A
+        secret: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        selective_sync: false
+      folder_b:
+        name: Folder B
+        secret: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        selective_sync: false
+      folder_c:
+        name: Folder C
+        secret: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        selective_sync: true
+    workstation_type_folders:
+      default:
+        - folder_a
+        - folder_b
+        - folder_c
+      slim:
+        - folder_c

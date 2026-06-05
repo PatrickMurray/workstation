@@ -1,9 +1,5 @@
 ---
-# Workstation configurations
-# Define which roles to apply to each workstation
-
 workstations:
-  # Default workstation (everything)
   default:
     description: "Full workstation with all roles"
     roles:
@@ -11,25 +7,24 @@ workstations:
       - desktop_environment
       - file_management
       - web_browser
+      - security
       - development
       - system_administration
       - multimedia
       - documentation
-      - security
+      - network
       - graphic_design
+      - 3d_modeling
       - chat_clients
-  # Slim workstation (minimal setup)
   slim:
-    description: "Minimal workstation with common and desktop only"
+    description: "Minimal workstation with essential roles"
     roles:
       - common
       - desktop_environment
-      #- file_management
+      - file_management
       - web_browser
+      - security
       - development
       - system_administration
-      #- multimedia
-      #- documentation
-      - security
-      #- graphic_design
-      #- chat_clients
+      - network
+      - 3d_modeling

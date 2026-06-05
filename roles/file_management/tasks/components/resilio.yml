@@ -159,6 +159,8 @@
     name: resilio-sync
     enabled: True
     scope: user
+  become: True
+  become_user: "{{ user.name }}"
 
 - name: Configure resilio-sync systemd system-service
   systemd:

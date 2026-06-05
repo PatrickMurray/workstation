@@ -3,8 +3,7 @@
 # VARIABLES
 GITHUB_USERNAME="PatrickMurray"
 GITHUB_REPOSITORY="workstation"
-GITHUB_BRANCH="master"
-GITHUB_ARCHIVE_URL="https://www.github.com/${GITHUB_USERNAME}/${GITHUB_REPOSITORY}/archive/${GITHUB_BRANCH}.zip"
+GITHUB_BRANCH="${GITHUB_BRANCH:-}"
 
 ANSIBLE_REQUIREMENTS_FILENAME="requirements.yml"
 ANSIBLE_INVENTORY_FILENAME="inventory.yml"
@@ -20,6 +19,17 @@ if [[ "${EUID}" -ne 0 ]]; then
     echo -e "${RED}Script must be run as root user${NC}"
     exit -1
 fi
+
+# Branch selection
+if [[ -z "${GITHUB_BRANCH}" ]]; then
+    read -p "Enter branch to install (press Enter for master): " branch_input
+    GITHUB_BRANCH="${branch_input:-master}"
+fi
+
+echo -e "${GREEN}Selected branch: ${GITHUB_BRANCH}${NC}"
+echo ""
+
+GITHUB_ARCHIVE_URL="https://www.github.com/${GITHUB_USERNAME}/${GITHUB_REPOSITORY}/archive/${GITHUB_BRANCH}.zip"
 
 # UPGRADE SYSTEM PACKAGES
 echo -e "${YELLOW}Upgrading system packages...${NC}"

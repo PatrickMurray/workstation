@@ -4,7 +4,7 @@
 
 | Operating System | Release | Date Tested |
 | ---------------- | ------- | ----------- |
-| Fedora           | 43      | 2026-01-31 |
+| Fedora           | 44      | 2026-06-04 |
 
 ## Screenshots
 
@@ -22,7 +22,7 @@ bash -c "$(curl -fsSl https://raw.githubusercontent.com/PatrickMurray/workstatio
 
 ### Manual
 
-One one of the below commands from a `root` shell:
+Run one of the below commands from a `root` shell:
 
 ```bash
 # Default workstation

@@ -111,6 +111,9 @@ zsh:
       #   repo: "https://github.com/zsh-users/zsh-syntax-highlighting.git"
       #   dest: "{{ user.home }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
 
+  # Preferred editor
+  editor: vim
+
   # Function Autoloading
   autoload:
     path: .config/zsh/autoload     # Relative to home directory
