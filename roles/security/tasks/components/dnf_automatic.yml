@@ -1,0 +1,22 @@
+---
+- name: Install dnf5-plugin-automatic
+  package:
+    name: dnf5-plugin-automatic
+    state: latest
+
+- name: Configure dnf5-automatic for security updates
+  ini_file:
+    path: /etc/dnf/automatic.conf
+    section: commands
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    mode: "0644"
+  loop:
+    - { option: upgrade_type, value: security }
+    - { option: apply_updates, value: "yes" }
+
+- name: Enable and start dnf5-automatic.timer systemd service
+  systemd:
+    name: dnf5-automatic.timer
+    enabled: true
+    state: started

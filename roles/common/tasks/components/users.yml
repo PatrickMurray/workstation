@@ -2,7 +2,5 @@
 - name: "Create {{ user.name }} user"
   user:
     name: "{{ user.name }}"
-    # TODO - This would probably be a bad idea and not something to implement?
-    # password: "{{ user.password_hash }}"
     home: "{{ user.home }}"
     shell: "{{ user.shell }}"
