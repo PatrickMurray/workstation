@@ -11,7 +11,6 @@
     key: https://linux-packages.resilio.com/resilio-sync/key.asc
     fingerprint: "E1B42102EBECA969E30D2CA4BE66CC4C3F171DE2"
 
-
 - name: Add resilio-sync yum repository
   yum_repository:
     name: resilio-sync
@@ -20,13 +19,13 @@
     gpgcheck: True
     gpgkey: https://linux-packages.resilio.com/resilio-sync/key.asc
 
-
 - name: Install resilio-sync
   package:
     name: resilio-sync
     state: latest
   notify:
     - Restart resilio-sync
+
 
 # CONFIG DIRECTORY
 
@@ -83,15 +82,16 @@
 
 
 - name: Create resilio identity
-  command:
-    argv:
-      - /usr/bin/rslsync
-      - --identity
-      - "{{ resilio.service.configuration.identity }}"
-      - --config
-      - "{{ resilio.service.configuration.directory }}/{{ resilio.service.configuration.configuration_filename }}"
-      - --nodaemon
+  shell:
+    cmd: >-
+      set -o pipefail;
+      /usr/bin/rslsync
+      --identity {{ resilio.service.configuration.identity }}
+      --config {{ resilio.service.configuration.directory }}/{{ resilio.service.configuration.configuration_filename }}
+      --nodaemon
+      2>&1 | base64
     creates: "{{ resilio.service.library.directory }}/sync.dat"
+    executable: /bin/bash
   become: True
   become_user: "{{ user.name }}"
   register: resilio_identity_result
@@ -101,7 +101,7 @@
 
 - name: Display resilio identity output
   debug:
-    var: resilio_identity_result
+    msg: "{{ resilio_identity_result | ansible.builtin.b64decode }}"
   when: resilio_identity_result.rc != 0
 
 - name: Fail if resilio identity failed
@@ -111,7 +111,13 @@
 
 - name: Apply resilio license
   shell:
-    cmd: "set -o pipefail; /usr/bin/rslsync --license {{ resilio.service.configuration.license_filename }} --config {{ resilio.service.configuration.configuration_filename }} --nodaemon 2>&1 | base64"
+    cmd: >-
+      set -o pipefail;
+      /usr/bin/rslsync
+      --license {{ resilio.service.configuration.license_filename }}
+      --config {{ resilio.service.configuration.configuration_filename }}
+      --nodaemon
+      2>&1 | base64
     chdir: "{{ resilio.service.configuration.directory }}"
     creates: "{{ resilio.service.library.directory}}/License"
     executable: /bin/bash
