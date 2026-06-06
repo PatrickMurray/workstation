@@ -3,6 +3,7 @@
   include_tasks:
     file: "components/{{ item }}.yml"
   loop:
+    - dnf_automatic
     - gnupg
     - bitwarden
 #    - yubikey

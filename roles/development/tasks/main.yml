@@ -13,9 +13,9 @@
     - hugo
     - rust
     - npm
-    - docker
-    - kubernetes
-    - minikube
+    - podman
+    - kubectl
+    - kind
     - tilt
     - visualstudiocode
     - claude

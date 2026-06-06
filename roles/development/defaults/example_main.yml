@@ -10,12 +10,6 @@ kubernetes:
   kubectl:
     version: "0.00"
 
-  # Releases: https://github.com/kubernetes/minikube/releases
-  # Last Updated: YYYY-MM-DD
-  minikube:
-    version: "0.0.0"
-    checksum: "sha256:..."
-
   # Releases: https://github.com/tilt-dev/ctlptl/releases
   # Last Updated: YYYY-MM-DD
   ctlptl:
