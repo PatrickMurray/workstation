@@ -3,3 +3,37 @@
   package:
     name: podman
     state: latest
+
+- name: Enable podman user socket
+  systemd:
+    name: podman.socket
+    state: started
+    enabled: true
+    scope: user
+  become: True
+  become_user: "{{ user.name }}"
+
+- name: Create systemd user delegate drop-in directory
+  file:
+    path: /etc/systemd/system/user@.service.d
+    state: directory
+
+- name: Configure systemd user delegate for rootless kind
+  copy:
+    src: podman/delegate.conf
+    dest: /etc/systemd/system/user@.service.d/delegate.conf
+  notify: Reload systemd daemon
+
+- name: Create containers registries.conf.d directory
+  file:
+    path: "{{ user.home }}/.config/containers/registries.conf.d"
+    state: directory
+  become: True
+  become_user: "{{ user.name }}"
+
+- name: Configure local kind registry
+  copy:
+    src: podman/kind-registry.conf
+    dest: "{{ user.home }}/.config/containers/registries.conf.d/kind.conf"
+  become: True
+  become_user: "{{ user.name }}"
