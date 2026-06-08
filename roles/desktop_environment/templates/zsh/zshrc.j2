@@ -92,6 +92,8 @@ source {{ user.home }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosug
 # export LANG=en_US.UTF-8
 
 export EDITOR="{{ zsh.editor }}"
+export DOCKER_HOST="unix:///run/user/$(id -u)/podman/podman.sock"
+export KIND_EXPERIMENTAL_PROVIDER=podman
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
