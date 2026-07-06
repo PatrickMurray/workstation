@@ -16,6 +16,7 @@
     baseurl: https://rpm.releases.hashicorp.com/fedora/$releasever/$basearch/stable
     gpgcheck: True
     gpgkey: https://rpm.releases.hashicorp.com/gpg
+    includepkgs: terraform
 
 - name: Install Terraform
   package:

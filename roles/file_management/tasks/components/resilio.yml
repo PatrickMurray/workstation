@@ -18,6 +18,7 @@
     baseurl: https://linux-packages.resilio.com/resilio-sync/rpm/$basearch
     gpgcheck: True
     gpgkey: https://linux-packages.resilio.com/resilio-sync/key.asc
+    includepkgs: resilio-sync
 
 - name: Install resilio-sync
   package:

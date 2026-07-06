@@ -13,6 +13,7 @@
     enabled: True
     gpgcheck: True
     gpgkey: "https://pkgs.k8s.io/core:/stable:/v{{ kubernetes.kubectl.version }}/rpm/repodata/repomd.xml.key"
+    includepkgs: kubectl
 
 
 - name: Install kubectl

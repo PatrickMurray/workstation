@@ -16,6 +16,7 @@
     baseurl: https://pkgs.tailscale.com/stable/fedora/$basearch
     gpgcheck: True
     gpgkey: https://pkgs.tailscale.com/stable/fedora/repo.gpg
+    includepkgs: tailscale
 
 - name: Install tailscale
   package:

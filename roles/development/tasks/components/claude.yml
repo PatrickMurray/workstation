@@ -16,6 +16,7 @@
     baseurl: https://downloads.claude.ai/claude-code/rpm/stable
     gpgcheck: True
     gpgkey: https://downloads.claude.ai/keys/claude-code.asc
+    includepkgs: claude-code
 
 
 - name: Install claude-code
