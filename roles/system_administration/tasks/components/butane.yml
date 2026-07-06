@@ -1,0 +1,5 @@
+---
+- name: Install butane
+  package:
+    name: butane
+    state: latest
