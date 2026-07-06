@@ -4,6 +4,7 @@
     file: "components/{{ item }}.yml"
   loop:
     - ansible
+    - butane
     - awscli
     - boto
     - curl
