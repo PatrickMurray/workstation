@@ -1,0 +1,5 @@
+---
+- name: Install coreos-installer
+  package:
+    name: coreos-installer
+    state: latest

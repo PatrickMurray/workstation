@@ -5,6 +5,7 @@
   loop:
     - ansible
     - butane
+    - coreos_installer
     - awscli
     - boto
     - curl
