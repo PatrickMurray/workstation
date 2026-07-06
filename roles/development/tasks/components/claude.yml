@@ -22,3 +22,20 @@
   package:
     name: claude-code
     state: latest
+
+
+- name: Create ~/.claude directory
+  file:
+    path: ~/.claude
+    state: directory
+    mode: "0700"
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: Configure CLAUDE.md
+  copy:
+    src: files/claude/CLAUDE.md
+    dest: ~/.claude/CLAUDE.md
+  become: True
+  become_user: "{{ user.name }}"
