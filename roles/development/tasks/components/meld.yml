@@ -1,0 +1,5 @@
+---
+- name: Install meld
+  package:
+    name: meld
+    state: latest
