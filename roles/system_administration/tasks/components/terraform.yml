@@ -1,13 +1,12 @@
 ---
 # $ gpg --show-keys gpg
-# pub   rsa4096 2023-01-10 [SC] [expires: 2028-01-09]
-#       798AEC654E5C15428C8E42EEAA16FCBCA621E701
+# pub   rsa4096 2026-09-09 [SC] [expires: 2031-09-08]
+#       D55C0D1AC78A8D8126CB631CFC9CA96ACA026560
 # uid                      HashiCorp Security (HashiCorp Package Signing) <security+packaging@hashicorp.com>
-# sub   rsa4096 2023-01-10 [S] [expires: 2028-01-09]
 - name: Add HashiCorp package signing key
   rpm_key:
     key: https://rpm.releases.hashicorp.com/gpg
-    fingerprint: "798AEC654E5C15428C8E42EEAA16FCBCA621E701"
+    fingerprint: "D55C0D1AC78A8D8126CB631CFC9CA96ACA026560"
 
 - name: Add HashiCorp yum repository
   yum_repository:
