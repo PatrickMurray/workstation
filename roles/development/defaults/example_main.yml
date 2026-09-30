@@ -4,6 +4,13 @@ git:
   email: johndoe@example.com
 
 
+github:
+  user: johndoe
+  git_protocol: ssh
+  # Fine-grained personal access token: https://github.com/settings/tokens
+  token: github_pat_...
+
+
 kubernetes:
   # Releases: https://github.com/kubernetes/kubectl/tags
   # Last Updated: YYYY-MM-DD
