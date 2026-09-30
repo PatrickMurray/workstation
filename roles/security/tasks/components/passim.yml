@@ -1,0 +1,11 @@
+---
+# Passim (Local Caching Server) shares already-downloaded Flatpak/fwupd data
+# with other devices on the LAN. Port is fixed at 27500 by default
+# (see /etc/passim.conf, "# Port = 27500" is the commented-out default).
+
+- name: Allow passim LAN caching port through firewall
+  firewalld:
+    port: "27500/tcp"
+    permanent: True
+    immediate: True
+    state: enabled

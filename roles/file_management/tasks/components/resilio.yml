@@ -181,5 +181,38 @@
     cmd: "loginctl enable-linger {{ user.name }}"
     creates: "/var/lib/systemd/linger/{{ user.name }}"
 
+
+# FIREWALL
+#
+# The listening port is pinned (see templates/resilio/configuration.j2) so
+# only the specific ports resilio-sync uses need to be allowed. Fedora's
+# default open 1025-65535 range is closed by the security role's firewalld
+# component.
+
+
+- name: Allow resilio-sync listening port through firewall
+  firewalld:
+    port: "{{ resilio.service.network.listening_port | default(57037) }}/{{ item }}"
+    permanent: True
+    immediate: True
+    state: enabled
+  loop:
+    - tcp
+    - udp
+
+- name: Allow resilio-sync LAN peer discovery port through firewall
+  firewalld:
+    port: "3838/udp"
+    permanent: True
+    immediate: True
+    state: enabled
+
+- name: Allow resilio-sync UPnP/SSDP port mapping discovery through firewall
+  firewalld:
+    port: "1900/udp"
+    permanent: True
+    immediate: True
+    state: enabled
+
 - name: Flush handlers to restart resilio-sync once
   meta: flush_handlers
