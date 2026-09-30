@@ -1,0 +1,23 @@
+---
+# This workstation is not a server and has no inbound SSH clients connecting
+# to it (outbound SSH as a client is handled by the system_administration
+# openssh component). Ensure the server side stays disabled and unexposed.
+
+- name: Ensure sshd.socket is disabled and stopped
+  systemd:
+    name: sshd.socket
+    state: stopped
+    enabled: False
+
+- name: Ensure sshd.service is disabled and stopped
+  systemd:
+    name: sshd.service
+    state: stopped
+    enabled: False
+
+- name: Remove SSH from allowed firewall services
+  firewalld:
+    service: ssh
+    permanent: True
+    immediate: True
+    state: disabled

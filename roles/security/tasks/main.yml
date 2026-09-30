@@ -4,7 +4,10 @@
     file: "components/{{ item }}.yml"
   loop:
     - dnf_automatic
+    - firewalld
     - gnupg
     - bitwarden
+    - sshd
+    - passim
 #    - yubikey
 #    - pam

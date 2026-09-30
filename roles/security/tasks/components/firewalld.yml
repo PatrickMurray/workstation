@@ -1,0 +1,15 @@
+---
+# Fedora Workstation's stock zone (/usr/lib/firewalld/zones/FedoraWorkstation.xml)
+# allows all unsolicited inbound traffic on 1025-65535 tcp/udp. Close it so
+# only the ports explicitly allowed by individual components are reachable
+# (e.g. resilio-sync in file_management, passim in this role).
+
+- name: Remove Fedora Workstation default open port range (1025-65535)
+  firewalld:
+    port: "1025-65535/{{ item }}"
+    permanent: True
+    immediate: True
+    state: disabled
+  loop:
+    - tcp
+    - udp

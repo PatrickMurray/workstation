@@ -2,6 +2,11 @@
 resilio:
   device_name: "{{ ansible_hostname }}"
   service:
+    network:
+      # Fixed listening port (instead of 0/random) so the firewall can allow
+      # a single known port rather than a wide range. Defaults to 57037 in
+      # the resilio component tasks/template if unset.
+      listening_port: 57037
     systemd:
       directory: "/home/{{ user.name }}/.config/systemd/user"
       service_filename: resilio-sync.service
@@ -17,6 +22,16 @@ resilio:
       directory: "/home/{{ user.name }}/.config/resilio-sync/storage"
   folders:
     directory: "/home/{{ user.name }}/Resilio"
+    # Peer discovery defaults, applied to every folder (each defaults to true).
+    # Resilio only supports these per folder, so any folder definition may
+    # override them individually (e.g. `search_lan: false`).
+    #   use_tracker      - find peers via Resilio's tracker server
+    #   search_lan       - find peers via LAN multicast (239.192.0.0:3838/udp)
+    #   use_relay_server - relay traffic when a direct connection fails
+    discovery:
+      use_tracker: true
+      search_lan: true
+      use_relay_server: true
     definitions:
       folder_a:
         name: Folder A
