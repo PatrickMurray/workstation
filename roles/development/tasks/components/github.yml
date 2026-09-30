@@ -1,0 +1,23 @@
+---
+- name: Install gh
+  package:
+    name: gh
+    state: latest
+
+
+- name: Create ~/.config/gh directory
+  file:
+    path: ~/.config/gh
+    state: directory
+    mode: "0700"
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: Configure gh authentication
+  template:
+    src: github/hosts.yml.j2
+    dest: ~/.config/gh/hosts.yml
+    mode: "0600"
+  become: True
+  become_user: "{{ user.name }}"
