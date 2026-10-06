@@ -1,0 +1,14 @@
+---
+# Driverless (IPP Everywhere / AirPrint) network printers, see
+# tasks/components/printers.yml.
+#
+# name:        CUPS queue name (no spaces, "/" or "#")
+# dnssd:       DNS-SD service name the printer advertises (avahi-browse -rt _ipp._tcp)
+# description: Human-readable name shown in print dialogs
+printers:
+  - name: Office-Laser
+    dnssd: Example Laser Printer series
+    description: Office Laser Printer
+  - name: Office-Color
+    dnssd: Example Color Laser Printer series
+    description: Office Color Laser Printer

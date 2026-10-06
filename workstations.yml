@@ -16,6 +16,7 @@ workstations:
       - graphic_design
       - 3d_modeling
       - chat_clients
+      - peripherals
   slim:
     description: "Minimal workstation with essential roles"
     roles:

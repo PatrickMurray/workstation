@@ -1,0 +1,50 @@
+---
+# Driverless (IPP Everywhere / AirPrint) network printers. CUPS generates each
+# queue's PPD from the printer's own IPP attributes, no vendor drivers are
+# required. Printers are located by their DNS-SD (Bonjour) service name rather
+# than IP, so the queues follow DHCP address changes.
+#
+# The printers to configure are listed in defaults/main.yml (printers).
+- name: Install CUPS and driverless printing support
+  package:
+    name:
+      - cups
+      - cups-filters
+      - avahi
+      - nss-mdns
+    state: latest
+
+- name: Enable CUPS
+  service:
+    name: cups
+    state: started
+    enabled: True
+
+# DNS-SD discovery uses multicast DNS (5353/udp), which is blocked once the
+# security role's firewalld component closes Fedora's default 1025-65535 range.
+- name: Allow mDNS (printer discovery) through firewall
+  firewalld:
+    service: mdns
+    permanent: True
+    immediate: True
+    state: enabled
+
+- name: Check for existing printer queues
+  command: "lpstat -v {{ item.name }}"
+  register: printer_queues
+  changed_when: False
+  failed_when: False
+  loop: "{{ printers }}"
+
+# `-m everywhere` queries the printer for its capabilities, so it must be
+# powered on when the queue is first created.
+- name: Add printer queues
+  command: >-
+    lpadmin
+    -p {{ item.item.name }}
+    -D "{{ item.item.description }}"
+    -v "dnssd://{{ item.item.dnssd | urlencode }}._ipp._tcp.local/"
+    -m everywhere
+    -E
+  loop: "{{ printer_queues.results }}"
+  when: item.rc != 0

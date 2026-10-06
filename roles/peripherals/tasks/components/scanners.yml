@@ -1,0 +1,46 @@
+---
+# SANE backends supporting locally attached USB scanners. Device permissions
+# are granted to the active session via the udev hwdb shipped with
+# sane-backends (uaccess), no additional rules are required.
+#
+# - Canon imageFORMULA R40 (0x1083:0x1679): canon_dr backend
+# - Canon CanoScan LiDE 120 (0x04a9:0x190e): genesys backend
+- name: Install SANE scanner backends
+  package:
+    name:
+      - sane-backends
+      - sane-backends-drivers-scanners
+    state: latest
+
+- name: Install Document Scanner
+  package:
+    name: simple-scan
+    state: latest
+
+# scan-r40 runs via `uv run --script` (uv: development role). python-sane is
+# published as source only, uv compiles it on first run against these headers.
+- name: Install scan-r40 build dependencies
+  package:
+    name:
+      - gcc
+      - python3-devel
+      - sane-backends-devel
+    state: latest
+
+# scan-r40 adds a searchable text layer to PDFs via OCRmyPDF (Tesseract);
+# tesseract-osd provides the orientation detection behind --rotate-pages
+- name: Install scan-r40 OCR dependencies
+  package:
+    name:
+      - ocrmypdf
+      - tesseract
+      - tesseract-langpack-eng
+      - tesseract-osd
+    state: latest
+
+# Wrapper correcting the R40's mirrored front side and enabling crop/deskew
+- name: Install scan-r40
+  copy:
+    src: scanners/scan-r40.py
+    dest: /usr/local/bin/scan-r40
+    mode: "0755"
