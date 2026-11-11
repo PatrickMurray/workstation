@@ -79,3 +79,10 @@ This playbook automatically configures workstations to join the Tailscale mesh n
    git commit -m "Update Tailscale auth key"
    git push
    ```
+
+
+## YubiKey SSH & Commit Signing
+
+SSH authentication and git commit signing use a FIDO2 key on a connected
+YubiKey, falling back to the passphrase-protected workstation key. See
+[docs/YUBIKEY.md](docs/YUBIKEY.md) for setup, enrollment and reset steps.

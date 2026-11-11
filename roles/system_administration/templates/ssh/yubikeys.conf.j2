@@ -1,0 +1,11 @@
+# Managed by Ansible (workstation repository).
+#
+# Offer the FIDO2 key belonging to whichever enrolled YubiKey is connected,
+# ahead of the passphrase-protected workstation key. Included from the top of
+# ~/.ssh/config.
+{% for yubikey in yubikeys %}
+
+# {{ yubikey.name }}
+Match exec "ykman list --serials 2>/dev/null | grep -qx {{ yubikey.serial }}"
+    IdentityFile ~/.ssh/{{ yubikey.ssh_key }}
+{% endfor %}

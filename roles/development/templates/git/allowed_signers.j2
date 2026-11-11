@@ -1,0 +1,5 @@
+# Managed by Ansible (workstation repository).
+{{ git.email }} namespaces="git" {{ lookup('ansible.builtin.unvault', playbook_dir + '/roles/system_administration/files/ssh/id-ed25519-workstation-2026-05-02.pub') | trim }}
+{% for yubikey in yubikeys %}
+{{ git.email }} namespaces="git" {{ lookup('ansible.builtin.unvault', playbook_dir + '/roles/system_administration/files/ssh/' + yubikey.ssh_key + '.pub') | trim }}
+{% endfor %}
