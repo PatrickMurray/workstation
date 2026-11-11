@@ -3,6 +3,7 @@
   vars_files:
     - secrets.yml
     - workstations.yml
+    - yubikeys.yml
   vars:
     _workstation_type: "{{ workstation_type | default('default') }}"
   tasks:

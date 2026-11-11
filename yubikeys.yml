@@ -1,0 +1,18 @@
+---
+# YubiKeys enrolled for FIDO2 SSH authentication and git commit signing.
+#
+# Every workstation receives every key below. Whichever enrolled YubiKey is
+# connected is used (FIDO2 PIN + touch); with none connected, SSH and git fall
+# back to the passphrase-protected workstation key.
+#
+# Enrollment and reset steps are documented in docs/YUBIKEY.md.
+#
+# Example:
+#   yubikeys:
+#     - name: yubikey-zbook
+#       serial: 12345678
+#       ssh_key: id-ed25519-sk-yubikey-12345678-2026-11-11
+yubikeys:
+  - name: yubikey-lenovo
+    serial: 27414501
+    ssh_key: id-ed25519-sk-yubikey-27414501-2026-11-11

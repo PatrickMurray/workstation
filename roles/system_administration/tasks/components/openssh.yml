@@ -51,3 +51,56 @@
     mode: 0600
   become: True
   become_user: "{{ user.name }}"
+
+
+- name: Install YubiKey FIDO2 SSH dependencies
+  package:
+    name:
+      - libfido2
+      - yubikey-manager
+      - openssh-askpass
+    state: latest
+
+
+- name: Create ~/.ssh/config.d directory
+  file:
+    path: ~/.ssh/config.d
+    state: directory
+    mode: 0700
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: Configure YubiKey SSH identities
+  template:
+    src: ssh/yubikeys.conf.j2
+    dest: ~/.ssh/config.d/yubikeys.conf
+    mode: 0644
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: Add YubiKey SSH private key handles
+  copy:
+    src: "files/ssh/{{ yubikey.ssh_key }}"
+    dest: "~/.ssh/{{ yubikey.ssh_key }}"
+    mode: 0600
+  loop: "{{ yubikeys }}"
+  loop_control:
+    loop_var: yubikey
+    label: "{{ yubikey.name }}"
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: Add YubiKey SSH public keys
+  copy:
+    src: "files/ssh/{{ yubikey.ssh_key }}.pub"
+    dest: "~/.ssh/{{ yubikey.ssh_key }}.pub"
+    mode: 0644
+  loop: "{{ yubikeys }}"
+  loop_control:
+    loop_var: yubikey
+    label: "{{ yubikey.name }}"
+  become: True
+  become_user: "{{ user.name }}"

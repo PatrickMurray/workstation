@@ -38,15 +38,81 @@
   become_user: "{{ user.name }}"
 
 
-- name: Configure GPG signing key
+- name: Configure SSH signing format
   git_config:
-    name: user.signingkey
-    value: "{{ user.signingkey }}"
+    name: gpg.format
+    value: ssh
     scope: global
   become: True
   become_user: "{{ user.name }}"
 
 
+# The workstation key is the fallback; git-ssh-sign swaps in the FIDO2 key of a
+# connected YubiKey when one is enrolled in yubikeys.yml.
+- name: Configure SSH signing key
+  git_config:
+    name: user.signingkey
+    value: "{{ user.home }}/.ssh/id-ed25519-workstation-2026-05-02"
+    scope: global
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: Create ~/.local/bin directory
+  file:
+    path: ~/.local/bin
+    state: directory
+    mode: 0755
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: Install git-ssh-sign
+  template:
+    src: git/git-ssh-sign.j2
+    dest: ~/.local/bin/git-ssh-sign
+    mode: 0755
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: Configure SSH signing program
+  git_config:
+    name: gpg.ssh.program
+    value: "{{ user.home }}/.local/bin/git-ssh-sign"
+    scope: global
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: Create ~/.ssh directory
+  file:
+    path: ~/.ssh
+    state: directory
+    mode: 0700
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: Configure SSH allowed signers
+  template:
+    src: git/allowed_signers.j2
+    dest: ~/.ssh/allowed_signers
+    mode: 0644
+  become: True
+  become_user: "{{ user.name }}"
+
+
+- name: Configure SSH allowed signers file
+  git_config:
+    name: gpg.ssh.allowedSignersFile
+    value: "{{ user.home }}/.ssh/allowed_signers"
+    scope: global
+  become: True
+  become_user: "{{ user.name }}"
+
+
+# Retained to verify historical GPG-signed commits.
 - name: Configure GPG program
   git_config:
     name: gpg.program

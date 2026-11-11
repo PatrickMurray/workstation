@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Managed by Ansible (workstation repository).
+#
+# ssh-keygen wrapper used as git's gpg.ssh.program. When git requests a
+# signature, the configured signing key (the passphrase-protected workstation
+# key) is swapped for the FIDO2 key of a connected, enrolled YubiKey. All other
+# invocations (verification) are passed through unchanged.
+set -euo pipefail
+
+if [[ "${1:-}" == "-Y" && "${2:-}" == "sign" ]]; then
+  serials="$(ykman list --serials 2>/dev/null || true)"
+  key=""
+{% for yubikey in yubikeys %}
+
+  # {{ yubikey.name }}
+  if [[ -z "${key}" ]] && grep -qx "{{ yubikey.serial }}" <<< "${serials}"; then
+    key="{{ user.home }}/.ssh/{{ yubikey.ssh_key }}"
+  fi
+{% endfor %}
+
+  if [[ -n "${key}" ]]; then
+    args=()
+    while (( $# )); do
+      if [[ "$1" == "-f" ]]; then
+        args+=("-f" "${key}")
+        shift 2
+      else
+        args+=("$1")
+        shift
+      fi
+    done
+    set -- "${args[@]}"
+  fi
+fi
+
+exec ssh-keygen "$@"
