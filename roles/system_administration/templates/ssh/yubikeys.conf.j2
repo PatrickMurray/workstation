@@ -1,8 +1,15 @@
 # Managed by Ansible (workstation repository).
 #
-# Offer the FIDO2 key belonging to whichever enrolled YubiKey is connected,
-# ahead of the passphrase-protected workstation key. Included from the top of
-# ~/.ssh/config.
+# Offer the passphrase-protected workstation key first, followed by the FIDO2
+# key belonging to whichever enrolled YubiKey is connected. Included from the
+# top of ~/.ssh/config, so the identities below are offered ahead of those
+# listed there (ssh ignores the duplicate workstation key).
+#
+# The workstation key's passphrase is stored in the GNOME login keyring and
+# unlocked on login by gcr-ssh-agent. See docs/KEYRING.md.
+
+Host *
+    IdentityFile ~/.ssh/id-ed25519-workstation-2026-05-02
 {% for yubikey in yubikeys %}
 
 # {{ yubikey.name }}

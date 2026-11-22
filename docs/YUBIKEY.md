@@ -1,24 +1,21 @@
 # YubiKey
 
-SSH authentication and git commit signing use a FIDO2 key on a connected
-YubiKey (FIDO2 PIN + touch). Workstations without an enrolled YubiKey fall back
-to the passphrase-protected workstation key. Enrolled YubiKeys are listed in
+A FIDO2 key on a connected YubiKey (FIDO2 PIN + touch) is available for SSH
+authentication, offered after the passphrase-protected workstation key (see
+[KEYRING.md](KEYRING.md)). Enrolled YubiKeys are listed in
 [yubikeys.yml](../yubikeys.yml) and deployed to every workstation.
 
 ## How It Works
 
-- **SSH:** `~/.ssh/config.d/yubikeys.conf` offers the key of whichever enrolled
-  YubiKey is connected (matched by serial number), ahead of the workstation
-  key.
-- **Commit signing:** git signs with SSH keys (`gpg.format=ssh`) via
-  `~/.local/bin/git-ssh-sign`, which swaps in the connected YubiKey's key, or
-  uses the workstation key when none is connected.
-- **Verification:** `~/.ssh/allowed_signers` lists every key, so
-  `git log --show-signature` verifies commits locally.
+- **SSH:** `~/.ssh/config.d/yubikeys.conf` offers the workstation key first,
+  then the key of whichever enrolled YubiKey is connected (matched by serial
+  number).
+- **Commit signing:** git signs with the workstation key. YubiKey keys remain
+  in `~/.ssh/allowed_signers`, so `git log --show-signature` still verifies
+  commits signed with them.
 
 The SSH configuration (`roles/system_administration/files/ssh/config`) must
-begin with `Include config.d/*.conf` so the YubiKey identities are offered
-before the workstation key.
+begin with `Include config.d/*.conf` so the identity order above applies.
 
 ## Enroll a YubiKey
 

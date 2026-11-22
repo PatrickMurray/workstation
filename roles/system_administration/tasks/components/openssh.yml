@@ -17,6 +17,21 @@
   become_user: "{{ user.name }}"
 
 
+# gcr-ssh-agent stores SSH key passphrases in the GNOME login keyring and
+# unlocks the keys on login. It exports SSH_AUTH_SOCK to the user session.
+- name: Install gcr
+  package:
+    name: gcr
+    state: latest
+
+
+- name: Enable gcr-ssh-agent
+  systemd_service:
+    name: gcr-ssh-agent.socket
+    scope: global
+    enabled: True
+
+
 - name: Add Workstation 2026-05-02 SSH private key
   copy:
     src: files/ssh/id-ed25519-workstation-2026-05-02

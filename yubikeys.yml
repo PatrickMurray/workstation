@@ -1,9 +1,10 @@
 ---
-# YubiKeys enrolled for FIDO2 SSH authentication and git commit signing.
+# YubiKeys enrolled for FIDO2 SSH authentication.
 #
-# Every workstation receives every key below. Whichever enrolled YubiKey is
-# connected is used (FIDO2 PIN + touch); with none connected, SSH and git fall
-# back to the passphrase-protected workstation key.
+# Every workstation receives every key below. SSH offers the passphrase-protected
+# workstation key first, then the key of whichever enrolled YubiKey is connected
+# (FIDO2 PIN + touch). Git commit signing uses the workstation key; enrolled keys
+# remain trusted for verifying past signatures.
 #
 # Enrollment and reset steps are documented in docs/YUBIKEY.md.
 #
