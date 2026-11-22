@@ -17,6 +17,21 @@
   become_user: "{{ user.name }}"
 
 
+# gcr-ssh-agent stores SSH key passphrases in the GNOME login keyring and
+# unlocks the keys on login. It exports SSH_AUTH_SOCK to the user session.
+- name: Install gcr
+  package:
+    name: gcr
+    state: latest
+
+
+- name: Enable gcr-ssh-agent
+  systemd_service:
+    name: gcr-ssh-agent.socket
+    scope: global
+    enabled: True
+
+
 - name: Add Workstation 2026-05-02 SSH private key
   copy:
     src: files/ssh/id-ed25519-workstation-2026-05-02
@@ -53,15 +68,7 @@
   become_user: "{{ user.name }}"
 
 
-- name: Install YubiKey FIDO2 SSH dependencies
-  package:
-    name:
-      - libfido2
-      - yubikey-manager
-      - openssh-askpass
-    state: latest
-
-
+# Retained for the Include at the top of ~/.ssh/config.
 - name: Create ~/.ssh/config.d directory
   file:
     path: ~/.ssh/config.d
@@ -71,36 +78,14 @@
   become_user: "{{ user.name }}"
 
 
-- name: Configure YubiKey SSH identities
-  template:
-    src: ssh/yubikeys.conf.j2
-    dest: ~/.ssh/config.d/yubikeys.conf
-    mode: 0644
-  become: True
-  become_user: "{{ user.name }}"
-
-
-- name: Add YubiKey SSH private key handles
-  copy:
-    src: "files/ssh/{{ yubikey.ssh_key }}"
-    dest: "~/.ssh/{{ yubikey.ssh_key }}"
-    mode: 0600
-  loop: "{{ yubikeys }}"
-  loop_control:
-    loop_var: yubikey
-    label: "{{ yubikey.name }}"
-  become: True
-  become_user: "{{ user.name }}"
-
-
-- name: Add YubiKey SSH public keys
-  copy:
-    src: "files/ssh/{{ yubikey.ssh_key }}.pub"
-    dest: "~/.ssh/{{ yubikey.ssh_key }}.pub"
-    mode: 0644
-  loop: "{{ yubikeys }}"
-  loop_control:
-    loop_var: yubikey
-    label: "{{ yubikey.name }}"
+# Superseded: the YubiKey is no longer used for SSH.
+- name: Remove YubiKey SSH configuration and keys
+  file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - ~/.ssh/config.d/yubikeys.conf
+    - ~/.ssh/id-ed25519-sk-yubikey-27414501-2026-11-11
+    - ~/.ssh/id-ed25519-sk-yubikey-27414501-2026-11-11.pub
   become: True
   become_user: "{{ user.name }}"

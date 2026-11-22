@@ -76,3 +76,31 @@
     path: /tmp/gpg-private-backup.asc
     state: absent
   when: gpg_key_check.rc != 0
+
+- name: Install pinentry-gnome3
+  package:
+    name: pinentry-gnome3
+    state: latest
+
+- name: Create ~/.gnupg directory
+  file:
+    path: ~/.gnupg
+    state: directory
+    mode: 0700
+  become: True
+  become_user: "{{ user.name }}"
+
+- name: Configure gpg-agent
+  copy:
+    src: gpg/gpg-agent.conf
+    dest: ~/.gnupg/gpg-agent.conf
+    mode: 0600
+  become: True
+  become_user: "{{ user.name }}"
+  register: gpg_agent_conf
+
+- name: Reload gpg-agent
+  command: gpgconf --reload gpg-agent
+  become: True
+  become_user: "{{ user.name }}"
+  when: gpg_agent_conf.changed

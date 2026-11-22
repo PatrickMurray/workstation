@@ -47,12 +47,13 @@
   become_user: "{{ user.name }}"
 
 
-# The workstation key is the fallback; git-ssh-sign swaps in the FIDO2 key of a
-# connected YubiKey when one is enrolled in yubikeys.yml.
+# The public key is configured so ssh-keygen signs via the SSH agent
+# (gcr-ssh-agent), which unlocks the key with the passphrase stored in the
+# GNOME login keyring.
 - name: Configure SSH signing key
   git_config:
     name: user.signingkey
-    value: "{{ user.home }}/.ssh/id-ed25519-workstation-2026-05-02"
+    value: "{{ user.home }}/.ssh/id-ed25519-workstation-2026-05-02.pub"
     scope: global
   become: True
   become_user: "{{ user.name }}"
@@ -67,20 +68,20 @@
   become_user: "{{ user.name }}"
 
 
-- name: Install git-ssh-sign
-  template:
-    src: git/git-ssh-sign.j2
-    dest: ~/.local/bin/git-ssh-sign
-    mode: 0755
+# Superseded: git signs with the workstation key via the SSH agent.
+- name: Remove git-ssh-sign
+  file:
+    path: ~/.local/bin/git-ssh-sign
+    state: absent
   become: True
   become_user: "{{ user.name }}"
 
 
-- name: Configure SSH signing program
+- name: Remove SSH signing program
   git_config:
     name: gpg.ssh.program
-    value: "{{ user.home }}/.local/bin/git-ssh-sign"
     scope: global
+    state: absent
   become: True
   become_user: "{{ user.name }}"
 
