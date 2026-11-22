@@ -113,3 +113,7 @@ FPATH={{ user.home }}/{{ zsh.autoload.path }}:$FPATH
 {% for func in zsh.autoload.functions %}
 autoload -Uz {{ func }}
 {% endfor %}
+
+
+# Disable the terminal bell (e.g. pressing Down at the end of history)
+unsetopt BEEP
