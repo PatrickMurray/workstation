@@ -86,6 +86,3 @@ This playbook automatically configures workstations to join the Tailscale mesh n
 SSH authentication, git commit signing and GPG use the passphrase-protected
 workstation keys, with passphrases stored in the GNOME login keyring. See
 [docs/KEYRING.md](docs/KEYRING.md) for setup.
-
-A FIDO2 key on a connected YubiKey is offered for SSH after the workstation
-key. See [docs/YUBIKEY.md](docs/YUBIKEY.md) for enrollment and reset steps.

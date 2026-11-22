@@ -14,9 +14,6 @@ once logged in.
   (`user.signingkey` is its `.pub` file), so `ssh-keygen` signs via the agent.
 - **GPG:** `gpg-agent` uses `pinentry-gnome3`, which reads and stores
   passphrases in the keyring.
-- **Identity order:** `~/.ssh/config.d/yubikeys.conf` offers the workstation
-  key first, then the FIDO2 key of a connected, enrolled YubiKey (see
-  [YUBIKEY.md](YUBIKEY.md)).
 
 ## Store the Passphrases
 
@@ -51,5 +48,5 @@ Stored passphrases are listed in **Passwords and Keys** (Seahorse) under the
 - While logged in, any process running as the user can use the agents or read
   the keyring without a prompt.
 - The keyring is only unlocked by a password login. Logging in another way
-  (e.g. fingerprint or a YubiKey alone) leaves it locked, and the passphrases
+  (e.g. fingerprint) leaves it locked, and the passphrases
   are prompted for again.
