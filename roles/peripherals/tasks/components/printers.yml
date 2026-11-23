@@ -37,7 +37,8 @@
   loop: "{{ printers }}"
 
 # `-m everywhere` queries the printer for its capabilities, so it must be
-# powered on when the queue is first created.
+# powered on when the queue is first created. On a first run, mDNS was only just
+# allowed through the firewall, so retry while Avahi discovers the printers.
 - name: Add printer queues
   command: >-
     lpadmin
@@ -48,3 +49,7 @@
     -E
   loop: "{{ printer_queues.results }}"
   when: item.rc != 0
+  register: printer_add
+  until: printer_add.rc == 0
+  retries: 6
+  delay: 10

@@ -10,8 +10,9 @@ once logged in.
 - **SSH:** `gcr-ssh-agent` is the SSH agent (`SSH_AUTH_SOCK` is
   `/run/user/<uid>/gcr/ssh`). It lists every key pair in `~/.ssh` and unlocks a
   key on first use with the passphrase stored in the keyring.
-- **Commit signing:** git signs with the workstation SSH key
-  (`user.signingkey` is its `.pub` file), so `ssh-keygen` signs via the agent.
+- **Commit signing:** git signs with the workstation GPG key
+  (`gpg.format` is `openpgp`), which is registered with GitHub, so `gpg-agent`
+  unlocks it with the passphrase stored in the keyring.
 - **GPG:** `gpg-agent` uses `pinentry-gnome3`, which reads and stores
   passphrases in the keyring.
 

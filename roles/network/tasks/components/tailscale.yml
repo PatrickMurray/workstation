@@ -32,7 +32,8 @@
 - name: Check if tailscale is already authenticated
   command: tailscale status
   register: tailscale_status
-  ignore_errors: true
+  # Exits non-zero when logged out, which is expected before authentication.
+  failed_when: false
   changed_when: false
 
 - name: Get current date

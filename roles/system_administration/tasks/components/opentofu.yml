@@ -1,0 +1,5 @@
+---
+- name: Install OpenTofu
+  package:
+    name: opentofu
+    state: latest
