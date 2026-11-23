@@ -7,9 +7,9 @@
 
 - name: Include gnome components
   include_tasks:
-    file: "gnome/{{ component }}.yml"
+    file: "gnome/{{ gnome_component }}.yml"
   loop_control:
-    loop_var: component
+    loop_var: gnome_component
   loop:
     - clock_format
     - desktop_background

@@ -1,6 +1,8 @@
 ---
 # 3D Modeling tasks
 - name: Install 3D modeling components
-  include_tasks: "components/{{ item }}.yml"
+  include_tasks: "components/{{ component }}.yml"
+  loop_control:
+    loop_var: component
   loop:
     - openscad

@@ -38,22 +38,22 @@
   become_user: "{{ user.name }}"
 
 
-- name: Configure SSH signing format
+- name: Configure GPG signing format
   git_config:
     name: gpg.format
-    value: ssh
+    value: openpgp
     scope: global
   become: True
   become_user: "{{ user.name }}"
 
 
-# The public key is configured so ssh-keygen signs via the SSH agent
-# (gcr-ssh-agent), which unlocks the key with the passphrase stored in the
-# GNOME login keyring.
-- name: Configure SSH signing key
+# The workstation GPG key (registered with GitHub), also imported by the
+# security role's gnupg component. gpg-agent unlocks it with the passphrase
+# stored in the GNOME login keyring via pinentry-gnome3.
+- name: Configure GPG signing key
   git_config:
     name: user.signingkey
-    value: "{{ user.home }}/.ssh/id-ed25519-workstation-2026-05-02.pub"
+    value: "{{ user.signingkey }}"
     scope: global
   become: True
   become_user: "{{ user.name }}"
@@ -68,7 +68,7 @@
   become_user: "{{ user.name }}"
 
 
-# Superseded: git signs with the workstation key via the SSH agent.
+# Superseded: git signs with the workstation GPG key.
 - name: Remove git-ssh-sign
   file:
     path: ~/.local/bin/git-ssh-sign
@@ -95,6 +95,7 @@
   become_user: "{{ user.name }}"
 
 
+# Retained to verify historical SSH-signed commits.
 - name: Configure SSH allowed signers
   template:
     src: git/allowed_signers.j2
@@ -113,7 +114,6 @@
   become_user: "{{ user.name }}"
 
 
-# Retained to verify historical GPG-signed commits.
 - name: Configure GPG program
   git_config:
     name: gpg.program

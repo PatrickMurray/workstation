@@ -1,7 +1,9 @@
 ---
 - name: Include Components
   include_tasks:
-    file: "components/{{ item }}.yml"
+    file: "components/{{ component }}.yml"
+  loop_control:
+    loop_var: component
   loop:
     - ansible
     - butane
@@ -13,10 +15,10 @@
     - netcat
     - nmap
     - openssh
+    - opentofu
     - pv
     - strace
     - telnet
-    - terraform
     - traceroute
     - tree
     - unzip

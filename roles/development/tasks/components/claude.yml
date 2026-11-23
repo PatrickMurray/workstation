@@ -40,3 +40,13 @@
     dest: ~/.claude/CLAUDE.md
   become: True
   become_user: "{{ user.name }}"
+
+
+# User-level settings (e.g. theme). Changes made from within Claude Code (e.g.
+# /config) are overwritten on the next run, so commit them here instead.
+- name: Configure Claude Code settings
+  copy:
+    src: files/claude/settings.json
+    dest: ~/.claude/settings.json
+  become: True
+  become_user: "{{ user.name }}"

@@ -52,16 +52,16 @@ This playbook automatically configures workstations to join the Tailscale mesh n
 
 1. Navigate to the infracode repository: [github.com/patrickmurray/infracode](https://github.com/patrickmurray/infracode)
 
-2. Apply the Terraform configuration to generate a new auth key:
+2. Apply the OpenTofu configuration to generate a new auth key:
 
    ```bash
-   terraform apply
+   tofu apply
    ```
 
 3. Get the new auth key:
 
    ```bash
-   terraform output mesh_network_auth_keys
+   tofu output mesh_network_auth_keys
    ```
 
 4. Update the workstation repository with the new key
